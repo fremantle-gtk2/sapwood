@@ -116,7 +116,8 @@ get_window_for_shape (ThemeImage *image, GdkWindow *window, GtkWidget *widget,
    * Noticed when GtkMenu was changed to do two paints, the other one being on
    * ->bin_window (http://bugzilla.gnome.org/show_bug.cgi?id=169532)
    */
-  if (image->background_shaped && window == widget->window)
+  if (image->background_shaped &&
+      widget && window == widget->window)
     {
       gint window_width;
       gint window_height;
@@ -246,7 +247,7 @@ draw_simple_image(GtkStyle       *style,
     }
 
   /* Check for maemo-position-theming to update the position data */
-  if (widget->parent &&
+  if (widget && widget->parent &&
       gtk_widget_class_find_style_property (GTK_WIDGET_GET_CLASS (widget->parent),
                                             "maemo-position-theming"))
     {
@@ -1102,7 +1103,7 @@ draw_expander (GtkStyle        *style,
                GtkExpanderStyle expander_style)
 {
   ThemeMatchData match_data;
-  gint expander_size;
+  gint expander_size = 10;
 
   g_return_if_fail(style != NULL);
   g_return_if_fail(window != NULL);
@@ -1112,7 +1113,8 @@ draw_expander (GtkStyle        *style,
    * XXX Might want to introduce proper keywords for expanders some day.
    */
 
-  gtk_widget_style_get (widget, "expander-size", &expander_size, NULL);
+  if (widget)
+    gtk_widget_style_get (widget, "expander-size", &expander_size, NULL);
 
   match_data.function = TOKEN_D_ARROW;
   match_data.detail = (gchar *)detail;

@@ -1,3 +1,9 @@
+2007-08-22  Tommi Komulainen  <tommi.komulainen@nokia.com>
+
+	* src/sapwood-draw.c (get_window_for_shape, draw_simple_image,
+	draw_expander): Assume 'widget' can be NULL and don't crash. Pointed
+	out by Frank Li.
+
 2007-08-22  Lucas Rocha  <lucas.rocha@nokia.com>
 
 	* src/sapwood-draw.c (maybe_check_submenu_state): cover menu items in
