@@ -676,6 +676,10 @@ draw_arrow (GtkStyle     *style,
 				box_x, box_y, box_width, box_height);
     }
 
+#if GTK_CHECK_VERSION(2,9,2)
+  if (arrow_direction == GTK_ARROW_NONE)
+    return;
+#endif
 
   match_data.function = TOKEN_D_ARROW;
   match_data.detail = (gchar *)detail;

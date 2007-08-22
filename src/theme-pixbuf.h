@@ -157,7 +157,7 @@ struct _ThemeMatchData
   GtkStateType    state           : 3;
   GtkShadowType   shadow          : 3;
   GtkPositionType gap_side        : 2;
-  GtkArrowType    arrow_direction : 2;
+  guint           arrow_direction : 2;	/* GtkArrowType, but without NONE */
   GtkOrientation  orientation     : 1;
 };
 

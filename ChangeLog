@@ -1,5 +1,13 @@
 2007-08-22  Tommi Komulainen  <tommi.komulainen@nokia.com>
 
+	* src/sapwood-draw.c (draw_arrow): Ignore arrows of type none. (Patch
+	from Xan, added #ifdef guard) (NB#61844)
+	* src/theme-pixbuf.h (ThemeMatchData): Replace GtkArrowType with
+	'guint : 2' to silence compiler warnings. (GtkArrowType was extended
+	with 'NONE' which doesn't make sense in rc files.)
+
+2007-08-22  Tommi Komulainen  <tommi.komulainen@nokia.com>
+
 	* HACKING
 	* src/sapwood-proto.h (PixbufOpenRequest)
 	* src/theme-pixbuf.h (ThemePixbuf): increase the size of the border
