@@ -138,7 +138,7 @@ engine "sapwood" {                 SapwoodRcStyle {
     
                                        background : ThemePixbuf {
     file = "image.png"                   dirname, basename : char*
-    border = { 2, 2, 0, 0 }              border_{left,right,top,bottom} : guint116
+    border = { 2, 2, 0, 0 }              border_{left,right,top,bottom} : guint16
     stretch = TRUE                       stretch : boolean
 
                                          /* pointer to 3x3 image grid */
