@@ -786,6 +786,14 @@ maybe_check_submenu_state (GtkMenuItem *menu_item, ThemeMatchData *match_data)
       if (sub_item && GTK_WIDGET_STATE (sub_item) != GTK_STATE_NORMAL)
 	match_data->state = GTK_STATE_SELECTED;
     }
+
+  /* This is a hack to cover the cases where a menu item is being 
+   * used outside the usual a GtkMenu. More specificaly, this covers
+   * menu items inside the hildon-desktop custom menu widget. */
+  if (!GTK_IS_MENU (GTK_WIDGET (menu_item)->parent) &&
+      !gtk_widget_is_focus (GTK_WIDGET (menu_item)) &&
+      GTK_WIDGET_STATE (menu_item) != GTK_STATE_NORMAL)
+    match_data->state = GTK_STATE_SELECTED;
 }
 
 static void

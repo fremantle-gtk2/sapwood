@@ -1,3 +1,8 @@
+2007-08-22  Lucas Rocha  <lucas.rocha@nokia.com>
+
+	* src/sapwood-draw.c (maybe_check_submenu_state): cover menu items in
+	hildon desktop custom menu widget (NB#60575)
+
 2007-08-22  Tommi Komulainen  <tommi.komulainen@nokia.com>
 
 	* src/sapwood-draw.c (draw_arrow): Ignore arrows of type none. (Patch
