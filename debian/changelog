@@ -1,3 +1,16 @@
+sapwood (2.91.7-1) unstable; urgency=low
+
+  * NOTE: This version breaks the binary protocol between applications and the
+    sapwood-server. Restarting the sapwood-server is required.
+
+  * Increase the maximum border size to 65535 pixels (was 255)
+
+  * Fixes: NB#60575 - Focus on menu items in others menu is not proper
+  * Fixes: NB#61844 - List view headers show multiple arrows
+  * Fixes: NB#63819 - RSS feed reader applet appears distorted on re-sizing
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Wed, 22 Aug 2007 18:01:19 +0300
+
 sapwood (2.91.6-1) unstable; urgency=low
 
   * Implement downscaling
