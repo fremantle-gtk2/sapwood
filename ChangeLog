@@ -1,3 +1,8 @@
+2007-08-22  Tommi Komulainen  <tommi.komulainen@nokia.com>
+
+	* src/sapwood-pixmap.c (SapwoodPixmap, sapwood_pixmap_get_for_file):
+	remove redundant border_left and border_top members.
+
 2007-07-04  Tommi Komulainen  <tommi.komulainen@nokia.com>
 	
 	* === Release 2.91.6 ===

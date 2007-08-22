@@ -37,8 +37,6 @@ struct _SapwoodPixmap {
   guint32    id;
   gint       width;
   gint       height;
-  gint       border_left;
-  gint       border_top;
   GdkPixmap *pixmap[3][3];
   GdkBitmap *pixmask[3][3];
 };
@@ -179,8 +177,6 @@ sapwood_pixmap_get_for_file (const char *filename,
   self->id     = rep.id;
   self->width  = rep.width;
   self->height = rep.height;
-  self->border_left = border_left;
-  self->border_top  = border_top;
 
   for (i = 0; i < 3; i++)
     for (j = 0; j < 3; j++)
