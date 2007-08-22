@@ -1,5 +1,13 @@
 2007-08-22  Tommi Komulainen  <tommi.komulainen@nokia.com>
 
+	* HACKING
+	* src/sapwood-proto.h (PixbufOpenRequest)
+	* src/theme-pixbuf.h (ThemePixbuf): increase the size of the border
+	variables from 8 to 16 bits to allow larger borders. (NB#63819)
+	NOTE: this breaks the binary protocol between client and the server
+
+2007-08-22  Tommi Komulainen  <tommi.komulainen@nokia.com>
+
 	* src/sapwood-pixmap.c (SapwoodPixmap, sapwood_pixmap_get_for_file):
 	remove redundant border_left and border_top members.
 

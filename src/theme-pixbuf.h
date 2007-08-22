@@ -139,12 +139,12 @@ struct _ThemePixbuf
 
   SapwoodPixmap *pixmap;
 
+  guint16     border_left;
+  guint16     border_right;
+  guint16     border_bottom;
+  guint16     border_top;
   guint       refcnt : 7;
   guint       stretch : 1;
-  guint8      border_left;
-  guint8      border_right;
-  guint8      border_bottom;
-  guint8      border_top;
 };
 
 struct _ThemeMatchData

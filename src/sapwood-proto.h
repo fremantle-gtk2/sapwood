@@ -39,10 +39,10 @@ typedef struct
 typedef struct
 {
   PixbufBaseRequest base;
-  guint8  border_left;
-  guint8  border_right;
-  guint8  border_top;
-  guint8  border_bottom;
+  guint16 border_left;
+  guint16 border_right;
+  guint16 border_top;
+  guint16 border_bottom;
   guchar  filename[0];          /* null terminated, absolute filename */
 } PixbufOpenRequest;
 

@@ -1,3 +1,19 @@
+sapwood 2.91.7 - work in progress
+=================================
+
+NOTE: This version breaks the binary protocol between applications and the
+sapwood-server. Restarting the sapwood-server is required.
+
+Changes
+-------
+Increase the maximum border size to 65535 pixels (was 255)
+
+
+Bugs fixed
+----------
+NB#63819 - RSS feed reader applet appears distorted on re-sizing
+
+
 sapwood 2.91.6 - 2007-07-04
 ===========================
 
