@@ -1,5 +1,10 @@
 2007-08-23  Tommi Komulainen  <tommi.komulainen@nokia.com>
 
+	* src/sapwood-pixmap.c (sapwood_pixmap_render_rects_internal): handle
+	mask == NULL without generating warnings
+
+2007-08-23  Tommi Komulainen  <tommi.komulainen@nokia.com>
+
 	* src/sapwood-render.c (theme_pixbuf_render): When limiting the mask
 	to (smaller) clip rectangle, calculate the mask offset correctly.
 

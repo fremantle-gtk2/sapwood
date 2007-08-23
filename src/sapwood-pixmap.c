@@ -324,38 +324,40 @@ sapwood_pixmap_render_rects_internal (SapwoodPixmap *self,
   xofs = draw_x - mask_x;
   yofs = draw_y - mask_y;
 
-  if (!mask_gc)
+  if (mask)
     {
-      values.fill = GDK_TILED;
-      mask_gc = gdk_gc_new_with_values (mask, &values, GDK_GC_FILL);
-    }
-
-  for (n = 0; n < n_rect; n++)
-    {
-      /* const */ GdkRectangle *dest = &rect[n].dest;
-      GdkRectangle              area;
-
-      if (!mask_required && clip_rect)
+      if (!mask_gc)
 	{
-	  if (!gdk_rectangle_intersect (dest, clip_rect, &area))
-	    continue;
-	}	  
-      else
-	area = *dest;
+	  values.fill = GDK_TILED;
+	  mask_gc = gdk_gc_new_with_values (mask, &values, GDK_GC_FILL);
+	}
 
-      if (rect[n].pixmap && rect[n].pixmask)
+      for (n = 0; n < n_rect; n++)
 	{
-	  values.tile = rect[n].pixmask;
-	  values.ts_x_origin = dest->x - xofs;
-	  values.ts_y_origin = dest->y - yofs;
-	  gdk_gc_set_values (mask_gc, &values, GDK_GC_TILE|GDK_GC_TS_X_ORIGIN|GDK_GC_TS_Y_ORIGIN);
+	  /* const */ GdkRectangle *dest = &rect[n].dest;
+	  GdkRectangle              area;
 
-	  gdk_draw_rectangle (mask, mask_gc, TRUE, area.x - xofs, area.y - yofs, area.width, area.height);
+	  if (!mask_required && clip_rect)
+	    {
+	      if (!gdk_rectangle_intersect (dest, clip_rect, &area))
+		continue;
+	    }	  
+	  else
+	    area = *dest;
 
-	  have_mask = TRUE;
+	  if (rect[n].pixmap && rect[n].pixmask)
+	    {
+	      values.tile = rect[n].pixmask;
+	      values.ts_x_origin = dest->x - xofs;
+	      values.ts_y_origin = dest->y - yofs;
+	      gdk_gc_set_values (mask_gc, &values, GDK_GC_TILE|GDK_GC_TS_X_ORIGIN|GDK_GC_TS_Y_ORIGIN);
+
+	      gdk_draw_rectangle (mask, mask_gc, TRUE, area.x - xofs, area.y - yofs, area.width, area.height);
+
+	      have_mask = TRUE;
+	    }
 	}
     }
-
 
   if (!draw_gc)
     {
