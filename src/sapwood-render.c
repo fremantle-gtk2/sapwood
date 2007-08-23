@@ -267,12 +267,12 @@ theme_pixbuf_render (ThemePixbuf  *theme_pb,
 
   pixmap = theme_pixbuf_get_pixmap (theme_pb);
 
-  /* if we do scaling we want to draw at least the whole pixmap */
-  draw_width  = MAX(width, pixbuf_width);
-  draw_height = MAX(height, pixbuf_height);
-
   if (theme_pb->stretch)
     {
+      /* if we do scaling we want to draw at least the whole pixmap */
+      draw_width  = MAX(width, pixbuf_width);
+      draw_height = MAX(height, pixbuf_height);
+
       dest_x[0] = x;
       dest_x[1] = x + theme_pb->border_left;
       dest_x[2] = x + draw_width - theme_pb->border_right;
@@ -377,8 +377,12 @@ theme_pixbuf_render (ThemePixbuf  *theme_pb,
     }
   else if (center)
     {
-      x += (draw_width - pixbuf_width) / 2;
-      y += (draw_height - pixbuf_height) / 2;
+      /* when centering don't expand beyond pixbuf size */
+      draw_width = MIN(width, pixbuf_width);
+      draw_height = MIN(height, pixbuf_height);
+
+      x += (width - draw_width) / 2;
+      y += (height - draw_height) / 2;
 
       sapwood_pixmap_get_pixmap (pixmap, 1, 1,
                                  &rect[0].pixmap, &rect[0].pixmask);
@@ -388,7 +392,7 @@ theme_pixbuf_render (ThemePixbuf  *theme_pb,
       rect[0].dest.height = pixbuf_height;
 
       sapwood_pixmap_render_rects (pixmap,
-                                   window, x, y, width, height,
+                                   window, x, y, draw_width, draw_height,
                                    mask, x, y, FALSE,
                                    clip_rect, 1, rect);
     }
