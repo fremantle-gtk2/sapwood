@@ -178,6 +178,7 @@ check_child_position (GtkWidget      *child,
     }
 
   match_data->flags |= THEME_MATCH_POSITION;
+  match_data->position = 0;
   if (left == child)
     match_data->position |= THEME_POS_LEFT;
   if (right == child)
