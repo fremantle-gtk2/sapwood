@@ -1339,6 +1339,32 @@ render_icon (GtkStyle               *style,
     return parent_class->render_icon (style, source, direction, state, size, widget, detail);
 }
 
+static void
+draw_layout (GtkStyle     *style,
+	     GdkWindow    *window,
+	     GtkStateType  state_type,
+	     gboolean      use_text,
+	     GdkRectangle *area,
+	     GtkWidget    *widget,
+	     const char   *detail,
+	     gint          x,
+	     gint          y,
+	     PangoLayout  *layout)
+{
+  /* Simply draw the text, without any of the fancy effects for insensitive
+   * state in the default theme engine */
+  GdkGC *gc;
+
+  gc = use_text ? style->text_gc[state_type] : style->fg_gc[state_type];
+
+  if (area)
+    gdk_gc_set_clip_rectangle (gc, area);
+
+  gdk_draw_layout (window, gc, x, y, layout);
+
+  if (area)
+    gdk_gc_set_clip_rectangle (gc, NULL);
+}
 
 GType sapwood_type_style = 0;
 
@@ -1395,4 +1421,5 @@ sapwood_style_class_init (SapwoodStyleClass *klass)
   style_class->draw_handle = draw_handle;
   style_class->render_icon = render_icon;
   style_class->draw_expander = draw_expander;
+  style_class->draw_layout = draw_layout;
 }
