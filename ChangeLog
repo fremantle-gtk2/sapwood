@@ -1,3 +1,8 @@
+2007-09-05  Tommi Komulainen  <tommi.komulainen@nokia.com>
+
+	* src/sapwood-pixmap.c (sapwood_pixmap_get_for_file): Trap and
+	print X errors individually to help debugging.
+
 2007-08-24  Tommi Komulainen  <tommi.komulainen@nokia.com>
 
 	* src/sapwood-draw.c (check_child_position): Initialize the position

@@ -183,35 +183,36 @@ sapwood_pixmap_get_for_file (const char *filename,
       {
 	GdkPixmap *pixmap  = NULL;
 	GdkBitmap *pixmask = NULL;
-
-	/* XXX X errors */
-
-	gdk_error_trap_push ();
+	int xerror;
 
 	if (rep.pixmap[i][j])
 	  {
+	    gdk_error_trap_push ();
 	    pixmap = gdk_pixmap_foreign_new (rep.pixmap[i][j]);
-	    if (!pixmap)
+	    gdk_flush ();
+	    if ((xerror = gdk_error_trap_pop ()) || !pixmap)
 	      {
-		g_warning ("%s: pixmap[%d][%d]: gdk_pixmap_foreign_new(%x) failed", 
-			   g_basename (filename), i, j, rep.pixmap[i][j]);
+		g_warning ("%s: pixmap[%d][%d]: gdk_pixmap_foreign_new(%x) failed, X error = %d",
+			   g_basename (filename), i, j, rep.pixmap[i][j], xerror);
+		if (pixmap)
+		  g_object_unref (pixmap);
+		pixmap = NULL;
 	      }
 	  }
 
 	if (rep.pixmask[i][j])
 	  {
+	    gdk_error_trap_push ();
 	    pixmask = gdk_pixmap_foreign_new (rep.pixmask[i][j]);
-	    if (!pixmask)
+	    gdk_flush ();
+	    if ((xerror = gdk_error_trap_pop ()) || !pixmask)
 	      {
-		g_warning ("%s: pixmask[%d][%d]: gdk_pixmap_foreign_new(%x) failed", 
-			   g_basename (filename), i, j, rep.pixmask[i][j]);
+		g_warning ("%s: pixmask[%d][%d]: gdk_pixmap_foreign_new(%x) failed, X error = %d", 
+			   g_basename (filename), i, j, rep.pixmask[i][j], xerror);
+		if (pixmask)
+		  g_object_unref (pixmask);
+		pixmask = NULL;
 	      }
-	  }
-
-	gdk_flush ();
-	if (gdk_error_trap_pop ())
-	  {
-	    g_warning ("Aieeee");
 	  }
 
 	if (pixmask && !pixmap)
