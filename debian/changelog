@@ -1,3 +1,9 @@
+sapwood (2.91.8-1) unstable; urgency=low
+
+  * Fixed theming artefacts seen in menus and home applets
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Wed,  5 Sep 2007 18:23:42 +0300
+
 sapwood (2.91.7-1) unstable; urgency=low
 
   * NOTE: This version breaks the binary protocol between applications and the
