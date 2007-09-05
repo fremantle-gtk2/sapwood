@@ -329,14 +329,14 @@ theme_pixbuf_render (ThemePixbuf  *theme_pb,
 	       */
 	      if (clip_rect->width < mask_width)
 		{
-		  LOG("width: %d -> %d", mask_width, clip_rect->width);
-		  mask_x = -clip_rect->x;
+		  LOG("width: %d -> %d, x: %d - %d", mask_width, clip_rect->width, x, clip_rect->x);
+		  mask_x = x - clip_rect->x;
 		  mask_width = clip_rect->width;
 		}
 	      if (clip_rect->height < height)
 		{
-		  LOG("height: %d -> %d", mask_height, clip_rect->height);
-		  mask_y = -clip_rect->y;
+		  LOG("height: %d -> %d, y: %d - %d", mask_height, clip_rect->height, y, clip_rect->y);
+		  mask_y = y - clip_rect->y;
 		  mask_height = clip_rect->height;
 		}
 	    }

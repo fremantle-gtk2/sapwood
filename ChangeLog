@@ -1,5 +1,11 @@
 2007-09-05  Tommi Komulainen  <tommi.komulainen@nokia.com>
 
+	* src/sapwood-render.c (theme_pixbuf_render): When limiting the mask
+	to (smaller) clip rectangle, *really* calculate the mask offset
+	correctly. Fixes clipping in menus.
+
+2007-09-05  Tommi Komulainen  <tommi.komulainen@nokia.com>
+
 	* src/sapwood-pixmap.c (sapwood_pixmap_get_for_file): Trap and
 	print X errors individually to help debugging.
 
