@@ -1,3 +1,9 @@
+sapwood (2.91.9-1) unstable; urgency=low
+
+  * Fixes: NB#66054 - Disabled text is shown two colors in same characters
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Wed,  5 Sep 2007 18:49:04 +0300
+
 sapwood (2.91.8-1) unstable; urgency=low
 
   * Fixed theming artefacts seen in menus and home applets
