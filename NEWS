@@ -1,3 +1,14 @@
+sapwood 2.91.8 - 2007-09-05
+===========================
+
+Changes
+-------
+Fixed invalid optimization with clip rectangles as seen in menus and home
+applets in some circumstances.
+
+Fixed compiler / runtime warnings.
+
+
 sapwood 2.91.7 - 2007-08-22
 ===========================
 

@@ -1,4 +1,8 @@
 2007-09-05  Tommi Komulainen  <tommi.komulainen@nokia.com>
+	
+	* === Release 2.91.8 ===
+
+2007-09-05  Tommi Komulainen  <tommi.komulainen@nokia.com>
 
 	* src/sapwood-render.c (theme_pixbuf_render): When limiting the mask
 	to (smaller) clip rectangle, *really* calculate the mask offset
