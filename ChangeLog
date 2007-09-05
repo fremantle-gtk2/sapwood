@@ -1,4 +1,8 @@
 2007-09-05  Tommi Komulainen  <tommi.komulainen@nokia.com>
+	
+	* === Release 2.91.9 ===
+
+2007-09-05  Tommi Komulainen  <tommi.komulainen@nokia.com>
 
 	* src/sapwood-draw.c (draw_layout, sapwood_style_class_init): Override
 	draw_layout to draw the layout without any fancy effects for

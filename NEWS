@@ -1,3 +1,11 @@
+sapwood 2.91.9 - 2007-09-05
+===========================
+
+Bugs fixed
+----------
+NB#66054 - Disabled text is shown two colors in same characters
+
+
 sapwood 2.91.8 - 2007-09-05
 ===========================
 
