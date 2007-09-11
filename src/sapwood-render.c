@@ -37,7 +37,7 @@
 #define LOG(...)
 #endif
 
-static GCache *pixmap_cache = NULL;
+static GHashTable *pixbuf_hash = NULL;
 
 ThemePixbuf *
 theme_pixbuf_new (void)
@@ -57,22 +57,24 @@ theme_pixbuf_destroy (ThemePixbuf *theme_pb)
   else if (theme_pb->refcnt > 1)
       g_warning ("[%p] destroy: refcnt > 1", theme_pb);
 
-  theme_pixbuf_set_filename (theme_pb, NULL);
+  if (theme_pb->shared)
+    {
+      g_hash_table_remove (pixbuf_hash, theme_pb);
+      if (theme_pb->pixmap)
+	sapwood_pixmap_free (theme_pb->pixmap);
+    }
+  if (theme_pb->basename)
+    g_free (theme_pb->basename);
   g_free (theme_pb);
 }
 
 static ThemePixbuf *
-theme_pixbuf_copy (ThemePixbuf *theme_pb)
+theme_pixbuf_ref (ThemePixbuf *theme_pb)
 {
-  ThemePixbuf *copy;
-
-  copy = g_memdup(theme_pb, sizeof(*theme_pb));
-  copy->refcnt = 1;
-  copy->dirname  = theme_pb->dirname;
-  copy->basename = g_strdup (theme_pb->basename);
-  copy->pixmap = NULL;
-
-  return copy;
+  theme_pb->refcnt++;
+  LOG ("[%p] ref: refcnt = %d", theme_pb, theme_pb->refcnt);
+  g_assert(theme_pb->refcnt != 0);
+  return theme_pb;
 }
 
 void
@@ -120,15 +122,37 @@ theme_pixbuf_equal (gconstpointer v1, gconstpointer v2)
   return TRUE;
 }
 
+ThemePixbuf *
+theme_pixbuf_canonicalize (ThemePixbuf *theme_pb)
+{
+  ThemePixbuf *canon;
+
+  g_assert (theme_pb->pixmap == NULL);
+
+  if (!pixbuf_hash)
+    pixbuf_hash = g_hash_table_new (theme_pixbuf_hash, theme_pixbuf_equal);
+
+  canon = g_hash_table_lookup (pixbuf_hash, theme_pb);
+  if (!canon)
+    {
+      theme_pb->shared = 1;
+      g_hash_table_insert (pixbuf_hash, theme_pb, theme_pb);
+      canon = theme_pb;
+    }
+  else
+    {
+      theme_pixbuf_ref (canon);
+      theme_pixbuf_unref (theme_pb);
+    }
+
+  return canon;
+}
+
 void         
 theme_pixbuf_set_filename (ThemePixbuf *theme_pb,
 			   const char  *filename)
 {
-  if (theme_pb->pixmap)
-    {
-      g_cache_remove (pixmap_cache, theme_pb->pixmap);
-      theme_pb->pixmap = NULL;
-    }
+  g_assert (theme_pb->pixmap == NULL);
 
   if (theme_pb->basename)
     g_free (theme_pb->basename);
@@ -183,46 +207,28 @@ theme_pixbuf_set_stretch (ThemePixbuf *theme_pb,
 }
 
 static SapwoodPixmap *
-pixmap_cache_value_new (ThemePixbuf *theme_pb)
-{
-  SapwoodPixmap *result;
-  char          *filename;
-  GError *err = NULL;
-
-  filename = g_build_filename (theme_pb->dirname, theme_pb->basename, NULL);
-  result = sapwood_pixmap_get_for_file (filename,
-						     theme_pb->border_left,
-						     theme_pb->border_right,
-						     theme_pb->border_top,
-						     theme_pb->border_bottom,
-						     &err);
-  if (!result)
-    {
-      g_warning ("sapwood-theme: Failed to load pixmap file %s: %s\n",
-		 filename, err->message);
-      g_error_free (err);
-    }
-
-  g_free (filename);
-
-  return result;
-}
-
-static SapwoodPixmap *
 theme_pixbuf_get_pixmap (ThemePixbuf *theme_pb)
 {
   if (!theme_pb->pixmap)
     {
-      if (!pixmap_cache)
-	pixmap_cache = g_cache_new ((GCacheNewFunc)pixmap_cache_value_new,
-				    (GCacheDestroyFunc)sapwood_pixmap_free,
-				    (GCacheDupFunc)theme_pixbuf_copy,
-				    (GCacheDestroyFunc)theme_pixbuf_unref,
-				    theme_pixbuf_hash, g_direct_hash, theme_pixbuf_equal);
+      char   *filename;
+      GError *err = NULL;
 
-      theme_pb->pixmap = g_cache_insert (pixmap_cache, theme_pb);
+      filename = g_build_filename (theme_pb->dirname, theme_pb->basename, NULL);
+      theme_pb->pixmap = sapwood_pixmap_get_for_file (filename,
+						      theme_pb->border_left,
+						      theme_pb->border_right,
+						      theme_pb->border_top,
+						      theme_pb->border_bottom,
+						      &err);
       if (!theme_pb->pixmap)
-	g_cache_remove (pixmap_cache, NULL);
+	{
+	  g_warning ("sapwood-theme: Failed to load pixmap file %s: %s\n",
+		     filename, err->message);
+	  g_error_free (err);
+	}
+
+      g_free (filename);
     }
   return theme_pb->pixmap;
 }

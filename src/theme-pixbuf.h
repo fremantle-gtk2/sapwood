@@ -143,7 +143,8 @@ struct _ThemePixbuf
   guint16     border_right;
   guint16     border_bottom;
   guint16     border_top;
-  guint       refcnt : 7;
+  guint       refcnt : 14;
+  guint       shared : 1;
   guint       stretch : 1;
 };
 
@@ -178,6 +179,7 @@ struct _ThemeImage
 
 ThemePixbuf *theme_pixbuf_new          (void) G_GNUC_INTERNAL;
 void         theme_pixbuf_unref        (ThemePixbuf  *theme_pb) G_GNUC_INTERNAL;
+ThemePixbuf *theme_pixbuf_canonicalize (ThemePixbuf  *theme_pb) G_GNUC_INTERNAL;
 void         theme_pixbuf_set_filename (ThemePixbuf  *theme_pb,
 					const char   *filename) G_GNUC_INTERNAL;
 gboolean     theme_pixbuf_get_geometry (ThemePixbuf  *theme_pb,

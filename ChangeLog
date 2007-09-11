@@ -1,5 +1,23 @@
 2007-09-11  Tommi Komulainen  <tommi.komulainen@nokia.com>
 
+	Replace GCache of pixmaps with hash of refcounted ThemePixbufs.
+
+	Since we already have 1:1 mapping between ThemePixbuf and
+	SapwoodPixmap caching the higher level object is more efficient.
+	This also enables checking earlier whether two files are referenced
+	with different border values (which is not supported by the server.)
+
+	* src/theme-pixbuf.h (ThemePixbuf, theme_pixbuf_canonicalize): Updated
+	bitfield and added the function.
+	* src/sapwood-render.c (pixmap_cache, theme_pixbuf_copy,
+	pixmap_cache_value_new): Removed
+	(pixbuf_hash, theme_pixbuf_canonicalize, theme_pixbuf_ref): Added
+	(theme_pixbuf_destroy, theme_pixbuf_set_filename,
+	theme_pixbuf_get_pixmap): Adapted
+	* src/sapwood-rc-style.c (theme_parse_image): Canonicalize
+
+2007-09-11  Tommi Komulainen  <tommi.komulainen@nokia.com>
+
 	* src/sapwood-server.c (process_buffer, cleanup_sock_removed): Add
 	reference counting to pixmaps. It is already possible for one client
 	to request the same pixmap multiple times, but the first release will

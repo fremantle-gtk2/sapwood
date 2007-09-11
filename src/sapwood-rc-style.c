@@ -702,6 +702,8 @@ theme_parse_image(GtkSettings  *settings,
       theme_pixbuf_unref (image);							\
       image = NULL;									\
     }											\
+  else if (image)									\
+    image = theme_pixbuf_canonicalize (image);						\
 }G_STMT_END
 
   CHECK_IMAGE(data->background, "Background");
