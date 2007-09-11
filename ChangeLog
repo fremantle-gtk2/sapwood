@@ -1,3 +1,16 @@
+2007-09-11  Tommi Komulainen  <tommi.komulainen@nokia.com>
+
+	* src/sapwood-pixmap.c (sapwood_pixmap_get_for_file)
+	* src/sapwood-render.c (theme_pixbuf_set_filename): Resolve symbolic
+	links before using the path as cache key. Otherwise when switching
+	themes the client side can consider old and new files different and
+	request new pixmap for the new theme. The symlink is resolved before
+	making the request to the server, and if it resolves to the same file
+	as the old one, we get a shared handle from the server. And since
+	there's no server side reference counting, releasing the old pixmap
+	will destroy the new one, causing BadPixmap very shortly.
+	(NB#64446)
+
 2007-09-05  Tommi Komulainen  <tommi.komulainen@nokia.com>
 	
 	* === Release 2.91.9 ===

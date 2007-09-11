@@ -25,9 +25,7 @@
 
 #include <errno.h>
 #include <fcntl.h>
-#include <limits.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/socket.h>
@@ -151,18 +149,20 @@ sapwood_pixmap_get_for_file (const char *filename,
   char               buf[ sizeof(PixbufOpenRequest) + PATH_MAX + 1 ] = {0};
   PixbufOpenRequest *req = (PixbufOpenRequest *) buf;
   PixbufOpenResponse rep;
+  int                flen;
   int                i, j;
 
   /* marshal request */
-  if (!realpath (filename, req->filename))
+  flen = g_strlcpy (req->filename, filename, PATH_MAX);
+  if (flen > PATH_MAX)
     {
       g_set_error (err, SAPWOOD_PIXMAP_ERROR, SAPWOOD_PIXMAP_ERROR_FAILED,
-		   "%s: realpath: %s", filename, strerror (errno));
+		   "%s: filename too long", filename);
       return NULL;
     }
 
   req->base.op       = PIXBUF_OP_OPEN;
-  req->base.length   = sizeof(*req) + strlen(req->filename) + 1;
+  req->base.length   = sizeof(*req) + flen + 1;
   req->border_left   = border_left;
   req->border_right  = border_right;
   req->border_top    = border_top;

@@ -23,6 +23,9 @@
  */
 #include <config.h>
 
+#include <errno.h>
+#include <limits.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "theme-pixbuf.h"
@@ -130,23 +133,28 @@ theme_pixbuf_set_filename (ThemePixbuf *theme_pb,
   if (theme_pb->basename)
     g_free (theme_pb->basename);
 
+  theme_pb->dirname  = NULL;
+  theme_pb->basename = NULL;
+
   if (filename)
     {
-      char *dirname;
-      char *basename;
+      char abspath[PATH_MAX + 1];
 
-      dirname  = g_path_get_dirname (filename);
-      basename = g_path_get_basename (filename);
+      if (realpath (filename, abspath))
+	{
+	  char *dirname;
+	  char *basename;
 
-      theme_pb->dirname  = g_quark_to_string (g_quark_from_string (dirname));
-      theme_pb->basename = basename;
+	  dirname  = g_path_get_dirname (abspath);
+	  basename = g_path_get_basename (abspath);
 
-      g_free (dirname);
-    }
-  else
-    {
-      theme_pb->dirname  = NULL;
-      theme_pb->basename = NULL;
+	  theme_pb->dirname  = g_quark_to_string (g_quark_from_string (dirname));
+	  theme_pb->basename = basename;
+
+	  g_free (dirname);
+	}
+      else
+	g_warning ("%s: %s", filename, g_strerror (errno));
     }
 }
 
