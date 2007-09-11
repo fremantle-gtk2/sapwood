@@ -1,3 +1,20 @@
+sapwood 2.91.10 - 2007-09-11
+============================
+
+Changes
+----------
+More robust handling of theme switching when there are symbolic links involved.
+
+Slightly decreased memory usage due to improved caching.
+
+Improved warnings when trying to use the same file with different borders.
+
+
+Bugs fixed
+----------
+NB#64446 - Application menu gets distorted on applying plankton theme again
+
+
 sapwood 2.91.9 - 2007-09-05
 ===========================
 

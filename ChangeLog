@@ -1,5 +1,9 @@
 2007-09-11  Tommi Komulainen  <tommi.komulainen@nokia.com>
 
+	* === Release 2.91.10 ===
+
+2007-09-11  Tommi Komulainen  <tommi.komulainen@nokia.com>
+
 	* src/sapwood-render.c (theme_pixbuf_equal, theme_pixbuf_canonicalize):
 	Move options checking to canonicalization which can be reported to the
 	user more conveniently.
