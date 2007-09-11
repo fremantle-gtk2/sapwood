@@ -103,31 +103,17 @@ theme_pixbuf_equal (gconstpointer v1, gconstpointer v2)
       !g_str_equal (a->basename, b->basename))
     return FALSE;
 
-  if (a->border_bottom != b->border_bottom ||
-      a->border_top != b->border_top ||
-      a->border_left != b->border_left ||
-      a->border_right != b->border_right)
-    {
-      g_warning ("file: %s", a->basename);
-      if (a->border_bottom != b->border_bottom)
-	g_warning ("border_bottom differs");
-      if (a->border_top != b->border_top)
-	g_warning ("border_top differs");
-      if (a->border_left != b->border_left)
-	g_warning ("border_left differs");
-      if (a->border_right != b->border_right)
-	g_warning ("border_right differs");
-    }
-
   return TRUE;
 }
 
 ThemePixbuf *
-theme_pixbuf_canonicalize (ThemePixbuf *theme_pb)
+theme_pixbuf_canonicalize (ThemePixbuf *theme_pb, gboolean *warn)
 {
   ThemePixbuf *canon;
 
   g_assert (theme_pb->pixmap == NULL);
+
+  *warn = FALSE;
 
   if (!pixbuf_hash)
     pixbuf_hash = g_hash_table_new (theme_pixbuf_hash, theme_pixbuf_equal);
@@ -141,6 +127,13 @@ theme_pixbuf_canonicalize (ThemePixbuf *theme_pb)
     }
   else
     {
+      if (theme_pb->border_bottom != canon->border_bottom ||
+          theme_pb->border_top    != canon->border_top ||
+          theme_pb->border_left   != canon->border_left ||
+          theme_pb->border_right  != canon->border_right ||
+          theme_pb->stretch       != canon->stretch)
+        *warn = TRUE;
+
       theme_pixbuf_ref (canon);
       theme_pixbuf_unref (theme_pb);
     }

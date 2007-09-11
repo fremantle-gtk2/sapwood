@@ -589,6 +589,31 @@ theme_image_unref (ThemeImage *data)
     }
 }
 
+static void
+validate_pixbuf (GScanner *scanner, ThemePixbuf **theme_pb, const char *name)
+{
+  if (!*theme_pb)
+    return;
+
+  if (!(*theme_pb)->basename)
+    {
+      g_scanner_warn (scanner, "%sborder (or %sstretch) without valid %sfile", name, name, name);
+      theme_pixbuf_unref (*theme_pb);
+      *theme_pb = NULL;
+    }
+  else
+    {
+      gboolean warn = FALSE;
+
+      *theme_pb = theme_pixbuf_canonicalize (*theme_pb, &warn);
+
+      if (warn)
+        g_scanner_warn (scanner, "file %s previously referenced with different"
+                        " border or stretch values. Ignoring the new values.",
+                        (*theme_pb)->basename);
+    }
+}
+
 static guint
 theme_parse_image(GtkSettings  *settings,
 		  GScanner      *scanner,
@@ -695,24 +720,11 @@ theme_parse_image(GtkSettings  *settings,
 
   token = g_scanner_get_next_token(scanner);
 
-#define CHECK_IMAGE(image, name) G_STMT_START{						\
-  if (image && !image->basename)							\
-    {											\
-      g_scanner_warn (scanner, #name " image options specified without filename");	\
-      theme_pixbuf_unref (image);							\
-      image = NULL;									\
-    }											\
-  else if (image)									\
-    image = theme_pixbuf_canonicalize (image);						\
-}G_STMT_END
-
-  CHECK_IMAGE(data->background, "Background");
-  CHECK_IMAGE(data->overlay,    "Overlay");
-  CHECK_IMAGE(data->gap,        "Gap");
-  CHECK_IMAGE(data->gap_start,  "Gap start");
-  CHECK_IMAGE(data->gap_end,    "Gap end");
-
-#undef CHECK_IMAGE
+  validate_pixbuf(scanner, &data->background, "");
+  validate_pixbuf(scanner, &data->overlay,    "overlay_");
+  validate_pixbuf(scanner, &data->gap,        "gap_");
+  validate_pixbuf(scanner, &data->gap_start,  "gap_start_");
+  validate_pixbuf(scanner, &data->gap_end,    "gap_end_");
 
   if (token != G_TOKEN_RIGHT_CURLY)
     {

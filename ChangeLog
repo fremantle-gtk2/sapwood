@@ -1,5 +1,16 @@
 2007-09-11  Tommi Komulainen  <tommi.komulainen@nokia.com>
 
+	* src/sapwood-render.c (theme_pixbuf_equal, theme_pixbuf_canonicalize):
+	Move options checking to canonicalization which can be reported to the
+	user more conveniently.
+	* src/theme-pixbuf.h (theme_pixbuf_canonicalize): Add return value to
+	indicate mismatch in options.
+	* src/sapwood-rc-style.c (validate_pixbuf, CHECK_IMAGE,
+	theme_parse_image): Turn the old macro to a function and add warning
+	about options mismatch. 
+
+2007-09-11  Tommi Komulainen  <tommi.komulainen@nokia.com>
+
 	Replace GCache of pixmaps with hash of refcounted ThemePixbufs.
 
 	Since we already have 1:1 mapping between ThemePixbuf and

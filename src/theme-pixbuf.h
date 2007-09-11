@@ -179,7 +179,8 @@ struct _ThemeImage
 
 ThemePixbuf *theme_pixbuf_new          (void) G_GNUC_INTERNAL;
 void         theme_pixbuf_unref        (ThemePixbuf  *theme_pb) G_GNUC_INTERNAL;
-ThemePixbuf *theme_pixbuf_canonicalize (ThemePixbuf  *theme_pb) G_GNUC_INTERNAL;
+ThemePixbuf *theme_pixbuf_canonicalize (ThemePixbuf  *theme_pb,
+                                        gboolean     *warn) G_GNUC_INTERNAL;
 void         theme_pixbuf_set_filename (ThemePixbuf  *theme_pb,
 					const char   *filename) G_GNUC_INTERNAL;
 gboolean     theme_pixbuf_get_geometry (ThemePixbuf  *theme_pb,
