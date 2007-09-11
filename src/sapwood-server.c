@@ -53,6 +53,11 @@ static int     server_depth   = 0;
 
 static const char *sock_path;
 
+typedef struct {
+  PixbufOpenResponse *rep;
+  guint               refcnt;
+} CacheNode;
+
 #ifndef HAVE_ABSTRACT_SOCKETS
 static void
 atexit_handler (void)
@@ -356,7 +361,18 @@ process_buffer (int fd, char *buf, ssize_t buflen, gpointer user_data)
       rep = g_cache_insert (pixmap_cache, req);
       if (rep)
 	{
-	  g_hash_table_insert (cleanup, GUINT_TO_POINTER(rep->id), rep);
+	  CacheNode *node;
+
+	  node = g_hash_table_lookup (cleanup, GUINT_TO_POINTER(rep->id));
+	  if (!node)
+	    {
+	      node = g_new(CacheNode, 1);
+	      node->rep = rep;
+	      node->refcnt = 1;
+	      g_hash_table_insert (cleanup, GUINT_TO_POINTER(rep->id), node);
+	    }
+	  else
+	    node->refcnt++;
 
 	  /* write reply */
 	  n = write (fd, rep, sizeof (*rep));
@@ -381,6 +397,7 @@ process_buffer (int fd, char *buf, ssize_t buflen, gpointer user_data)
   else if (base->op == PIXBUF_OP_CLOSE)
     {
       PixbufCloseRequest *req = (PixbufCloseRequest *) base;
+      CacheNode *node;
 
       if (base->length < sizeof (PixbufCloseRequest))
 	{
@@ -389,7 +406,17 @@ process_buffer (int fd, char *buf, ssize_t buflen, gpointer user_data)
 	  return -1;
 	}
 
-      if (!g_hash_table_remove (cleanup, GUINT_TO_POINTER(req->id)))
+      node = g_hash_table_lookup (cleanup, GUINT_TO_POINTER(req->id));
+      if (node)
+	{
+	  node->refcnt--;
+	  if (node->refcnt == 0)
+	    {
+	      g_hash_table_remove (cleanup, GUINT_TO_POINTER(req->id));
+	      g_free (node);
+	    }
+	}
+      else
 	g_warning ("close failed, no such pixmap");
 
       /* no reply */
@@ -468,7 +495,8 @@ client_sock_removed (gpointer user_data)
 static void
 cleanup_pixmap_destroy (gpointer data)
 {
-  g_cache_remove (pixmap_cache, data);
+  CacheNode *node = data;
+  g_cache_remove (pixmap_cache, node->rep);
 }
 
 static gboolean

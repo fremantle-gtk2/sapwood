@@ -1,5 +1,12 @@
 2007-09-11  Tommi Komulainen  <tommi.komulainen@nokia.com>
 
+	* src/sapwood-server.c (process_buffer, cleanup_sock_removed): Add
+	reference counting to pixmaps. It is already possible for one client
+	to request the same pixmap multiple times, but the first release will
+	invalidate all instances.
+
+2007-09-11  Tommi Komulainen  <tommi.komulainen@nokia.com>
+
 	* src/sapwood-pixmap.c (sapwood_pixmap_get_for_file)
 	* src/sapwood-render.c (theme_pixbuf_set_filename): Resolve symbolic
 	links before using the path as cache key. Otherwise when switching
