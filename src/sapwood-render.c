@@ -141,7 +141,32 @@ theme_pixbuf_canonicalize (ThemePixbuf *theme_pb, gboolean *warn)
   return canon;
 }
 
-void         
+#ifdef ENABLE_DEBUG
+static void
+theme_pixbuf_check_borders (ThemePixbuf *theme_pb)
+{
+  gchar *filename;
+  gint   width, height;
+
+  if (!theme_pb->basename)
+    return;
+
+  filename = g_build_filename (theme_pb->dirname, theme_pb->basename, NULL);
+
+  if (gdk_pixbuf_get_file_info (filename, &width, &height) != NULL)
+    {
+      if (theme_pb->border_left + theme_pb->border_right >= width ||
+	  theme_pb->border_top + theme_pb->border_bottom >= height)
+	g_warning ("%s: border values too big for the image", theme_pb->basename);
+    }
+
+  g_free (filename);
+}
+#else
+#define theme_pixbuf_check_borders(x)	(void)0
+#endif
+
+void
 theme_pixbuf_set_filename (ThemePixbuf *theme_pb,
 			   const char  *filename)
 {
@@ -169,6 +194,8 @@ theme_pixbuf_set_filename (ThemePixbuf *theme_pb,
 	  theme_pb->basename = basename;
 
 	  g_free (dirname);
+
+	  theme_pixbuf_check_borders (theme_pb);
 	}
       else
 	g_warning ("%s: %s", filename, g_strerror (errno));
@@ -188,6 +215,8 @@ theme_pixbuf_set_border (ThemePixbuf *theme_pb,
   theme_pb->border_right = right;
   theme_pb->border_top = top;
   theme_pb->border_bottom = bottom;
+
+  theme_pixbuf_check_borders (theme_pb);
 }
 
 void

@@ -1,3 +1,11 @@
+2007-09-14  Tommi Komulainen  <tommi.komulainen@nokia.com>
+
+        * src/sapwood-render.c (theme_pixbuf_check_borders,
+        theme_pixbuf_set_filename, theme_pixbuf_set_border): Add debugging
+        helper to check image borders validity while parsing rather than
+        postponing it to loading. Due to performance hit of loading every
+	image one needs to build with -DENABLE_DEBUG
+
 2007-09-11  Tommi Komulainen  <tommi.komulainen@nokia.com>
 
 	* === Release 2.91.10 ===
