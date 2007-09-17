@@ -1,5 +1,9 @@
 2007-09-17  Tommi Komulainen  <tommi.komulainen@nokia.com>
 
+	* === Release 2.91.11 ===
+
+2007-09-17  Tommi Komulainen  <tommi.komulainen@nokia.com>
+
 	* src/sapwood-render.c (theme_pixbuf_render): Ensure there's a mask
 	available also when centering pixmaps with masks. Otherwise we'll
 	render uninitialized data.

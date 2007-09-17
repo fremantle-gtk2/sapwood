@@ -1,3 +1,15 @@
+sapwood 2.91.11 - 2007-09-17
+============================
+
+Changes
+-------
+Fix rendering corruption when painting non-stretched images with masks.
+
+Add debugging helper to warn when the same file is being referenced with
+inconsistent border or stretch values. (Add -DENABLE_DEBUG to CFLAGS to
+enable)
+
+
 sapwood 2.91.10 - 2007-09-11
 ============================
 
