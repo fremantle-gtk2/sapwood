@@ -1,3 +1,9 @@
+sapwood (2.91.11-1) unstable; urgency=low
+
+  * Fixes rendering corruption in arrows
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Mon, 17 Sep 2007 14:27:53 +0300
+
 sapwood (2.91.10-1) unstable; urgency=low
 
   * More robust handling of theme switching when there are symbolic links
