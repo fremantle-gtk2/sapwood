@@ -427,10 +427,25 @@ theme_pixbuf_render (ThemePixbuf  *theme_pb,
       rect[0].dest.width = pixbuf_width;
       rect[0].dest.height = pixbuf_height;
 
+      /* need to ensure mask is available if the pixmap has one */
+      mask_x = x;
+      mask_y = y;
+      if (rect[0].pixmask && !mask)
+	{
+	  mask = gdk_pixmap_new (NULL, pixbuf_width, pixbuf_height, 1);
+	  mask_x = 0;
+	  mask_y = 0;
+	}
+      else if (mask)
+	g_object_ref (mask);
+
       sapwood_pixmap_render_rects (pixmap,
                                    window, x, y, draw_width, draw_height,
-                                   mask, x, y, FALSE,
+                                   mask, mask_x, mask_y, FALSE,
                                    clip_rect, 1, rect);
+
+      if (mask)
+	g_object_unref (mask);
     }
   else /* tile? */
     {
