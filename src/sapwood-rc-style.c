@@ -798,7 +798,7 @@ sapwood_rc_style_parse (GtkRcStyle *rc_style,
       if (token != G_TOKEN_NONE)
 	return token;
       else
-	sapwood_style->img_list = g_list_append(sapwood_style->img_list, img);
+	sapwood_style->img_list = g_list_prepend(sapwood_style->img_list, img);
 
       token = g_scanner_peek_next_token(scanner);
     }
@@ -806,6 +806,8 @@ sapwood_rc_style_parse (GtkRcStyle *rc_style,
   g_scanner_get_next_token(scanner);
 
   g_scanner_set_scope(scanner, old_scope);
+
+  sapwood_style->img_list = g_list_reverse(sapwood_style->img_list);
 
   return G_TOKEN_NONE;
 }
@@ -831,9 +833,7 @@ sapwood_rc_style_merge (GtkRcStyle *dest,
 	    {
 	      if (tmp_list2)
 		{
-		  tmp_list2->next = g_list_alloc();
-		  tmp_list2->next->data = tmp_list1->data;
-		  tmp_list2->next->prev = tmp_list2;
+		  tmp_list2 = g_list_append (tmp_list2, tmp_list1->data);
 		  
 		  tmp_list2 = tmp_list2->next;
 		}

@@ -1,3 +1,10 @@
+2007-09-21  Michael Natterer  <mitch@imendio.com>
+
+	* src/sapwood-rc-style.c (sapwood_rc_style_parse): Speed up parsing a
+	little by replacing g_list_append with prepend
+	(sapwood_rc_style_merge): avoid a memset done by g_list_alloc() by
+	using g_list_append() instead (NB#69921)
+
 2007-09-17  Tommi Komulainen  <tommi.komulainen@nokia.com>
 
 	* === Release 2.91.11 ===
