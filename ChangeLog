@@ -1,3 +1,7 @@
+2007-09-25  Tommi Komulainen  <tommi.komulainen@nokia.com>
+
+	* === Release 3.0.0 ===
+
 2007-09-21  Michael Natterer  <mitch@imendio.com>
 
 	* src/sapwood-rc-style.c (sapwood_rc_style_parse): Speed up parsing a

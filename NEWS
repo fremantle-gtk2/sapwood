@@ -1,3 +1,48 @@
+sapwood 3.0.0 - 2007-09-25
+==========================
+
+Overview of changes from 2.43 and 3.0.0
+---------------------------------------
+
+ * Support for downscaled images (requires gtk+ 2.8 or later)
+ * Documentation for theme maintainers.
+ * Most of the theming special cases moved from gtk+ to sapwood:
+   + 'position' keyword for applying different graphics depending on widget
+      position in the container (relies on additional 'maemo-position-theming'
+      style property on the container)
+   + active/passive focus (GtkTreeView, GtkMenu)
+   + GtkCheckButton and GtkRadioButton focus
+ * Simple wildcard matching for the 'detail' parameter to simplify treeview row
+   ending details theming.
+ * Improved warnings about errors in gtkrc
+
+
+Contributors
+------------
+José Dapena Paz
+Xan Lopez
+Lucas Rocha
+Michael Natterer
+
+
+Bugs fixed
+----------
+NB#60575 - Focus on menu items in others menu is not proper
+NB#61844 - List view headers show multiple arrows
+NB#62512 - sapwood ignores width/height if smaller than the bitmap
+NB#63819 - RSS feed reader applet appears distorted on re-sizing
+NB#64446 - Application menu gets distorted on applying plankton theme again
+NB#66054 - Disabled text is shown two colors in same characters
+NB#69921 - Apply sapwood GList optimization patch
+MB#856 - Sapwood crashes with color depth != 16
+
+
+Bugs fixed since 2.91.11
+------------------------
+NB#69921 - Apply sapwood GList optimization patch
+
+
+
 sapwood 2.91.11 - 2007-09-17
 ============================
 
