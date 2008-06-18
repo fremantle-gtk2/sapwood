@@ -284,7 +284,7 @@ draw_simple_image(GtkStyle       *style,
 	  if (maskwin)
 	    mask = gdk_pixmap_new (maskwin, width, height, 1);
 
-	  valid = theme_pixbuf_render (image->background,
+	  valid = theme_pixbuf_render (image->background, widget,
 				       window, mask, area,
 				       draw_center ? COMPONENT_ALL : COMPONENT_ALL | COMPONENT_CENTER,
 				       FALSE,
@@ -299,7 +299,7 @@ draw_simple_image(GtkStyle       *style,
 	}
       
       if (image->overlay && draw_center)
-	theme_pixbuf_render (image->overlay,
+	theme_pixbuf_render (image->overlay, widget,
 			     window, NULL, area, COMPONENT_ALL,
 			     TRUE, 
 			     x, y, width, height);
@@ -439,19 +439,19 @@ draw_gap_image(GtkStyle       *style,
 	}
 
       if (image->background)
-	theme_pixbuf_render (image->background,
+	theme_pixbuf_render (image->background, widget,
 			     window, NULL, area, components, FALSE,
 			     x, y, width, height);
       if (image->gap_start)
-	theme_pixbuf_render (image->gap_start,
+	theme_pixbuf_render (image->gap_start, widget,
 			     window, NULL, area, COMPONENT_ALL, FALSE,
 			     r1.x, r1.y, r1.width, r1.height);
       if (image->gap)
-	theme_pixbuf_render (image->gap,
+	theme_pixbuf_render (image->gap, widget,
 			     window, NULL, area, COMPONENT_ALL, FALSE,
 			     r2.x, r2.y, r2.width, r2.height);
       if (image->gap_end)
-	theme_pixbuf_render (image->gap_end,
+	theme_pixbuf_render (image->gap_end, widget,
 			     window, NULL, area, COMPONENT_ALL, FALSE,
 			     r3.x, r3.y, r3.width, r3.height);
 
@@ -488,7 +488,7 @@ draw_hline (GtkStyle     *style,
   if (image)
     {
       if (image->background)
-	theme_pixbuf_render (image->background,
+	theme_pixbuf_render (image->background, widget,
 			     window, NULL, area, COMPONENT_ALL, FALSE,
 			     x1, y, (x2 - x1) + 1, 2);
     }
@@ -524,7 +524,7 @@ draw_vline (GtkStyle     *style,
   if (image)
     {
       if (image->background)
-	theme_pixbuf_render (image->background,
+	theme_pixbuf_render (image->background, widget,
 			     window, NULL, area, COMPONENT_ALL, FALSE,
 			     x, y1, 2, (y2 - y1) + 1);
     }

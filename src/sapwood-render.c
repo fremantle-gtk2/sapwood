@@ -273,6 +273,7 @@ theme_pixbuf_get_geometry (ThemePixbuf *theme_pb,
  */
 gboolean
 theme_pixbuf_render (ThemePixbuf  *theme_pb,
+		     GtkWidget    *widget,
 		     GdkWindow    *window,
 		     GdkBitmap    *mask,
 		     GdkRectangle *clip_rect,
@@ -404,7 +405,7 @@ theme_pixbuf_render (ThemePixbuf  *theme_pb,
 	  mask_required = TRUE;
 	}
 
-      sapwood_pixmap_render_rects (pixmap,
+      sapwood_pixmap_render_rects (pixmap, widget,
                                    window, x, y, width, height,
                                    mask, mask_x, mask_y, mask_required,
                                    clip_rect, n_rect, rect);
@@ -439,7 +440,7 @@ theme_pixbuf_render (ThemePixbuf  *theme_pb,
       else if (mask)
 	g_object_ref (mask);
 
-      sapwood_pixmap_render_rects (pixmap,
+      sapwood_pixmap_render_rects (pixmap, widget,
                                    window, x, y, draw_width, draw_height,
                                    mask, mask_x, mask_y, FALSE,
                                    clip_rect, 1, rect);

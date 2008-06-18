@@ -23,7 +23,7 @@
 #define SAPWOOD_PIXMAP_H 1
 
 #include <glib/gerror.h>
-#include <gdk/gdk.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
@@ -61,6 +61,7 @@ void      sapwood_pixmap_get_pixmap   (SapwoodPixmap *self,
 				       GdkBitmap    **ret_pixmask) G_GNUC_INTERNAL;
 
 void      sapwood_pixmap_render_rects (SapwoodPixmap *self,
+				      GtkWidget      *widget,
 				      GdkDrawable  *draw,
 				      gint          draw_x,
 				      gint          draw_y,
@@ -73,6 +74,8 @@ void      sapwood_pixmap_render_rects (SapwoodPixmap *self,
 				      GdkRectangle *clip_rect,
 				      gint          n_rects,
 				      SapwoodRect   *rects) G_GNUC_INTERNAL;
+
+extern gboolean sapwood_debug_scaling;
 
 G_END_DECLS
 

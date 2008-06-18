@@ -1,3 +1,17 @@
+2008-06-18  Sven Herzberg  <herzi@imendio.com>
+
+	Debug pixmap size mismatches
+
+	* src/sapwood-draw.c (draw_simple_image), (draw_gap_image),
+	(draw_hline), (draw_vline): added a widget pointer
+	* src/sapwood-main.c (theme_init): added SAPWOOD_DEBUG=scaling support
+	* src/sapwood-pixmap.c (sapwood_pixmap_render_rects): debug pixmap
+	scaling
+	* src/sapwood-pixmap.h: added a variable to indicate whether we debug
+	the sacling
+	* src/sapwood-render.c (theme_pixbuf_render): added a widget pointer
+	* src/theme-pixbuf.h: added a widget pointer
+
 2007-09-25  Tommi Komulainen  <tommi.komulainen@nokia.com>
 
 	* === Release 3.0.0 ===

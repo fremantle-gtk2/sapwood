@@ -398,6 +398,7 @@ sapwood_pixmap_render_rects_internal (SapwoodPixmap *self,
 
 void
 sapwood_pixmap_render_rects (SapwoodPixmap *self,
+			     GtkWidget     *widget,
                              GdkDrawable   *draw,
                              gint           draw_x,
                              gint           draw_y,
@@ -471,8 +472,24 @@ sapwood_pixmap_render_rects (SapwoodPixmap *self,
   cairo_clip (cr);
 
   cairo_translate (cr, draw_x, draw_y);
-  cairo_scale (cr, (double)width / (double)tmp_width,
-		   (double)height / (double)tmp_height);
+
+  if (width != tmp_width || height != tmp_height)
+    {
+      cairo_scale (cr, (double)width / (double)tmp_width,
+		       (double)height / (double)tmp_height);
+
+      if (sapwood_debug_scaling)
+        {
+	  g_warning ("scaling pixmap for %s: requested %dx%d; real %dx%d",
+		     G_OBJECT_TYPE_NAME (widget),
+		     width, height,
+		     self->width, self->height);
+	  cairo_save (tmp_cr);
+	  cairo_set_source_rgba (tmp_cr, 1.0, 1.0, 0.0, 0.25);
+	  cairo_paint (tmp_cr);
+	  cairo_restore (tmp_cr);
+        }
+    }
 
   cairo_set_source_surface (cr, cairo_get_target (tmp_cr), 0, 0);
   if (mask_cr)

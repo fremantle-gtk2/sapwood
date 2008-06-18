@@ -194,6 +194,7 @@ void         theme_pixbuf_set_border   (ThemePixbuf  *theme_pb,
 void         theme_pixbuf_set_stretch  (ThemePixbuf  *theme_pb,
 					gboolean      stretch) G_GNUC_INTERNAL;
 gboolean     theme_pixbuf_render       (ThemePixbuf  *theme_pb,
+					GtkWidget    *widget,
 					GdkWindow    *window,
 					GdkBitmap    *mask,
 					GdkRectangle *clip_rect,

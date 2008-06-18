@@ -28,11 +28,22 @@
 #include "sapwood-rc-style.h"
 #include <gmodule.h>
 
+gboolean sapwood_debug_scaling = FALSE;
+
 G_MODULE_EXPORT void
 theme_init (GTypeModule *module)
 {
+  GDebugKey keys[] = {
+    {"scaling", TRUE}
+  };
+  const gchar* debug;
+
   sapwood_rc_style_register_type (module);
   sapwood_style_register_type (module);
+
+  debug = g_getenv ("SAPWOOD_DEBUG");
+  if (debug)
+    sapwood_debug_scaling = g_parse_debug_string (debug, keys, G_N_ELEMENTS (keys));
 }
 
 G_MODULE_EXPORT void
