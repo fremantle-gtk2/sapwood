@@ -1,5 +1,13 @@
 sapwood (3.0.0-1) chinook; urgency=low
 
+  * debian/sapwood-server.sh:
+    - revert setting GDK_DISABLE_XSHM=1 environment variable
+  * See NB#22173 comment #17
+
+ -- Christian Dywan <christian@imendio.com>  Fri, 04 Jul 2008 15:13:00 +0100
+
+sapwood (3.0.0-1) chinook; urgency=low
+
   * Minor optimizations
 
  -- Tommi Komulainen <tommi.komulainen@nokia.com>  Tue, 25 Sep 2007 18:23:44 +0300
