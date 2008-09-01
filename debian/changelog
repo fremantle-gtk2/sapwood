@@ -1,4 +1,4 @@
-sapwood (3.0.0-1) chinook; urgency=low
+sapwood (3.0.0-2) chinook; urgency=low
 
   * debian/sapwood-server.sh:
     - revert setting GDK_DISABLE_XSHM=1 environment variable
