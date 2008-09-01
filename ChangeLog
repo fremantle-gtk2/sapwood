@@ -1,3 +1,11 @@
+2008-09-01  Sven Herzberg  <sven@imendio.com>
+
+	NB#87905: Sapwood has a small memory leak
+	Proposed solution by Yrjola Mika
+
+	* src/sapwood-server.c (cleanup_pixmap_destroy): don't forget to free
+	the CacheNode itself
+
 2008-06-18  Sven Herzberg  <herzi@imendio.com>
 
 	Debug pixmap size mismatches

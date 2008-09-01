@@ -497,6 +497,7 @@ cleanup_pixmap_destroy (gpointer data)
 {
   CacheNode *node = data;
   g_cache_remove (pixmap_cache, node->rep);
+  g_free (node);
 }
 
 static gboolean
