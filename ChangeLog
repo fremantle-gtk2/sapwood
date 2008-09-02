@@ -1,5 +1,16 @@
 2008-09-02  Sven Herzberg  <sven@imendio.com>
 
+	Added a space before opening parenthesis
+	based on a patch by Christian Dywan
+
+	* src/sapwood-pixmap.c,
+	* src/sapwood-rc-style.c,
+	* src/sapwood-server.c,
+	* src/sapwood-style.c,
+	* src/theme-pixbuf.c: all is nice and beatiful, etc.
+
+2008-09-02  Sven Herzberg  <sven@imendio.com>
+
 	Drop trailing whitespaces
 	based on a patch by Christian Dywan
 

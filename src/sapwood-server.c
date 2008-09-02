@@ -243,7 +243,7 @@ pixbuf_open_response_new (PixbufOpenRequest *req)
   if (pixbuf)
     {
       rep = g_new0 (PixbufOpenResponse, 1);
-      rep->id = GPOINTER_TO_UINT(rep);
+      rep->id = GPOINTER_TO_UINT (rep);
 
       if (!extract_pixmaps (pixbuf, req, rep, &err))
 	{
@@ -582,7 +582,7 @@ main (int argc, char **argv)
     g_error ("socket: %s", strerror (errno));
 
   /* create our socket, overriding stale socket (if any) */
-  memset(&sun, '\0', sizeof(sun));
+  memset (&sun, '\0', sizeof(sun));
   sun.sun_family = AF_LOCAL;
 #ifdef HAVE_ABSTRACT_SOCKETS
   strcpy (&sun.sun_path[1], sock_path);

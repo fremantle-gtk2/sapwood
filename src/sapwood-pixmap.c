@@ -65,7 +65,7 @@ pixbuf_proto_get_socket (GError **err)
 
   sock_path = sapwood_socket_path_get_default ();
 
-  memset(&sun, '\0', sizeof(sun));
+  memset (&sun, '\0', sizeof(sun));
   sun.sun_family = AF_LOCAL;
 #ifdef HAVE_ABSTRACT_SOCKETS
   strcpy (&sun.sun_path[1], sock_path);

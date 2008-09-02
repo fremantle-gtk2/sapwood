@@ -473,10 +473,10 @@ draw_hline (GtkStyle     *style,
 	    gint          y)
 {
   ThemeImage *image;
-  ThemeMatchData   match_data;
+  ThemeMatchData match_data;
 
-  g_return_if_fail(style != NULL);
-  g_return_if_fail(window != NULL);
+  g_return_if_fail (style != NULL);
+  g_return_if_fail (window != NULL);
 
   match_data.function = TOKEN_D_HLINE;
   match_data.detail = (gchar *)detail;
@@ -548,8 +548,8 @@ draw_shadow(GtkStyle     *style,
 {
   ThemeMatchData match_data;
 
-  g_return_if_fail(style != NULL);
-  g_return_if_fail(window != NULL);
+  g_return_if_fail (style != NULL);
+  g_return_if_fail (window != NULL);
 
   match_data.function = TOKEN_D_SHADOW;
   match_data.detail = (gchar *)detail;
@@ -624,8 +624,8 @@ draw_arrow (GtkStyle     *style,
 {
   ThemeMatchData match_data;
 
-  g_return_if_fail(style != NULL);
-  g_return_if_fail(window != NULL);
+  g_return_if_fail (style != NULL);
+  g_return_if_fail (window != NULL);
 
   if (detail &&
       (strcmp (detail, "hscrollbar") == 0 || strcmp (detail, "vscrollbar") == 0))
@@ -713,8 +713,8 @@ draw_diamond (GtkStyle     *style,
 {
   ThemeMatchData match_data;
 
-  g_return_if_fail(style != NULL);
-  g_return_if_fail(window != NULL);
+  g_return_if_fail (style != NULL);
+  g_return_if_fail (window != NULL);
 
   match_data.function = TOKEN_D_DIAMOND;
   match_data.detail = (gchar *)detail;
@@ -739,30 +739,32 @@ draw_string (GtkStyle * style,
 	     gint y,
 	     const gchar * string)
 {
-  g_return_if_fail(style != NULL);
-  g_return_if_fail(window != NULL);
+  g_return_if_fail (style != NULL);
+  g_return_if_fail (window != NULL);
 
   if (state == GTK_STATE_INSENSITIVE)
     {
       if (area)
 	{
-	  gdk_gc_set_clip_rectangle(style->white_gc, area);
-	  gdk_gc_set_clip_rectangle(style->fg_gc[state], area);
+	  gdk_gc_set_clip_rectangle (style->white_gc, area);
+	  gdk_gc_set_clip_rectangle (style->fg_gc[state], area);
 	}
 
-      gdk_draw_string(window, gtk_style_get_font (style), style->fg_gc[state], x, y, string);
+      gdk_draw_string (window, gtk_style_get_font (style),
+                       style->fg_gc[state], x, y, string);
 
       if (area)
 	{
-	  gdk_gc_set_clip_rectangle(style->white_gc, NULL);
-	  gdk_gc_set_clip_rectangle(style->fg_gc[state], NULL);
+	  gdk_gc_set_clip_rectangle (style->white_gc, NULL);
+	  gdk_gc_set_clip_rectangle (style->fg_gc[state], NULL);
 	}
     }
   else
     {
-      gdk_gc_set_clip_rectangle(style->fg_gc[state], area);
-      gdk_draw_string(window, gtk_style_get_font (style), style->fg_gc[state], x, y, string);
-      gdk_gc_set_clip_rectangle(style->fg_gc[state], NULL);
+      gdk_gc_set_clip_rectangle (style->fg_gc[state], area);
+      gdk_draw_string (window, gtk_style_get_font (style),
+                       style->fg_gc[state], x, y, string);
+      gdk_gc_set_clip_rectangle (style->fg_gc[state], NULL);
     }
 }
 
@@ -813,8 +815,8 @@ draw_box (GtkStyle     *style,
 {
   ThemeMatchData match_data;
 
-  g_return_if_fail(style != NULL);
-  g_return_if_fail(window != NULL);
+  g_return_if_fail (style != NULL);
+  g_return_if_fail (window != NULL);
 
   if (detail &&
       (strcmp (detail, "hscrollbar") == 0 || strcmp (detail, "vscrollbar") == 0))
@@ -901,8 +903,8 @@ draw_flat_box (GtkStyle     *style,
 {
   ThemeMatchData match_data;
 
-  g_return_if_fail(style != NULL);
-  g_return_if_fail(window != NULL);
+  g_return_if_fail (style != NULL);
+  g_return_if_fail (window != NULL);
 
   match_data.function = TOKEN_D_FLAT_BOX;
   match_data.detail = (gchar *)detail;
@@ -935,8 +937,8 @@ draw_check (GtkStyle     *style,
 {
   ThemeMatchData match_data;
 
-  g_return_if_fail(style != NULL);
-  g_return_if_fail(window != NULL);
+  g_return_if_fail (style != NULL);
+  g_return_if_fail (window != NULL);
 
   match_data.function = TOKEN_D_CHECK;
   match_data.detail = (gchar *)detail;
@@ -973,8 +975,8 @@ draw_option (GtkStyle      *style,
 {
   ThemeMatchData match_data;
 
-  g_return_if_fail(style != NULL);
-  g_return_if_fail(window != NULL);
+  g_return_if_fail (style != NULL);
+  g_return_if_fail (window != NULL);
 
   match_data.function = TOKEN_D_OPTION;
   match_data.detail = (gchar *)detail;
@@ -1011,8 +1013,8 @@ draw_tab (GtkStyle     *style,
 {
   ThemeMatchData match_data;
 
-  g_return_if_fail(style != NULL);
-  g_return_if_fail(window != NULL);
+  g_return_if_fail (style != NULL);
+  g_return_if_fail (window != NULL);
 
   match_data.function = TOKEN_D_TAB;
   match_data.detail = (gchar *)detail;
@@ -1106,8 +1108,8 @@ draw_expander (GtkStyle        *style,
   ThemeMatchData match_data;
   gint expander_size = 10;
 
-  g_return_if_fail(style != NULL);
-  g_return_if_fail(window != NULL);
+  g_return_if_fail (style != NULL);
+  g_return_if_fail (window != NULL);
 
   /* Reusing the arrow theming here as it's flexible enough (almost, we do lose
    * the intermediate states.) It also allows us to use existing gtkrc.
@@ -1158,8 +1160,8 @@ draw_extension (GtkStyle       *style,
 {
   ThemeMatchData match_data;
 
-  g_return_if_fail(style != NULL);
-  g_return_if_fail(window != NULL);
+  g_return_if_fail (style != NULL);
+  g_return_if_fail (window != NULL);
 
   match_data.function = TOKEN_D_EXTENSION;
   match_data.detail = (gchar *)detail;
@@ -1188,8 +1190,8 @@ draw_focus (GtkStyle     *style,
 {
   ThemeMatchData match_data;
 
-  g_return_if_fail(style != NULL);
-  g_return_if_fail(window != NULL);
+  g_return_if_fail (style != NULL);
+  g_return_if_fail (window != NULL);
 
   match_data.function = TOKEN_D_FOCUS;
   match_data.detail = (gchar *)detail;
@@ -1218,8 +1220,8 @@ draw_slider (GtkStyle      *style,
 {
   ThemeMatchData           match_data;
 
-  g_return_if_fail(style != NULL);
-  g_return_if_fail(window != NULL);
+  g_return_if_fail (style != NULL);
+  g_return_if_fail (window != NULL);
 
   match_data.function = TOKEN_D_SLIDER;
   match_data.detail = (gchar *)detail;

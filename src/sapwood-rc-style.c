@@ -178,20 +178,20 @@ theme_parse_file(GtkSettings  *settings,
   gchar *pixmap;
 
   /* Skip 'blah_file' */
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_EQUAL_SIGN)
     return G_TOKEN_EQUAL_SIGN;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_STRING)
     return G_TOKEN_STRING;
 
   if (!*theme_pb)
     *theme_pb = theme_pixbuf_new ();
 
-  pixmap = gtk_rc_find_pixmap_in_path(settings, scanner, scanner->value.v_string);
+  pixmap = gtk_rc_find_pixmap_in_path (settings, scanner, scanner->value.v_string);
   if (pixmap)
     {
       theme_pixbuf_set_filename (*theme_pb, pixmap);
@@ -209,46 +209,46 @@ theme_parse_border (GScanner     *scanner,
   gint left, right, top, bottom;
 
   /* Skip 'blah_border' */
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_EQUAL_SIGN)
     return G_TOKEN_EQUAL_SIGN;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_LEFT_CURLY)
     return G_TOKEN_LEFT_CURLY;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_INT)
     return G_TOKEN_INT;
   left = scanner->value.v_int;
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_COMMA)
     return G_TOKEN_COMMA;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_INT)
     return G_TOKEN_INT;
   right = scanner->value.v_int;
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_COMMA)
     return G_TOKEN_COMMA;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_INT)
     return G_TOKEN_INT;
   top = scanner->value.v_int;
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_COMMA)
     return G_TOKEN_COMMA;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_INT)
     return G_TOKEN_INT;
   bottom = scanner->value.v_int;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_RIGHT_CURLY)
     return G_TOKEN_RIGHT_CURLY;
 
@@ -268,13 +268,13 @@ theme_parse_stretch(GScanner     *scanner,
   gboolean stretch;
 
   /* Skip 'blah_stretch' */
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_EQUAL_SIGN)
     return G_TOKEN_EQUAL_SIGN;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token == TOKEN_TRUE)
     stretch = TRUE;
   else if (token == TOKEN_FALSE)
@@ -296,15 +296,15 @@ theme_parse_function(GScanner * scanner,
 {
   guint               token;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != TOKEN_FUNCTION)
     return TOKEN_FUNCTION;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_EQUAL_SIGN)
     return G_TOKEN_EQUAL_SIGN;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if ((token >= TOKEN_D_HLINE) && (token <= TOKEN_D_STEPPER))
     data->match_data.function = token;
 
@@ -317,22 +317,22 @@ theme_parse_detail(GScanner * scanner,
 {
   guint               token;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != TOKEN_DETAIL)
     return TOKEN_DETAIL;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_EQUAL_SIGN)
     return G_TOKEN_EQUAL_SIGN;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_STRING)
     return G_TOKEN_STRING;
 
   if (data->match_data.detail)
     g_free (data->match_data.detail);
 
-  data->match_data.detail = g_strdup(scanner->value.v_string);
+  data->match_data.detail = g_strdup (scanner->value.v_string);
 
   return G_TOKEN_NONE;
 }
@@ -343,17 +343,17 @@ theme_parse_position(GScanner * scanner,
 {
   guint token;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != TOKEN_POSITION)
     return TOKEN_POSITION;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_EQUAL_SIGN)
     return G_TOKEN_EQUAL_SIGN;
 
   do
     {
-      token = g_scanner_get_next_token(scanner);
+      token = g_scanner_get_next_token (scanner);
       if (token == TOKEN_LEFT)
 	data->match_data.position |= THEME_POS_LEFT;
       else if (token == TOKEN_RIGHT)
@@ -367,9 +367,9 @@ theme_parse_position(GScanner * scanner,
 
       data->match_data.flags |= THEME_MATCH_POSITION;
 
-      token = g_scanner_peek_next_token(scanner);
+      token = g_scanner_peek_next_token (scanner);
       if (token == G_TOKEN_COMMA)
-	token = g_scanner_get_next_token(scanner);
+	token = g_scanner_get_next_token (scanner);
     }
   while (token == G_TOKEN_COMMA);
 
@@ -380,17 +380,17 @@ static guint
 theme_parse_state(GScanner * scanner,
 		  ThemeImage * data)
 {
-  guint               token;
+  guint token;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != TOKEN_STATE)
     return TOKEN_STATE;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_EQUAL_SIGN)
     return G_TOKEN_EQUAL_SIGN;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token == TOKEN_NORMAL)
     data->match_data.state = GTK_STATE_NORMAL;
   else if (token == TOKEN_ACTIVE)
@@ -415,15 +415,15 @@ theme_parse_shadow(GScanner * scanner,
 {
   guint               token;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != TOKEN_SHADOW)
     return TOKEN_SHADOW;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_EQUAL_SIGN)
     return G_TOKEN_EQUAL_SIGN;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token == TOKEN_NONE)
     data->match_data.shadow = GTK_SHADOW_NONE;
   else if (token == TOKEN_IN)
@@ -446,17 +446,17 @@ static guint
 theme_parse_arrow_direction(GScanner * scanner,
 			    ThemeImage * data)
 {
-  guint               token;
+  guint token;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != TOKEN_ARROW_DIRECTION)
     return TOKEN_ARROW_DIRECTION;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_EQUAL_SIGN)
     return G_TOKEN_EQUAL_SIGN;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token == TOKEN_UP)
     data->match_data.arrow_direction = GTK_ARROW_UP;
   else if (token == TOKEN_DOWN)
@@ -477,17 +477,17 @@ static guint
 theme_parse_gap_side(GScanner * scanner,
 		     ThemeImage * data)
 {
-  guint               token;
+  guint token;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != TOKEN_GAP_SIDE)
     return TOKEN_GAP_SIDE;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_EQUAL_SIGN)
     return G_TOKEN_EQUAL_SIGN;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
 
   if (token == TOKEN_TOP)
     data->match_data.gap_side = GTK_POS_TOP;
@@ -509,17 +509,17 @@ static guint
 theme_parse_orientation(GScanner * scanner,
 			ThemeImage * data)
 {
-  guint               token;
+  guint token;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != TOKEN_ORIENTATION)
     return TOKEN_ORIENTATION;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_EQUAL_SIGN)
     return G_TOKEN_EQUAL_SIGN;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
 
   if (token == TOKEN_HORIZONTAL)
     data->match_data.orientation = GTK_ORIENTATION_HORIZONTAL;
@@ -540,15 +540,15 @@ theme_parse_shaped(GScanner * scanner,
   guint    token;
   gboolean shaped;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != TOKEN_SHAPED)
     return TOKEN_SHAPED;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_EQUAL_SIGN)
     return G_TOKEN_EQUAL_SIGN;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token == TOKEN_TRUE)
     shaped = TRUE;
   else if (token == TOKEN_FALSE)
@@ -624,87 +624,87 @@ theme_parse_image(GtkSettings  *settings,
   ThemeImage *data;
 
   data = NULL;
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != TOKEN_IMAGE)
     return TOKEN_IMAGE;
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
   if (token != G_TOKEN_LEFT_CURLY)
     return G_TOKEN_LEFT_CURLY;
 
   data = g_new0 (ThemeImage, 1);
   data->refcount = 1;
 
-  token = g_scanner_peek_next_token(scanner);
+  token = g_scanner_peek_next_token (scanner);
   while (token != G_TOKEN_RIGHT_CURLY)
     {
       switch (token)
 	{
 	case TOKEN_FUNCTION:
-	  token = theme_parse_function(scanner, data);
+	  token = theme_parse_function (scanner, data);
 	  break;
 	case TOKEN_DETAIL:
-	  token = theme_parse_detail(scanner, data);
+	  token = theme_parse_detail (scanner, data);
 	  break;
 	case TOKEN_STATE:
-	  token = theme_parse_state(scanner, data);
+	  token = theme_parse_state (scanner, data);
 	  break;
 	case TOKEN_SHADOW:
-	  token = theme_parse_shadow(scanner, data);
+	  token = theme_parse_shadow (scanner, data);
 	  break;
 	case TOKEN_GAP_SIDE:
-	  token = theme_parse_gap_side(scanner, data);
+	  token = theme_parse_gap_side (scanner, data);
 	  break;
 	case TOKEN_ARROW_DIRECTION:
-	  token = theme_parse_arrow_direction(scanner, data);
+	  token = theme_parse_arrow_direction (scanner, data);
 	  break;
 	case TOKEN_ORIENTATION:
-	  token = theme_parse_orientation(scanner, data);
+	  token = theme_parse_orientation (scanner, data);
 	  break;
 	case TOKEN_POSITION:
-	  token = theme_parse_position(scanner, data);
+	  token = theme_parse_position (scanner, data);
 	  break;
 	case TOKEN_FILE:
-	  token = theme_parse_file(settings, scanner, &data->background);
+	  token = theme_parse_file (settings, scanner, &data->background);
 	  break;
 	case TOKEN_BORDER:
-	  token = theme_parse_border(scanner, &data->background);
+	  token = theme_parse_border (scanner, &data->background);
 	  break;
 	case TOKEN_STRETCH:
-	  token = theme_parse_stretch(scanner, &data->background);
+	  token = theme_parse_stretch (scanner, &data->background);
 	  break;
 	case TOKEN_SHAPED:
-	  token = theme_parse_shaped(scanner, data);
+	  token = theme_parse_shaped (scanner, data);
 	  break;
 	case TOKEN_GAP_FILE:
-	  token = theme_parse_file(settings, scanner, &data->gap);
+	  token = theme_parse_file (settings, scanner, &data->gap);
 	  break;
 	case TOKEN_GAP_BORDER:
-	  token = theme_parse_border(scanner, &data->gap);
+	  token = theme_parse_border (scanner, &data->gap);
 	  break;
 	case TOKEN_GAP_START_FILE:
-	  token = theme_parse_file(settings, scanner, &data->gap_start);
+	  token = theme_parse_file (settings, scanner, &data->gap_start);
 	  break;
 	case TOKEN_GAP_START_BORDER:
-	  token = theme_parse_border(scanner, &data->gap_start);
+	  token = theme_parse_border (scanner, &data->gap_start);
 	  break;
 	case TOKEN_GAP_END_FILE:
-	  token = theme_parse_file(settings, scanner, &data->gap_end);
+	  token = theme_parse_file (settings, scanner, &data->gap_end);
 	  break;
 	case TOKEN_GAP_END_BORDER:
-	  token = theme_parse_border(scanner, &data->gap_end);
+	  token = theme_parse_border (scanner, &data->gap_end);
 	  break;
 	case TOKEN_OVERLAY_FILE:
-	  token = theme_parse_file(settings, scanner, &data->overlay);
+	  token = theme_parse_file (settings, scanner, &data->overlay);
 	  break;
 	case TOKEN_OVERLAY_BORDER:
-	  token = theme_parse_border(scanner, &data->overlay);
+	  token = theme_parse_border (scanner, &data->overlay);
 	  break;
 	case TOKEN_OVERLAY_STRETCH:
-	  token = theme_parse_stretch(scanner, &data->overlay);
+	  token = theme_parse_stretch (scanner, &data->overlay);
 	  break;
 	default:
-	  g_scanner_get_next_token(scanner);
+	  g_scanner_get_next_token (scanner);
 	  token = G_TOKEN_RIGHT_CURLY;
 	  break;
 	}
@@ -715,16 +715,16 @@ theme_parse_image(GtkSettings  *settings,
 	  *data_return = NULL;
 	  return token;
 	}
-      token = g_scanner_peek_next_token(scanner);
+      token = g_scanner_peek_next_token (scanner);
     }
 
-  token = g_scanner_get_next_token(scanner);
+  token = g_scanner_get_next_token (scanner);
 
-  validate_pixbuf(scanner, &data->background, "");
-  validate_pixbuf(scanner, &data->overlay,    "overlay_");
-  validate_pixbuf(scanner, &data->gap,        "gap_");
-  validate_pixbuf(scanner, &data->gap_start,  "gap_start_");
-  validate_pixbuf(scanner, &data->gap_end,    "gap_end_");
+  validate_pixbuf (scanner, &data->background, "");
+  validate_pixbuf (scanner, &data->overlay,    "overlay_");
+  validate_pixbuf (scanner, &data->gap,        "gap_");
+  validate_pixbuf (scanner, &data->gap_start,  "gap_start_");
+  validate_pixbuf (scanner, &data->gap_end,    "gap_end_");
 
   if (token != G_TOKEN_RIGHT_CURLY)
     {
@@ -755,38 +755,38 @@ sapwood_rc_style_parse (GtkRcStyle *rc_style,
   /* Set up a new scope in this scanner. */
 
   if (!scope_id)
-    scope_id = g_quark_from_string("sapwood-theme-engine");
+    scope_id = g_quark_from_string ("sapwood-theme-engine");
 
   /* If we bail out due to errors, we *don't* reset the scope, so the
    * error messaging code can make sense of our tokens.
    */
-  old_scope = g_scanner_set_scope(scanner, scope_id);
+  old_scope = g_scanner_set_scope (scanner, scope_id);
 
   /* Now check if we already added our symbols to this scope
    * (in some previous call to theme_parse_rc_style for the
    * same scanner.
    */
 
-  if (!g_scanner_lookup_symbol(scanner, theme_symbols[0].name))
+  if (!g_scanner_lookup_symbol (scanner, theme_symbols[0].name))
     {
-      g_scanner_freeze_symbol_table(scanner);
+      g_scanner_freeze_symbol_table (scanner);
       for (i = 0; i < G_N_ELEMENTS (theme_symbols); i++)
-	g_scanner_scope_add_symbol(scanner, scope_id,
-				   theme_symbols[i].name,
-				   GINT_TO_POINTER(theme_symbols[i].token));
-      g_scanner_thaw_symbol_table(scanner);
+	g_scanner_scope_add_symbol (scanner, scope_id,
+				    theme_symbols[i].name,
+				    GINT_TO_POINTER (theme_symbols[i].token));
+      g_scanner_thaw_symbol_table (scanner);
     }
 
   /* We're ready to go, now parse the top level */
 
-  token = g_scanner_peek_next_token(scanner);
+  token = g_scanner_peek_next_token (scanner);
   while (token != G_TOKEN_RIGHT_CURLY)
     {
       switch (token)
 	{
 	case TOKEN_IMAGE:
 	  img = NULL;
-	  token = theme_parse_image(settings, scanner, sapwood_style, &img);
+	  token = theme_parse_image (settings, scanner, sapwood_style, &img);
 	  break;
 	default:
 	  g_scanner_get_next_token(scanner);
@@ -797,16 +797,16 @@ sapwood_rc_style_parse (GtkRcStyle *rc_style,
       if (token != G_TOKEN_NONE)
 	return token;
       else
-	sapwood_style->img_list = g_list_prepend(sapwood_style->img_list, img);
+	sapwood_style->img_list = g_list_prepend (sapwood_style->img_list, img);
 
-      token = g_scanner_peek_next_token(scanner);
+      token = g_scanner_peek_next_token (scanner);
     }
 
-  g_scanner_get_next_token(scanner);
+  g_scanner_get_next_token (scanner);
 
-  g_scanner_set_scope(scanner, old_scope);
+  g_scanner_set_scope (scanner, old_scope);
 
-  sapwood_style->img_list = g_list_reverse(sapwood_style->img_list);
+  sapwood_style->img_list = g_list_reverse (sapwood_style->img_list);
 
   return G_TOKEN_NONE;
 }
