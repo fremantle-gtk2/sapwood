@@ -6,11 +6,11 @@ engine_LTLIBRARIES = libsapwood.la
 
 libsapwood_la_SOURCES = 	\
 	sapwood-main.c		\
-	sapwood-render.c	\
 	sapwood-rc-style.c	\
 	sapwood-rc-style.h	\
 	sapwood-style.c		\
 	sapwood-style.h		\
+	theme-pixbuf.c		\
 	theme-pixbuf.h		\
 	sapwood-pixmap.c	\
 	sapwood-pixmap.h	\

@@ -4,6 +4,15 @@
 	based on a patch by Christian Dywan
 
 	* src/Makefile.am: updated file names
+	* src/sapwood-render.c: removed
+	* src/theme-pixbuf.c (new): moved to this name
+
+2008-09-02  Sven Herzberg  <sven@imendio.com>
+
+	Let the filename match the name of the implemented class
+	based on a patch by Christian Dywan
+
+	* src/Makefile.am: updated file names
 	* src/sapwood-draw.c: removed
 	* src/sapwood-style.c (new): moved to this name
 
