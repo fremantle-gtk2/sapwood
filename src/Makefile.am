@@ -5,11 +5,11 @@ enginedir = $(libdir)/gtk-2.0/$(GTK_VERSION)/engines
 engine_LTLIBRARIES = libsapwood.la
 
 libsapwood_la_SOURCES = 	\
-	sapwood-draw.c		\
 	sapwood-main.c		\
 	sapwood-render.c	\
 	sapwood-rc-style.c	\
 	sapwood-rc-style.h	\
+	sapwood-style.c		\
 	sapwood-style.h		\
 	theme-pixbuf.h		\
 	sapwood-pixmap.c	\
