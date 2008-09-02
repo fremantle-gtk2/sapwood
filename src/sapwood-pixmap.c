@@ -342,7 +342,7 @@ sapwood_pixmap_render_rects_internal (SapwoodPixmap *self,
 	    {
 	      if (!gdk_rectangle_intersect (dest, clip_rect, &area))
 		continue;
-	    }	  
+	    }
 	  else
 	    area = *dest;
 
@@ -421,7 +421,7 @@ sapwood_pixmap_render_rects (SapwoodPixmap *self,
   cairo_t   *tmp_cr;
   cairo_t   *cr;
   gint       n;
-  
+
   /* Don't even try to scale down shape masks (should never be useful, and
    * implementing would add some complexity.) Areas larger than the pixmap
    * can be tiled fine.

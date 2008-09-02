@@ -334,7 +334,7 @@ theme_pixbuf_render (ThemePixbuf  *theme_pb,
 							           \
     n_rect++;						           \
 } while(0)
-      
+
       n_rect = 0;
       if (component_mask & COMPONENT_NORTH_WEST) RENDER_COMPONENT (0, 0);
       if (component_mask & COMPONENT_NORTH)	 RENDER_COMPONENT (1, 0);

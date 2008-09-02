@@ -1,5 +1,19 @@
 2008-09-02  Sven Herzberg  <sven@imendio.com>
 
+	Drop trailing whitespaces
+	based on a patch by Christian Dywan
+
+	* src/sapwood-pixmap.c,
+	* src/sapwood-rc-style.c,
+	* src/sapwood-rc-style.h,
+	* src/sapwood-server.c,
+	* src/sapwood-style.c,
+	* src/sapwood-style.h,
+	* src/theme-pixbuf.c,
+	* src/theme-pixbuf.h: drop trailing whitespaces
+
+2008-09-02  Sven Herzberg  <sven@imendio.com>
+
 	Let the filename match the name of the implemented class
 	based on a patch by Christian Dywan
 

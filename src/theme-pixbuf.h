@@ -169,7 +169,7 @@ struct _ThemeImage
   ThemePixbuf    *gap_start;
   ThemePixbuf    *gap;
   ThemePixbuf    *gap_end;
-  
+
   ThemeMatchData  match_data;
 
   guint           refcount : 31;
@@ -204,7 +204,6 @@ gboolean     theme_pixbuf_render       (ThemePixbuf  *theme_pb,
 					gint          dest_y,
 					gint          dest_width,
 					gint          dest_height) G_GNUC_INTERNAL;
-
 
 
 extern GtkStyleClass pixmap_default_class G_GNUC_INTERNAL;

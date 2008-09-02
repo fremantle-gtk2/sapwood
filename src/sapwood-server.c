@@ -178,11 +178,11 @@ extract_pixmaps (GdkPixbuf *pixbuf, const PixbufOpenRequest *req, PixbufOpenResp
 	  y1 = height;
 	  break;
 	}
-      
+
       for (j = 0; j < 3; j++)
 	{
 	  gint x0, x1;
-	  
+
 	  switch (j)
 	    {
 	    case 0:

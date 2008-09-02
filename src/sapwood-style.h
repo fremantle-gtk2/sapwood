@@ -47,5 +47,3 @@ struct _SapwoodStyleClass
 };
 
 void sapwood_style_register_type (GTypeModule *module) G_GNUC_INTERNAL;
-
-

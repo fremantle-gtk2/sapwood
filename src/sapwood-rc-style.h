@@ -39,7 +39,7 @@ extern GType sapwood_type_rc_style G_GNUC_INTERNAL;
 struct _SapwoodRcStyle
 {
   GtkRcStyle parent_instance;
-  
+
   GList *img_list;
 };
 
