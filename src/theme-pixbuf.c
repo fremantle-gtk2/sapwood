@@ -94,7 +94,8 @@ theme_pixbuf_hash (gconstpointer v)
 }
 
 static gboolean
-theme_pixbuf_equal (gconstpointer v1, gconstpointer v2)
+theme_pixbuf_equal (gconstpointer v1,
+                    gconstpointer v2)
 {
   const ThemePixbuf *a = v1;
   const ThemePixbuf *b = v2;
@@ -107,7 +108,8 @@ theme_pixbuf_equal (gconstpointer v1, gconstpointer v2)
 }
 
 ThemePixbuf *
-theme_pixbuf_canonicalize (ThemePixbuf *theme_pb, gboolean *warn)
+theme_pixbuf_canonicalize (ThemePixbuf *theme_pb,
+                           gboolean    *warn)
 {
   ThemePixbuf *canon;
 

@@ -22,7 +22,7 @@
  * Carsten Haitzler <raster@rasterman.com>
  */
 
-#include <gtk/gtkrc.h>
+#include <gtk/gtk.h>
 
 typedef struct _SapwoodRcStyle SapwoodRcStyle;
 typedef struct _SapwoodRcStyleClass SapwoodRcStyleClass;

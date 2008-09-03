@@ -105,8 +105,13 @@ match_theme_image (GtkStyle       *style,
 }
 
 static GdkBitmap *
-get_window_for_shape (ThemeImage *image, GdkWindow *window, GtkWidget *widget,
-		      gint x, gint y, gint width, gint height)
+get_window_for_shape (ThemeImage *image,
+                      GdkWindow  *window,
+                      GtkWidget  *widget,
+                      gint        x,
+                      gint        y,
+                      gint        width,
+                      gint        height)
 {
   /* It's not a good idea to set a shape mask when painting on anything but
    * widget->window, not only does the shape mask get wrongly offset but also
@@ -190,7 +195,8 @@ check_child_position (GtkWidget      *child,
 }
 
 static void
-check_buttonbox_child_position (GtkWidget *child, ThemeMatchData *match_data)
+check_buttonbox_child_position (GtkWidget      *child,
+                                ThemeMatchData *match_data)
 {
   GList *children = NULL;
   GList *l;
@@ -216,16 +222,16 @@ check_buttonbox_child_position (GtkWidget *child, ThemeMatchData *match_data)
 }
 
 static gboolean
-draw_simple_image(GtkStyle       *style,
-		  GdkWindow      *window,
-		  GdkRectangle   *area,
-		  GtkWidget      *widget,
-		  ThemeMatchData *match_data,
-		  gboolean        draw_center,
-		  gint            x,
-		  gint            y,
-		  gint            width,
-		  gint            height)
+draw_simple_image (GtkStyle       *style,
+                   GdkWindow      *window,
+                   GdkRectangle   *area,
+                   GtkWidget      *widget,
+                   ThemeMatchData *match_data,
+                   gboolean        draw_center,
+                   gint            x,
+                   gint            y,
+                   gint            width,
+                   gint            height)
 {
   gboolean maemo_position_theming;
   ThemeImage *image;
@@ -311,19 +317,19 @@ draw_simple_image(GtkStyle       *style,
 }
 
 static gboolean
-draw_gap_image(GtkStyle       *style,
-	       GdkWindow      *window,
-	       GdkRectangle   *area,
-	       GtkWidget      *widget,
-	       ThemeMatchData *match_data,
-	       gboolean        draw_center,
-	       gint            x,
-	       gint            y,
-	       gint            width,
-	       gint            height,
-	       GtkPositionType gap_side,
-	       gint            gap_x,
-	       gint            gap_width)
+draw_gap_image (GtkStyle       *style,
+                GdkWindow      *window,
+                GdkRectangle   *area,
+                GtkWidget      *widget,
+                ThemeMatchData *match_data,
+                gboolean        draw_center,
+                gint            x,
+                gint            y,
+                gint            width,
+                gint            height,
+                GtkPositionType gap_side,
+                gint            gap_x,
+                gint            gap_width)
 {
   ThemeImage *image;
 
@@ -534,17 +540,17 @@ draw_vline (GtkStyle     *style,
 }
 
 static void
-draw_shadow(GtkStyle     *style,
-	    GdkWindow    *window,
-	    GtkStateType  state,
-	    GtkShadowType shadow,
-	    GdkRectangle *area,
-	    GtkWidget    *widget,
-	    const gchar  *detail,
-	    gint          x,
-	    gint          y,
-	    gint          width,
-	    gint          height)
+draw_shadow (GtkStyle     *style,
+             GdkWindow    *window,
+             GtkStateType  state,
+             GtkShadowType shadow,
+             GdkRectangle *area,
+             GtkWidget    *widget,
+             const gchar  *detail,
+             gint          x,
+             gint          y,
+             gint          width,
+             gint          height)
 {
   ThemeMatchData match_data;
 
@@ -729,15 +735,15 @@ draw_diamond (GtkStyle     *style,
 }
 
 static void
-draw_string (GtkStyle * style,
-	     GdkWindow * window,
-	     GtkStateType state,
-	     GdkRectangle * area,
-	     GtkWidget * widget,
-	     const gchar *detail,
-	     gint x,
-	     gint y,
-	     const gchar * string)
+draw_string (GtkStyle     *style,
+             GdkWindow    *window,
+             GtkStateType  state,
+             GdkRectangle *area,
+             GtkWidget    *widget,
+             const gchar  *detail,
+             gint          x,
+             gint          y,
+             const gchar  *string)
 {
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
@@ -769,7 +775,8 @@ draw_string (GtkStyle * style,
 }
 
 static void
-maybe_check_submenu_state (GtkMenuItem *menu_item, ThemeMatchData *match_data)
+maybe_check_submenu_state (GtkMenuItem    *menu_item,
+                           ThemeMatchData *match_data)
 {
   /* Distinguish between active and passive focus, depending on whether the
    * focus is in submenu.
@@ -843,7 +850,10 @@ draw_box (GtkStyle     *style,
 
 static void
 maybe_check_cursor_position (GtkTreeView *treeview,
-                             gint x, gint y, gint width, gint height,
+                             gint         x,
+                             gint         y,
+                             gint         width,
+                             gint         height,
                              ThemeMatchData *match_data)
 {
   GtkTreePath *cursor_path;

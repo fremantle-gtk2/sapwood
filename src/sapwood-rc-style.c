@@ -170,9 +170,9 @@ sapwood_rc_style_finalize (GObject *object)
 }
 
 static guint
-theme_parse_file(GtkSettings  *settings,
-		 GScanner     *scanner,
-		 ThemePixbuf **theme_pb)
+theme_parse_file (GtkSettings  *settings,
+                  GScanner     *scanner,
+                  ThemePixbuf **theme_pb)
 {
   guint token;
   gchar *pixmap;
@@ -261,8 +261,8 @@ theme_parse_border (GScanner     *scanner,
 }
 
 static guint
-theme_parse_stretch(GScanner     *scanner,
-		    ThemePixbuf **theme_pb)
+theme_parse_stretch (GScanner     *scanner,
+                     ThemePixbuf **theme_pb)
 {
   guint token;
   gboolean stretch;
@@ -291,8 +291,8 @@ theme_parse_stretch(GScanner     *scanner,
 }
 
 static guint
-theme_parse_function(GScanner * scanner,
-		     ThemeImage *data)
+theme_parse_function (GScanner   *scanner,
+                      ThemeImage *data)
 {
   guint               token;
 
@@ -312,10 +312,10 @@ theme_parse_function(GScanner * scanner,
 }
 
 static guint
-theme_parse_detail(GScanner * scanner,
-		   ThemeImage * data)
+theme_parse_detail (GScanner   *scanner,
+                    ThemeImage *data)
 {
-  guint               token;
+  guint token;
 
   token = g_scanner_get_next_token (scanner);
   if (token != TOKEN_DETAIL)
@@ -338,8 +338,8 @@ theme_parse_detail(GScanner * scanner,
 }
 
 static guint
-theme_parse_position(GScanner * scanner,
-		     ThemeImage * data)
+theme_parse_position (GScanner   *scanner,
+                      ThemeImage *data)
 {
   guint token;
 
@@ -377,8 +377,8 @@ theme_parse_position(GScanner * scanner,
 }
 
 static guint
-theme_parse_state(GScanner * scanner,
-		  ThemeImage * data)
+theme_parse_state (GScanner   *scanner,
+                   ThemeImage *data)
 {
   guint token;
 
@@ -410,10 +410,10 @@ theme_parse_state(GScanner * scanner,
 }
 
 static guint
-theme_parse_shadow(GScanner * scanner,
-		   ThemeImage * data)
+theme_parse_shadow (GScanner   *scanner,
+                    ThemeImage *data)
 {
-  guint               token;
+  guint token;
 
   token = g_scanner_get_next_token (scanner);
   if (token != TOKEN_SHADOW)
@@ -443,8 +443,8 @@ theme_parse_shadow(GScanner * scanner,
 }
 
 static guint
-theme_parse_arrow_direction(GScanner * scanner,
-			    ThemeImage * data)
+theme_parse_arrow_direction (GScanner   *scanner,
+                             ThemeImage *data)
 {
   guint token;
 
@@ -474,8 +474,8 @@ theme_parse_arrow_direction(GScanner * scanner,
 }
 
 static guint
-theme_parse_gap_side(GScanner * scanner,
-		     ThemeImage * data)
+theme_parse_gap_side (GScanner   *scanner,
+                      ThemeImage *data)
 {
   guint token;
 
@@ -506,8 +506,8 @@ theme_parse_gap_side(GScanner * scanner,
 }
 
 static guint
-theme_parse_orientation(GScanner * scanner,
-			ThemeImage * data)
+theme_parse_orientation (GScanner   *scanner,
+                         ThemeImage *data)
 {
   guint token;
 
@@ -534,10 +534,10 @@ theme_parse_orientation(GScanner * scanner,
 }
 
 static guint
-theme_parse_shaped(GScanner * scanner,
-		   ThemeImage * data)
+theme_parse_shaped (GScanner   *scanner,
+                    ThemeImage *data)
 {
-  guint    token;
+  guint token;
   gboolean shaped;
 
   token = g_scanner_get_next_token (scanner);
@@ -590,7 +590,9 @@ theme_image_unref (ThemeImage *data)
 }
 
 static void
-validate_pixbuf (GScanner *scanner, ThemePixbuf **theme_pb, const char *name)
+validate_pixbuf (GScanner     *scanner,
+                 ThemePixbuf **theme_pb,
+                 const char   *name)
 {
   if (!*theme_pb)
     return;
@@ -615,12 +617,12 @@ validate_pixbuf (GScanner *scanner, ThemePixbuf **theme_pb, const char *name)
 }
 
 static guint
-theme_parse_image(GtkSettings  *settings,
-		  GScanner      *scanner,
-		  SapwoodRcStyle *sapwood_style,
-		  ThemeImage   **data_return)
+theme_parse_image (GtkSettings     *settings,
+                   GScanner        *scanner,
+                   SapwoodRcStyle  *sapwood_style,
+                   ThemeImage     **data_return)
 {
-  guint               token;
+  guint token;
   ThemeImage *data;
 
   data = NULL;
@@ -740,9 +742,9 @@ theme_parse_image(GtkSettings  *settings,
 }
 
 static guint
-sapwood_rc_style_parse (GtkRcStyle *rc_style,
-		       GtkSettings  *settings,
-		       GScanner   *scanner)
+sapwood_rc_style_parse (GtkRcStyle  *rc_style,
+                        GtkSettings *settings,
+                        GScanner    *scanner)
 {
   static GQuark scope_id = 0;
   SapwoodRcStyle *sapwood_style = SAPWOOD_RC_STYLE (rc_style);
@@ -789,7 +791,7 @@ sapwood_rc_style_parse (GtkRcStyle *rc_style,
 	  token = theme_parse_image (settings, scanner, sapwood_style, &img);
 	  break;
 	default:
-	  g_scanner_get_next_token(scanner);
+	  g_scanner_get_next_token (scanner);
 	  token = G_TOKEN_RIGHT_CURLY;
 	  break;
 	}

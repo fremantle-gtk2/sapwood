@@ -87,9 +87,11 @@ pixbuf_proto_get_socket (GError **err)
 }
 
 static gboolean
-pixbuf_proto_request (const char *req, ssize_t reqlen,
-		      char       *rep, ssize_t replen,
-		      GError    **err)
+pixbuf_proto_request (const char *req,
+                      ssize_t     reqlen,
+                      char       *rep,
+                      ssize_t     replen,
+                      GError    **err)
 {
   static int fd = -1;
   ssize_t    n;
@@ -139,11 +141,11 @@ pixbuf_proto_request (const char *req, ssize_t reqlen,
 
 SapwoodPixmap *
 sapwood_pixmap_get_for_file (const char *filename,
-			    int border_left,
-			    int border_right,
-			    int border_top,
-			    int border_bottom,
-			    GError **err)
+                             int         border_left,
+                             int         border_right,
+                             int         border_top,
+                             int         border_bottom,
+                             GError    **err)
 {
   SapwoodPixmap     *self;
   char               buf[ sizeof(PixbufOpenRequest) + PATH_MAX + 1 ] = {0};
@@ -279,8 +281,8 @@ sapwood_pixmap_free (SapwoodPixmap *self)
 
 gboolean
 sapwood_pixmap_get_geometry (SapwoodPixmap *self,
-			    gint         *width,
-			    gint         *height)
+                             gint          *width,
+                             gint          *height)
 {
   if (!self)
     return FALSE;
@@ -294,8 +296,11 @@ sapwood_pixmap_get_geometry (SapwoodPixmap *self,
 }
 
 void
-sapwood_pixmap_get_pixmap (SapwoodPixmap *self, gint x, gint y,
-			   GdkPixmap **pixmap, GdkBitmap **pixmask)
+sapwood_pixmap_get_pixmap (SapwoodPixmap *self,
+                           gint           x,
+                           gint           y,
+                           GdkPixmap    **pixmap,
+                           GdkBitmap    **pixmask)
 {
   *pixmap  = self->pixmap[y][x];
   *pixmask = self->pixmask[y][x];
