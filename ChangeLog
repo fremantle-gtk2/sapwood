@@ -1,5 +1,15 @@
 2008-09-03  Sven Herzberg  <sven@imendio.com>
 
+	added missing files
+
+	* protocol/Makefile.am,
+	* protocol/sapwood-proto.c,
+	* protocol/sapwood-proto.h,
+	* server/Makefile.am,
+	* server/sapwood-server.c: added missing files
+
+2008-09-03  Sven Herzberg  <sven@imendio.com>
+
 	Split the code into server, protocol and engine parts
 	based on a patch by Christian Dywan
 
