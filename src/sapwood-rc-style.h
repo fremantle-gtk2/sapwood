@@ -22,14 +22,17 @@
  * Carsten Haitzler <raster@rasterman.com>
  */
 
+#ifndef __SAPWOOD_RC_STYLE_H__
+#define __SAPWOOD_RC_STYLE_H__
+
 #include <gtk/gtk.h>
 
 typedef struct _SapwoodRcStyle SapwoodRcStyle;
 typedef struct _SapwoodRcStyleClass SapwoodRcStyleClass;
 
-extern GType sapwood_type_rc_style G_GNUC_INTERNAL;
+G_BEGIN_DECLS
 
-#define SAPWOOD_TYPE_RC_STYLE              sapwood_type_rc_style
+#define SAPWOOD_TYPE_RC_STYLE              (sapwood_rc_style_get_type ())
 #define SAPWOOD_RC_STYLE(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), SAPWOOD_TYPE_RC_STYLE, SapwoodRcStyle))
 #define SAPWOOD_RC_STYLE_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), SAPWOOD_TYPE_RC_STYLE, SapwoodRcStyleClass))
 #define SAPWOOD_IS_RC_STYLE(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), SAPWOOD_TYPE_RC_STYLE))
@@ -48,4 +51,10 @@ struct _SapwoodRcStyleClass
   GtkRcStyleClass parent_class;
 };
 
-void sapwood_rc_style_register_type (GTypeModule *module) G_GNUC_INTERNAL;
+void sapwood_rc_style_register_types   (GTypeModule           *module);
+
+GType sapwood_rc_style_get_type        (void);
+
+G_END_DECLS
+
+#endif /* __SAPWOOD_RC_STYLE_H__ */

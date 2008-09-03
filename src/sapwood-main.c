@@ -38,8 +38,8 @@ theme_init (GTypeModule *module)
   };
   const gchar* debug;
 
-  sapwood_rc_style_register_type (module);
-  sapwood_style_register_type (module);
+  sapwood_rc_style_register_types (module);
+  sapwood_style_register_types (module);
 
   debug = g_getenv ("SAPWOOD_DEBUG");
   if (debug)

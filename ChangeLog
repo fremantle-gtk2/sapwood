@@ -1,5 +1,16 @@
 2008-09-03  Sven Herzberg  <sven@imendio.com>
 
+	Use G_DEFINE_DYNAMIC_TYPE
+	patch from Christian Dywan
+
+	* src/sapwood-main.c,
+	* src/sapwood-rc-style.c,
+	* src/sapwood-rc-style.h,
+	* src/sapwood-style.c,
+	* src/sapwood-style.h: lots of cleanup here
+
+2008-09-03  Sven Herzberg  <sven@imendio.com>
+
 	Properly indent function signatures
 	based on a patch by Christian Dywan
 

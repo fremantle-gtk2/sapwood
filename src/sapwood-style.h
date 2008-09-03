@@ -22,14 +22,17 @@
  * Carsten Haitzler <raster@rasterman.com>
  */
 
+#ifndef __SAPWOOD_STYLE_H__
+#define __SAPWOOD_STYLE_H__
+
 #include <gtk/gtkstyle.h>
 
 typedef struct _SapwoodStyle SapwoodStyle;
 typedef struct _SapwoodStyleClass SapwoodStyleClass;
 
-extern GType sapwood_type_style G_GNUC_INTERNAL;
+G_BEGIN_DECLS
 
-#define SAPWOOD_TYPE_STYLE              sapwood_type_style
+#define SAPWOOD_TYPE_STYLE              (sapwood_style_get_type ())
 #define SAPWOOD_STYLE(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), SAPWOOD_TYPE_STYLE, SapwoodStyle))
 #define SAPWOOD_STYLE_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), SAPWOOD_TYPE_STYLE, SapwoodStyleClass))
 #define SAPWOOD_IS_STYLE(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), SAPWOOD_TYPE_STYLE))
@@ -46,4 +49,10 @@ struct _SapwoodStyleClass
   GtkStyleClass parent_class;
 };
 
-void sapwood_style_register_type (GTypeModule *module) G_GNUC_INTERNAL;
+void sapwood_style_register_types   (GTypeModule           *module);
+
+GType sapwood_style_get_type        (void);
+
+G_END_DECLS
+
+#endif /* __SAPWOOD_STYLE_H__ */

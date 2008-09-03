@@ -30,10 +30,7 @@
 #include "sapwood-rc-style.h"
 #include "sapwood-style.h"
 
-static void sapwood_style_init       (SapwoodStyle      *style);
-static void sapwood_style_class_init (SapwoodStyleClass *klass);
-
-static GtkStyleClass *parent_class = NULL;
+G_DEFINE_DYNAMIC_TYPE (SapwoodStyle, sapwood_style, GTK_TYPE_STYLE);
 
 static ThemeImage *
 match_theme_image (GtkStyle       *style,
@@ -499,8 +496,8 @@ draw_hline (GtkStyle     *style,
 			     x1, y, (x2 - x1) + 1, 2);
     }
   else
-    parent_class->draw_hline (style, window, state, area, widget, detail,
-			      x1, x2, y);
+    GTK_STYLE_CLASS (sapwood_style_parent_class)->draw_hline (
+      style, window, state, area, widget, detail, x1, x2, y);
 }
 
 static void
@@ -535,8 +532,8 @@ draw_vline (GtkStyle     *style,
 			     x, y1, 2, (y2 - y1) + 1);
     }
   else
-    parent_class->draw_vline (style, window, state, area, widget, detail,
-			      y1, y2, x);
+    GTK_STYLE_CLASS (sapwood_style_parent_class)->draw_vline (
+      style, window, state, area, widget, detail, y1, y2, x);
 }
 
 static void
@@ -565,8 +562,8 @@ draw_shadow (GtkStyle     *style,
 
   if (!draw_simple_image (style, window, area, widget, &match_data, FALSE,
 			  x, y, width, height))
-    parent_class->draw_shadow (style, window, state, shadow, area, widget, detail,
-			       x, y, width, height);
+    GTK_STYLE_CLASS (sapwood_style_parent_class)->draw_shadow (
+      style, window, state, shadow, area, widget, detail, x, y, width, height);
 }
 
 /* This function makes up for some brokeness in gtkrange.c
@@ -680,8 +677,9 @@ draw_arrow (GtkStyle     *style,
 
       if (!draw_simple_image (style, window, area, widget, &match_data, TRUE,
 			      box_x, box_y, box_width, box_height))
-	parent_class->draw_box (style, window, state, shadow, area, widget, detail,
-				box_x, box_y, box_width, box_height);
+	GTK_STYLE_CLASS (sapwood_style_parent_class)->draw_box (
+          style, window, state, shadow, area, widget, detail,
+          box_x, box_y, box_width, box_height);
     }
 
 #if GTK_CHECK_VERSION(2,9,2)
@@ -700,8 +698,9 @@ draw_arrow (GtkStyle     *style,
 
   if (!draw_simple_image (style, window, area, widget, &match_data, TRUE,
 			  x, y, width, height))
-    parent_class->draw_arrow (style, window, state, shadow, area, widget, detail,
-			      arrow_direction, fill, x, y, width, height);
+    GTK_STYLE_CLASS (sapwood_style_parent_class)->draw_arrow (
+      style, window, state, shadow, area, widget, detail,
+      arrow_direction, fill, x, y, width, height);
 }
 
 static void
@@ -730,8 +729,8 @@ draw_diamond (GtkStyle     *style,
 
   if (!draw_simple_image (style, window, area, widget, &match_data, TRUE,
 			  x, y, width, height))
-    parent_class->draw_diamond (style, window, state, shadow, area, widget, detail,
-				x, y, width, height);
+    GTK_STYLE_CLASS (sapwood_style_parent_class)->draw_diamond (
+      style, window, state, shadow, area, widget, detail, x, y, width, height);
 }
 
 static void
@@ -843,8 +842,8 @@ draw_box (GtkStyle     *style,
 
   if (!draw_simple_image (style, window, area, widget, &match_data, TRUE,
 			  x, y, width, height)) {
-    parent_class->draw_box (style, window, state, shadow, area, widget, detail,
-			    x, y, width, height);
+    GTK_STYLE_CLASS (sapwood_style_parent_class)->draw_box (
+      style, window, state, shadow, area, widget, detail, x, y, width, height);
   }
 }
 
@@ -928,8 +927,8 @@ draw_flat_box (GtkStyle     *style,
 
   if (!draw_simple_image (style, window, area, widget, &match_data, TRUE,
 			  x, y, width, height))
-    parent_class->draw_flat_box (style, window, state, shadow, area, widget, detail,
-				 x, y, width, height);
+    GTK_STYLE_CLASS (sapwood_style_parent_class)->draw_flat_box (
+      style, window, state, shadow, area, widget, detail, x, y, width, height);
 }
 
 static void
@@ -966,8 +965,8 @@ draw_check (GtkStyle     *style,
 
   if (!draw_simple_image (style, window, area, widget, &match_data, TRUE,
 			  x, y, width, height))
-    parent_class->draw_check (style, window, state, shadow, area, widget, detail,
-			      x, y, width, height);
+    GTK_STYLE_CLASS (sapwood_style_parent_class)->draw_check (
+      style, window, state, shadow, area, widget, detail, x, y, width, height);
 }
 
 static void
@@ -1004,8 +1003,8 @@ draw_option (GtkStyle      *style,
 
   if (!draw_simple_image (style, window, area, widget, &match_data, TRUE,
 			  x, y, width, height))
-    parent_class->draw_option (style, window, state, shadow, area, widget, detail,
-			       x, y, width, height);
+    GTK_STYLE_CLASS (sapwood_style_parent_class)->draw_option (
+      style, window, state, shadow, area, widget, detail, x, y, width, height);
 }
 
 static void
@@ -1034,8 +1033,8 @@ draw_tab (GtkStyle     *style,
 
   if (!draw_simple_image (style, window, area, widget, &match_data, TRUE,
 			  x, y, width, height))
-    parent_class->draw_tab (style, window, state, shadow, area, widget, detail,
-			    x, y, width, height);
+    GTK_STYLE_CLASS (sapwood_style_parent_class)->draw_tab (
+      style, window, state, shadow, area, widget, detail, x, y, width, height);
 }
 
 static void
@@ -1067,8 +1066,9 @@ draw_shadow_gap (GtkStyle       *style,
 
   if (!draw_gap_image (style, window, area, widget, &match_data, FALSE,
 		       x, y, width, height, gap_side, gap_x, gap_width))
-    parent_class->draw_shadow_gap (style, window, state, shadow, area, widget, detail,
-				   x, y, width, height, gap_side, gap_x, gap_width);
+    GTK_STYLE_CLASS (sapwood_style_parent_class)->draw_shadow_gap (
+      style, window, state, shadow, area, widget, detail,
+      x, y, width, height, gap_side, gap_x, gap_width);
 }
 
 static void
@@ -1100,8 +1100,9 @@ draw_box_gap (GtkStyle       *style,
 
   if (!draw_gap_image (style, window, area, widget, &match_data, TRUE,
 		       x, y, width, height, gap_side, gap_x, gap_width))
-    parent_class->draw_box_gap (style, window, state, shadow, area, widget, detail,
-				x, y, width, height, gap_side, gap_x, gap_width);
+    GTK_STYLE_CLASS (sapwood_style_parent_class)->draw_box_gap (
+      style, window, state, shadow, area, widget, detail,
+      x, y, width, height, gap_side, gap_x, gap_width);
 }
 
 static void
@@ -1150,8 +1151,9 @@ draw_expander (GtkStyle        *style,
 
   if (!draw_simple_image (style, window, area, widget, &match_data, TRUE,
                           center_x - expander_size/2, center_y - expander_size/2, expander_size, expander_size))
-    parent_class->draw_expander (style, window, state, area, widget, detail,
-                                 center_x, center_y, expander_style);
+    GTK_STYLE_CLASS (sapwood_style_parent_class)->draw_expander (
+      style, window, state, area, widget, detail,
+      center_x, center_y, expander_style);
 }
 
 static void
@@ -1182,8 +1184,9 @@ draw_extension (GtkStyle       *style,
 
   if (!draw_simple_image (style, window, area, widget, &match_data, TRUE,
 			  x, y, width, height))
-    parent_class->draw_extension (style, window, state, shadow, area, widget, detail,
-				  x, y, width, height, gap_side);
+    GTK_STYLE_CLASS (sapwood_style_parent_class)->draw_extension (
+      style, window, state, shadow, area, widget, detail,
+      x, y, width, height, gap_side);
 }
 
 static void
@@ -1210,8 +1213,8 @@ draw_focus (GtkStyle     *style,
 
   if (!draw_simple_image (style, window, area, widget, &match_data, TRUE,
 			  x, y, width, height))
-    parent_class->draw_focus (style, window, state, area, widget, detail,
-			      x, y, width, height);
+    GTK_STYLE_CLASS (sapwood_style_parent_class)->draw_focus (
+      style, window, state, area, widget, detail, x, y, width, height);
 }
 
 static void
@@ -1244,8 +1247,9 @@ draw_slider (GtkStyle      *style,
 
   if (!draw_simple_image (style, window, area, widget, &match_data, TRUE,
 			  x, y, width, height))
-    parent_class->draw_slider (style, window, state, shadow, area, widget, detail,
-			       x, y, width, height, orientation);
+    GTK_STYLE_CLASS (sapwood_style_parent_class)->draw_slider (
+      style, window, state, shadow, area, widget, detail,
+      x, y, width, height, orientation);
 }
 
 
@@ -1279,8 +1283,9 @@ draw_handle (GtkStyle      *style,
 
   if (!draw_simple_image (style, window, area, widget, &match_data, TRUE,
 			  x, y, width, height))
-    parent_class->draw_handle (style, window, state, shadow, area, widget, detail,
-			       x, y, width, height, orientation);
+    GTK_STYLE_CLASS (sapwood_style_parent_class)->draw_handle (
+      style, window, state, shadow, area, widget, detail,
+      x, y, width, height, orientation);
 }
 
 static GdkPixbuf *
@@ -1306,7 +1311,8 @@ render_icon (GtkStyle               *style,
        * a simple background color (white) raster on top
        */
 
-      pixbuf = parent_class->render_icon (style, source, direction, GTK_STATE_NORMAL, size, widget, detail);
+      pixbuf = GTK_STYLE_CLASS (sapwood_style_parent_class)->render_icon (
+        style, source, direction, GTK_STATE_NORMAL, size, widget, detail);
       if (!pixbuf)
 	return NULL;
 
@@ -1348,7 +1354,8 @@ render_icon (GtkStyle               *style,
       return stated;
     }
   else
-    return parent_class->render_icon (style, source, direction, state, size, widget, detail);
+    return GTK_STYLE_CLASS (sapwood_style_parent_class)->render_icon (
+      style, source, direction, state, size, widget, detail);
 }
 
 static void
@@ -1378,28 +1385,10 @@ draw_layout (GtkStyle     *style,
     gdk_gc_set_clip_rectangle (gc, NULL);
 }
 
-GType sapwood_type_style = 0;
-
 void
-sapwood_style_register_type (GTypeModule *module)
+sapwood_style_register_types (GTypeModule *module)
 {
-  static const GTypeInfo object_info =
-  {
-    sizeof (SapwoodStyleClass),
-    (GBaseInitFunc) NULL,
-    (GBaseFinalizeFunc) NULL,
-    (GClassInitFunc) sapwood_style_class_init,
-    NULL,           /* class_finalize */
-    NULL,           /* class_data */
-    sizeof (SapwoodStyle),
-    0,              /* n_preallocs */
-    (GInstanceInitFunc) sapwood_style_init,
-  };
-  
-  sapwood_type_style = g_type_module_register_type (module,
-						   GTK_TYPE_STYLE,
-						   "SapwoodStyle",
-						   &object_info, 0);
+  sapwood_style_register_type (module);
 }
 
 static void
@@ -1411,8 +1400,6 @@ static void
 sapwood_style_class_init (SapwoodStyleClass *klass)
 {
   GtkStyleClass *style_class = GTK_STYLE_CLASS (klass);
-
-  parent_class = g_type_class_peek_parent (klass);
 
   style_class->draw_hline = draw_hline;
   style_class->draw_vline = draw_vline;
@@ -1434,4 +1421,9 @@ sapwood_style_class_init (SapwoodStyleClass *klass)
   style_class->render_icon = render_icon;
   style_class->draw_expander = draw_expander;
   style_class->draw_layout = draw_layout;
+}
+
+static void
+sapwood_style_class_finalize (SapwoodStyleClass *klass)
+{
 }

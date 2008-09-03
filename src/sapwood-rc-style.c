@@ -27,8 +27,6 @@
 #include "sapwood-style.h"
 #include "sapwood-rc-style.h"
 
-static void      sapwood_rc_style_init         (SapwoodRcStyle      *style);
-static void      sapwood_rc_style_class_init   (SapwoodRcStyleClass *klass);
 static void      sapwood_rc_style_finalize     (GObject            *object);
 static guint     sapwood_rc_style_parse        (GtkRcStyle         *rc_style,
 						GtkSettings  *settings,
@@ -41,8 +39,8 @@ static void theme_image_unref (ThemeImage *data);
 
 static struct
   {
-    gchar              *name;
-    guint               token;
+    gchar *name;
+    guint  token;
   }
 theme_symbols[] =
 {
@@ -112,30 +110,12 @@ theme_symbols[] =
   { "VERTICAL",		TOKEN_VERTICAL },
 };
 
-static GtkRcStyleClass *parent_class;
-
-GType sapwood_type_rc_style = 0;
+G_DEFINE_DYNAMIC_TYPE (SapwoodRcStyle, sapwood_rc_style, GTK_TYPE_RC_STYLE);
 
 void
-sapwood_rc_style_register_type (GTypeModule *module)
+sapwood_rc_style_register_types (GTypeModule *module)
 {
-  static const GTypeInfo object_info =
-  {
-    sizeof (SapwoodRcStyleClass),
-    (GBaseInitFunc) NULL,
-    (GBaseFinalizeFunc) NULL,
-    (GClassInitFunc) sapwood_rc_style_class_init,
-    NULL,           /* class_finalize */
-    NULL,           /* class_data */
-    sizeof (SapwoodRcStyle),
-    0,              /* n_preallocs */
-    (GInstanceInitFunc) sapwood_rc_style_init,
-  };
-
-  sapwood_type_rc_style = g_type_module_register_type (module,
-						      GTK_TYPE_RC_STYLE,
-						      "SapwoodRcStyle",
-						      &object_info, 0);
+  sapwood_rc_style_register_type (module);
 }
 
 static void
@@ -148,8 +128,6 @@ sapwood_rc_style_class_init (SapwoodRcStyleClass *klass)
 {
   GtkRcStyleClass *rc_style_class = GTK_RC_STYLE_CLASS (klass);
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-  parent_class = g_type_class_peek_parent (klass);
 
   rc_style_class->parse = sapwood_rc_style_parse;
   rc_style_class->merge = sapwood_rc_style_merge;
@@ -166,7 +144,12 @@ sapwood_rc_style_finalize (GObject *object)
   g_list_foreach (rc_style->img_list, (GFunc) theme_image_unref, NULL);
   g_list_free (rc_style->img_list);
 
-  G_OBJECT_CLASS (parent_class)->finalize (object);
+  G_OBJECT_CLASS (sapwood_rc_style_parent_class)->finalize (object);
+}
+
+static void
+sapwood_rc_style_class_finalize (SapwoodRcStyleClass *klass)
+{
 }
 
 static guint
@@ -850,7 +833,7 @@ sapwood_rc_style_merge (GtkRcStyle *dest,
 	}
     }
 
-  parent_class->merge (dest, src);
+  GTK_RC_STYLE_CLASS (sapwood_rc_style_parent_class)->merge (dest, src);
 }
 
 /* Create an empty style suitable to this RC style
