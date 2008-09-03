@@ -1,4 +1,6 @@
-INCLUDES = $(GTK_CFLAGS) -DSAPWOOD_SERVER=\"$(daemondir)/sapwood-server\"
+INCLUDES = $(GTK_CFLAGS) \
+	   -DSAPWOOD_SERVER=\"$(daemondir)/sapwood-server\" \
+	   -I$(top_srcdir)/protocol
 
 enginedir = $(libdir)/gtk-2.0/$(GTK_VERSION)/engines
 
@@ -14,19 +16,11 @@ libsapwood_la_SOURCES = 	\
 	theme-pixbuf.h		\
 	sapwood-pixmap.c	\
 	sapwood-pixmap.h	\
-	sapwood-proto.c		\
-	sapwood-proto.h
+	$(NULL)
 
 libsapwood_la_LDFLAGS = -avoid-version -module -Wl,-z,defs
-libsapwood_la_LIBADD = $(GTK_LIBS)
+libsapwood_la_LIBADD = $(GTK_LIBS) $(top_builddir)/protocol/libprotocol.la
 libsapwood_la_CFLAGS = -DG_LOG_DOMAIN=\"sapwood\" $(AM_CFLAGS)
-
-daemondir = $(libdir)/sapwood
-daemon_PROGRAMS = sapwood-server
-
-sapwood_server_SOURCES = sapwood-server.c sapwood-proto.c sapwood-proto.h
-sapwood_server_LDADD = $(GDK_LIBS)
-sapwood_server_CFLAGS = $(AM_CFLAGS)	# created both with libtool and without
 
 MAINTAINERCLEANFILES = Makefile.in
 CLEANFILES = actual-abi actual-abi2 expected-abi expected-abi2 optional-abi

@@ -1,4 +1,4 @@
-AC_INIT([src/sapwood-server.c])
+AC_INIT([server/sapwood-server.c])
 AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE(sapwood, 3.0.0)
 
@@ -102,7 +102,9 @@ AC_SUBST(GDK_LIBS)
 
 AC_OUTPUT([
 Makefile
-src/Makefile
+protocol/Makefile
+engine/Makefile
+server/Makefile
 demos/Makefile
 ])
 

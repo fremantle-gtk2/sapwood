@@ -1,5 +1,39 @@
 2008-09-03  Sven Herzberg  <sven@imendio.com>
 
+	Split the code into server, protocol and engine parts
+	based on a patch by Christian Dywan
+
+	* engine/Makefile.am,
+	* engine/abicheck.sh,
+	* engine/sapwood-main.c
+	* engine/sapwood-pixmap.c
+	* engine/sapwood-pixmap.h,
+	* engine/sapwood-proto.c,
+	* engine/sapwood-proto.h,
+	* engine/sapwood-rc-style.c
+	* engine/sapwood-rc-style.h,
+	* engine/sapwood-server.c,
+	* engine/sapwood-style.c
+	* engine/sapwood-style.h,
+	* engine/theme-pixbuf.c
+	* engine/theme-pixbuf.h,
+	* src/Makefile.am,
+	* src/abicheck.sh,
+	* src/sapwood-main.c,
+	* src/sapwood-pixmap.c,
+	* src/sapwood-pixmap.h,
+	* src/sapwood-proto.c,
+	* src/sapwood-proto.h,
+	* src/sapwood-rc-style.c,
+	* src/sapwood-rc-style.h,
+	* src/sapwood-server.c,
+	* src/sapwood-style.c,
+	* src/sapwood-style.h,
+	* src/theme-pixbuf.c,
+	* src/theme-pixbuf.h: split successful
+
+2008-09-03  Sven Herzberg  <sven@imendio.com>
+
 	Fix warnings in sapwood server
 	patch from Christian Dywan
 
