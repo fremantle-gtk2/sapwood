@@ -1,5 +1,12 @@
 2008-09-03  Sven Herzberg  <sven@imendio.com>
 
+	Fix warnings in sapwood server
+	patch from Christian Dywan
+
+	* src/sapwood-proto.h: use a gchar[] for the filename
+
+2008-09-03  Sven Herzberg  <sven@imendio.com>
+
 	Use G_DEFINE_DYNAMIC_TYPE
 	patch from Christian Dywan
 
