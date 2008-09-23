@@ -1,3 +1,10 @@
+2008-09-23  Sven Herzberg  <sven@imendio.com>
+
+	Fix a possible double-free intorduced by r15921
+
+	* server/sapwood-server.c (process_buffer): drop the g_free() call on
+	the node; the g_hash_table_remove() will care about this
+
 2008-09-03  Sven Herzberg  <sven@imendio.com>
 
 	added missing files

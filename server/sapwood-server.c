@@ -413,7 +413,6 @@ process_buffer (int fd, char *buf, ssize_t buflen, gpointer user_data)
 	  if (node->refcnt == 0)
 	    {
 	      g_hash_table_remove (cleanup, GUINT_TO_POINTER(req->id));
-	      g_free (node);
 	    }
 	}
       else
