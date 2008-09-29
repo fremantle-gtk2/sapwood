@@ -112,7 +112,7 @@ AC_ARG_ENABLE([debug],
               [enable_debug=yes],
               [enable_debug=no])
 AC_MSG_RESULT([$enable_debug])
-if test ! -z "$enable_debug" -a "$enable_debug" -eq "yes"; then
+if test ! -z "$enable_debug" -a "$enable_debug" == "yes"; then
         AC_DEFINE([ENABLE_DEBUG],[],[Enable debugging via environment variable])
 fi
 

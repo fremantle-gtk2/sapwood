@@ -1,5 +1,11 @@
 2008-09-29  Sven Herzberg  <sven@imendio.com>
 
+	Fix the test for the debugging flags.
+
+	* configure.in: replace -eq (only integers) with == (strings)
+
+2008-09-29  Sven Herzberg  <sven@imendio.com>
+
 	Fix "make check" finally
 
 	* server/Makefile.am: don't perform abi checks anymore, it's only
