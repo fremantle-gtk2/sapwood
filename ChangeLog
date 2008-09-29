@@ -1,5 +1,13 @@
 2008-09-29  Sven Herzberg  <sven@imendio.com>
 
+	Added files for reusable client code to connect to the server
+
+	* engine/Makefile.am: added the files
+	* engine/sapwood-client.c,
+	* engine/sapwood-client.h: new skeletons
+
+2008-09-29  Sven Herzberg  <sven@imendio.com>
+
 	Support the regular xvfb "output" of the testing framework
 
 	* tests/double-free.c (main),
