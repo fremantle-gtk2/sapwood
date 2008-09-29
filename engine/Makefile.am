@@ -27,6 +27,6 @@ libsapwood_la_CFLAGS = -DG_LOG_DOMAIN=\"sapwood\" $(AM_CFLAGS)
 MAINTAINERCLEANFILES = Makefile.in
 CLEANFILES = actual-abi actual-abi2 expected-abi expected-abi2 optional-abi
 
-EXTRA_DIST = abicheck.sh
+EXTRA_DIST+=abicheck.sh
 
 TESTS = abicheck.sh

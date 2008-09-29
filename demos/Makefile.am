@@ -11,7 +11,7 @@ noinst_PROGRAMS = \
 CLEANFILES = engines
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = \
+EXTRA_DIST+=\
 	buttonbox.c \
 	buttonbox.gtkrc \
 	images/hbbox-brt.png \

@@ -1,5 +1,12 @@
 2008-09-29  Sven Herzberg  <sven@imendio.com>
 
+	Fix warnings about double-assignment of EXTRA_DIST, append instead
+
+	* demos/Makefile.am,
+	* engine/Makefile.am: append to EXTRA_DIST instead of setting it
+
+2008-09-29  Sven Herzberg  <sven@imendio.com>
+
 	Fix the test for the debugging flags.
 
 	* configure.in: replace -eq (only integers) with == (strings)
