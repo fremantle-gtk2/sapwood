@@ -1,5 +1,13 @@
 2008-09-29  Sven Herzberg  <sven@imendio.com>
 
+	Create libsapwood-client.la to be shared between the engine and the
+	test cases
+
+	* engine/Makefile.am: create libsapwood-client.la
+	* tests/Makefile.am: link against libsapwood-client.la
+
+2008-09-29  Sven Herzberg  <sven@imendio.com>
+
 	Moved the structure definition for the SapwoodPixmap into a private
 	header
 
