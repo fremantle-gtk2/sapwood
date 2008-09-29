@@ -21,6 +21,16 @@
  * USA
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include <errno.h>
+#include <stdio.h>
+#include <sys/socket.h>
+#include <sys/un.h>
+#include <unistd.h>
+
 #include "sapwood-client.h"
 
 GQuark
@@ -30,5 +40,43 @@ sapwood_client_get_error_quark (void)
   if (!q)
     q = g_quark_from_static_string ("sapwood-client-error-quark");
   return q;
+}
+
+int
+pixbuf_proto_get_socket (GError **err)
+{
+  struct sockaddr_un  sun;
+  const char         *sock_path;
+  int                 fd;
+
+  fd = socket (PF_LOCAL, SOCK_STREAM, 0);
+  if (fd < 0)
+    {
+      g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_CLIENT_ERROR_UNKNOWN,
+		   "socket: %s", strerror (errno));
+      return -1;
+    }
+
+  sock_path = sapwood_socket_path_get_default ();
+
+  memset (&sun, '\0', sizeof(sun));
+  sun.sun_family = AF_LOCAL;
+#ifdef HAVE_ABSTRACT_SOCKETS
+  strcpy (&sun.sun_path[1], sock_path);
+#else
+  strcpy (&sun.sun_path[0], sock_path);
+#endif
+  if (connect (fd, (struct sockaddr *)&sun, sizeof (sun)) < 0)
+    {
+      g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_CLIENT_ERROR_UNKNOWN,
+		   "Failed to connect to sapwood server using `%s': %s\n\n"
+		   "\t`%s' MUST be started before applications",
+		   sock_path, strerror (errno),
+		   SAPWOOD_SERVER);
+      close (fd);
+      return -1;
+    }
+
+  return fd;
 }
 

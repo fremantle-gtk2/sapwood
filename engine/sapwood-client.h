@@ -36,6 +36,8 @@ enum {
 
 G_GNUC_INTERNAL GQuark sapwood_client_get_error_quark (void);
 
+G_GNUC_INTERNAL int    pixbuf_proto_get_socket        (GError **err);
+
 G_END_DECLS
 
 #endif /* !SAPWOOD_CLIENT_H */
