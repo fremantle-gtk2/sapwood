@@ -2,7 +2,7 @@ include $(top_srcdir)/Makefile.decl
 
 INCLUDES = \
     $(GDK_CFLAGS) \
-    -I../protocol \
+    -I$(top_srcdir)/protocol \
     -DSAPWOOD_SERVER=\"$(daemondir)/sapwood-server\"
 
 daemondir = $(libdir)/sapwood

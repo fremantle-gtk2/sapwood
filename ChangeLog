@@ -1,5 +1,13 @@
 2008-09-29  Sven Herzberg  <sven@imendio.com>
 
+	Pass "make distcheck" again
+
+	* server/Makefile.am: fixed the include path for the protocol header
+	* tests/Makefile.am: fixed the reference to the wrapper script and
+	distribute it with tarballs
+
+2008-09-29  Sven Herzberg  <sven@imendio.com>
+
 	Fix warnings about double-assignment of EXTRA_DIST, append instead
 
 	* demos/Makefile.am,
