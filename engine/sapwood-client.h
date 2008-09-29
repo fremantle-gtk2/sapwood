@@ -29,7 +29,7 @@
 G_BEGIN_DECLS
 
 enum {
-    SAPWOOD_PIXMAP_ERROR_FAILED
+    SAPWOOD_CLIENT_ERROR_UNKNOWN
 };
 
 #define SAPWOOD_CLIENT_ERROR  (sapwood_client_get_error_quark ())

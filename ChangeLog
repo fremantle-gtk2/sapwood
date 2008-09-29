@@ -1,5 +1,13 @@
 2008-09-29  Sven Herzberg  <sven@imendio.com>
 
+	Renamed the enumeration value to match the file and library name
+
+	* engine/sapwood-client.h,
+	* engine/sapwood-pixmap.c,
+	* tests/double-free.c: renamed the enumeration
+
+2008-09-29  Sven Herzberg  <sven@imendio.com>
+
 	Moved the error enumeration into the shared header
 
 	* engine/sapwood-client.h,

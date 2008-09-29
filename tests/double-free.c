@@ -49,7 +49,7 @@ pixbuf_proto_get_socket (GError **err)
   fd = socket (PF_LOCAL, SOCK_STREAM, 0);
   if (fd < 0)
     {
-      g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_PIXMAP_ERROR_FAILED,
+      g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_CLIENT_ERROR_UNKNOWN,
 		   "socket: %s", strerror (errno));
       return -1;
     }
@@ -65,7 +65,7 @@ pixbuf_proto_get_socket (GError **err)
 #endif
   if (connect (fd, (struct sockaddr *)&sun, sizeof (sun)) < 0)
     {
-      g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_PIXMAP_ERROR_FAILED,
+      g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_CLIENT_ERROR_UNKNOWN,
 		   "Failed to connect to sapwood server using `%s': %s\n\n"
 		   "\t`%s' MUST be started before applications",
 		   sock_path, strerror (errno),
@@ -97,14 +97,14 @@ pixbuf_proto_request (const char *req,
   n = write (fd, req, reqlen);
   if (n < 0)
     {
-      g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_PIXMAP_ERROR_FAILED,
+      g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_CLIENT_ERROR_UNKNOWN,
 		   "write: %s", g_strerror (errno));
       return FALSE;
     }
   else if (n != reqlen)
     {
       /* FIXME */
-      g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_PIXMAP_ERROR_FAILED,
+      g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_CLIENT_ERROR_UNKNOWN,
 		   "wrote %d of %d bytes", n, reqlen);
       return FALSE;
     }
@@ -115,21 +115,21 @@ pixbuf_proto_request (const char *req,
   n = read (fd, rep, replen);
   if (n < 0)
     {
-      g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_PIXMAP_ERROR_FAILED,
+      g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_CLIENT_ERROR_UNKNOWN,
 		   "read: %s", g_strerror (errno));
       return FALSE;
     }
   else if (n != replen)
     {
       /* FIXME */
-      g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_PIXMAP_ERROR_FAILED,
+      g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_CLIENT_ERROR_UNKNOWN,
 		   "read %d, expected %d bytes", n, replen);
       return FALSE;
     }
   else if (n != replen)
     {
       /* FIXME */
-      g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_PIXMAP_ERROR_FAILED,
+      g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_CLIENT_ERROR_UNKNOWN,
 		   "read %d, expected %d bytes", n, replen);
       return FALSE;
     }
@@ -155,7 +155,7 @@ sapwood_pixmap_get_for_file (const char *filename,
   flen = g_strlcpy (req->filename, filename, PATH_MAX);
   if (flen > PATH_MAX)
     {
-      g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_PIXMAP_ERROR_FAILED,
+      g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_CLIENT_ERROR_UNKNOWN,
 		   "%s: filename too long", filename);
       return NULL;
     }
