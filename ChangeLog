@@ -1,5 +1,12 @@
 2008-09-29  Sven Herzberg  <sven@imendio.com>
 
+	Added the first testcase
+
+	* tests/Makefile.am,
+	* tests/double-free.c: the first testcase
+
+2008-09-29  Sven Herzberg  <sven@imendio.com>
+
 	Added --enable-debug to define ENABLE_DEBUG properly; define
 	automatically for developer builds
 
