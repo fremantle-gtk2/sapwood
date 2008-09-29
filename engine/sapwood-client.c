@@ -43,7 +43,7 @@ sapwood_client_get_error_quark (void)
 }
 
 int
-pixbuf_proto_get_socket (GError **err)
+sapwood_client_get_socket (GError **err)
 {
   struct sockaddr_un  sun;
   const char         *sock_path;

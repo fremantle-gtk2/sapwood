@@ -1,5 +1,15 @@
 2008-09-29  Sven Herzberg  <sven@imendio.com>
 
+	Renamed the function to match file and library name
+
+	* engine/sapwood-client.c,
+	* engine/sapwood-client.h: renamed the function to
+	sapwood_client_get_socket()
+	* engine/sapwood-pixmap.c,
+	* tests/double-free.c: updated
+
+2008-09-29  Sven Herzberg  <sven@imendio.com>
+
 	Moved pixbuf_proto_get_socket() into the shared library
 
 	* engine/sapwood-client.c,

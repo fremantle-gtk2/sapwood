@@ -51,7 +51,7 @@ pixbuf_proto_request (const char *req,
 
   if (fd == -1)
     {
-      fd = pixbuf_proto_get_socket (err);
+      fd = sapwood_client_get_socket (err);
       if (fd == -1)
 	return FALSE;
     }
@@ -201,7 +201,7 @@ main (int   argc,
 
   gdk_init (&argc, &argv);
 
-  fd = pixbuf_proto_get_socket (&error);
+  fd = sapwood_client_get_socket (&error);
   if (fd == -1)
     {
       g_warning ("%s", error->message);
