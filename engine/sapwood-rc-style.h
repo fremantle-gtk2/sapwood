@@ -51,9 +51,9 @@ struct _SapwoodRcStyleClass
   GtkRcStyleClass parent_class;
 };
 
-void sapwood_rc_style_register_types   (GTypeModule           *module);
+G_GNUC_INTERNAL void sapwood_rc_style_register_types   (GTypeModule           *module);
 
-GType sapwood_rc_style_get_type        (void);
+G_GNUC_INTERNAL GType sapwood_rc_style_get_type        (void);
 
 G_END_DECLS
 

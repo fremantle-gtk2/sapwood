@@ -75,7 +75,7 @@ void      sapwood_pixmap_render_rects (SapwoodPixmap *self,
 				      gint          n_rects,
 				      SapwoodRect   *rects) G_GNUC_INTERNAL;
 
-extern gboolean sapwood_debug_scaling;
+G_GNUC_INTERNAL extern gboolean sapwood_debug_scaling;
 
 G_END_DECLS
 

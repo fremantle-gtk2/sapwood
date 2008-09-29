@@ -1,5 +1,14 @@
 2008-09-29  Sven Herzberg  <sven@imendio.com>
 
+	Pass the ABI test
+
+	* engine/sapwood-pixmap.h,
+	* engine/sapwood-rc-style.h,
+	* engine/sapwood-style.h: pass the ABI test by hiding internal
+	functions
+
+2008-09-29  Sven Herzberg  <sven@imendio.com>
+
 	Finally be able to reproduce the double free
 
 	* tests/Makefile.am: properly set the compile flags for the testcase
