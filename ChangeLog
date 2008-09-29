@@ -1,5 +1,17 @@
 2008-09-29  Sven Herzberg  <sven@imendio.com>
 
+	Finally be able to reproduce the double free
+
+	* tests/Makefile.am: properly set the compile flags for the testcase
+	* tests/double-free.c (pixbuf_proto_get_socket),
+	(pixbuf_proto_request), (sapwood_pixmap_get_for_file),
+	(pixbuf_proto_unref_pixmap), (false_func), (main): implemented the
+	test (with lots of copied and pasted code - needs more cleanup)
+	* tests/sapwood-wrapper: added a wrapper script for the testcase
+	execution
+
+2008-09-29  Sven Herzberg  <sven@imendio.com>
+
 	Respect TESTS_ENVIRONMENT as "make check" usually does
 
 	* Makefile.decl: added TESTS_ENVIRONMENT to the test invocation
