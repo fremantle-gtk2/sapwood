@@ -1,5 +1,14 @@
 2008-09-29  Sven Herzberg  <sven@imendio.com>
 
+	Renamed the error quark to match the file and library name
+
+	* engine/sapwood-client.c,
+	* engine/sapwood-client.h,
+	* engine/sapwood-pixmap.c,
+	* tests/double-free.c: renamed the quark
+
+2008-09-29  Sven Herzberg  <sven@imendio.com>
+
 	Moved the error quark into libsapwood-client.la
 
 	* engine/sapwood-client.c (sapwood_pixmap_error_get_quark),

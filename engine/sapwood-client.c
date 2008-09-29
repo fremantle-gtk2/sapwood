@@ -24,11 +24,11 @@
 #include "sapwood-client.h"
 
 GQuark
-sapwood_pixmap_error_get_quark (void)
+sapwood_client_get_error_quark (void)
 {
   static GQuark q = 0;
   if (!q)
-    q = g_quark_from_static_string ("sapwood-pixmap-error-quark");
+    q = g_quark_from_static_string ("sapwood-client-error-quark");
   return q;
 }
 

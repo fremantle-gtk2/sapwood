@@ -28,9 +28,9 @@
 
 G_BEGIN_DECLS
 
-#define SAPWOOD_PIXMAP_ERROR  (sapwood_pixmap_error_get_quark ())
+#define SAPWOOD_CLIENT_ERROR  (sapwood_client_get_error_quark ())
 
-G_GNUC_INTERNAL GQuark sapwood_pixmap_error_get_quark (void);
+G_GNUC_INTERNAL GQuark sapwood_client_get_error_quark (void);
 
 G_END_DECLS
 
