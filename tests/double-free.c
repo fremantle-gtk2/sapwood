@@ -248,9 +248,6 @@ main (int   argc,
 
   g_type_init ();
 
-  /* gtester disables this if it doesn't find xvfb */
-  g_setenv ("DISPLAY", ":0.0", TRUE);
-
   gdk_init (&argc, &argv);
 
   fd = pixbuf_proto_get_socket (&error);

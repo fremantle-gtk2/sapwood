@@ -8,10 +8,12 @@ if test $# -eq 0; then
         return 1
 fi
 
-DISPLAY=:0 ../server/sapwood-server &
+echo $DISPLAY
+sleep 1 # wait for xvfb to be ready
+../server/sapwood-server &
 
 export $(grep ^top_srcdir Makefile | sed 's/ = /=/')
-sleep 1
+sleep 1 # wait for sapwood-server to be ready
 $@ || echo "$@: return value: $?"
 
 kill %- # %- : last job started : http://tldp.org/LDP/abs/html/x8885.html#JOBIDTABLE

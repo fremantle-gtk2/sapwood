@@ -1,5 +1,12 @@
 2008-09-29  Sven Herzberg  <sven@imendio.com>
 
+	Support the regular xvfb "output" of the testing framework
+
+	* tests/double-free.c (main),
+	* tests/sapwood-wrapper: drop the DISPLAY=:0.0 hacks
+
+2008-09-29  Sven Herzberg  <sven@imendio.com>
+
 	Pass "make distcheck" again
 
 	* server/Makefile.am: fixed the include path for the protocol header
