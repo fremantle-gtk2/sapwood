@@ -1,5 +1,14 @@
 2008-09-29  Sven Herzberg  <sven@imendio.com>
 
+	Moved the error enumeration into the shared header
+
+	* engine/sapwood-client.h,
+	* engine/sapwood-pixmap.h: moved the enumeration
+	* tests/double-free.c: dropped the #define replacement for the
+	enumeration
+
+2008-09-29  Sven Herzberg  <sven@imendio.com>
+
 	Renamed the error quark to match the file and library name
 
 	* engine/sapwood-client.c,

@@ -35,7 +35,6 @@
 #include "sapwood-pixmap-priv.h"
 #include "sapwood-proto.h"
 
-#define SAPWOOD_PIXMAP_ERROR_FAILED 0
 #define SAPWOOD_SERVER "sapwood-server"
 
 /* FIXME: refactor this out into a libproto-client.la library for the engine

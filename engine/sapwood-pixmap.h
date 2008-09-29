@@ -27,10 +27,6 @@
 
 G_BEGIN_DECLS
 
-enum {
-    SAPWOOD_PIXMAP_ERROR_FAILED
-};
-
 /* opaque */
 typedef struct _SapwoodPixmap SapwoodPixmap;
 

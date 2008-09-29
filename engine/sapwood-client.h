@@ -28,6 +28,10 @@
 
 G_BEGIN_DECLS
 
+enum {
+    SAPWOOD_PIXMAP_ERROR_FAILED
+};
+
 #define SAPWOOD_CLIENT_ERROR  (sapwood_client_get_error_quark ())
 
 G_GNUC_INTERNAL GQuark sapwood_client_get_error_quark (void);
