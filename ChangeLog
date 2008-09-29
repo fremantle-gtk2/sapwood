@@ -1,5 +1,17 @@
 2008-09-29  Sven Herzberg  <sven@imendio.com>
 
+	Moved the error quark into libsapwood-client.la
+
+	* engine/sapwood-client.c (sapwood_pixmap_error_get_quark),
+	* engine/sapwood-client.h: added the error quark
+	* engine/sapwood-pixmap.c,
+	* engine/sapwood-pixmap.h: delegate the error quark to the client
+	library
+	* tests/double-free.c: drop the error quark hack; use the quark from
+	the client library
+
+2008-09-29  Sven Herzberg  <sven@imendio.com>
+
 	Create libsapwood-client.la to be shared between the engine and the
 	test cases
 

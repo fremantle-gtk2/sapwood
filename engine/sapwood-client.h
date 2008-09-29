@@ -24,5 +24,14 @@
 #ifndef SAPWOOD_CLIENT_H
 #define SAPWOOD_CLIENT_H
 
+#include <glib.h>
+
+G_BEGIN_DECLS
+
+#define SAPWOOD_PIXMAP_ERROR  (sapwood_pixmap_error_get_quark ())
+
+G_GNUC_INTERNAL GQuark sapwood_pixmap_error_get_quark (void);
+
+G_END_DECLS
 
 #endif /* !SAPWOOD_CLIENT_H */

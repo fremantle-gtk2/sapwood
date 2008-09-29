@@ -31,15 +31,6 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 
-static GQuark
-sapwood_pixmap_error_get_quark ()
-{
-  static GQuark q = 0;
-  if (!q)
-    q = g_quark_from_static_string ("sapwood-pixmap-error-quark");
-  return q;
-}
-
 static int
 pixbuf_proto_get_socket (GError **err)
 {

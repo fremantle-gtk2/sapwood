@@ -35,8 +35,6 @@
 #include "sapwood-pixmap-priv.h"
 #include "sapwood-proto.h"
 
-#undef SAPWOOD_PIXMAP_ERROR
-#define SAPWOOD_PIXMAP_ERROR 0
 #define SAPWOOD_PIXMAP_ERROR_FAILED 0
 #define SAPWOOD_SERVER "sapwood-server"
 

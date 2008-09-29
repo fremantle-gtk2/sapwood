@@ -22,12 +22,11 @@
 #ifndef SAPWOOD_PIXMAP_H
 #define SAPWOOD_PIXMAP_H 1
 
-#include <glib/gerror.h>
 #include <gtk/gtk.h>
+#include "sapwood-client.h"
 
 G_BEGIN_DECLS
 
-#define SAPWOOD_PIXMAP_ERROR  (sapwood_pixmap_error_get_quark ())
 enum {
     SAPWOOD_PIXMAP_ERROR_FAILED
 };
