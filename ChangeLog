@@ -1,5 +1,18 @@
 2008-09-29  Sven Herzberg  <sven@imendio.com>
 
+	Moved the structure definition for the SapwoodPixmap into a private
+	header
+
+	* engine/Makefile.am: include the private header file
+	* engine/sapwood-pixmap-priv.h: moved the structure definition to this
+	file
+	* engine/sapwood-pixmap.c: include the private header instead of the
+	public one; dropped the structure definition
+	* tests/double-free.c: include the private header file instead of
+	using the copied structure definition
+
+2008-09-29  Sven Herzberg  <sven@imendio.com>
+
 	Added files for reusable client code to connect to the server
 
 	* engine/Makefile.am: added the files

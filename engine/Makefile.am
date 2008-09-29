@@ -18,8 +18,9 @@ libsapwood_la_SOURCES=\
 	sapwood-style.h		\
 	theme-pixbuf.c		\
 	theme-pixbuf.h		\
-	sapwood-pixmap.c	\
-	sapwood-pixmap.h	\
+	sapwood-pixmap.c \
+	sapwood-pixmap.h \
+	sapwood-pixmap-priv.h \
 	$(NULL)
 
 libsapwood_la_LDFLAGS = -avoid-version -module -Wl,-z,defs

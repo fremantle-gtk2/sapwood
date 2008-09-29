@@ -32,21 +32,13 @@
 #include <unistd.h>
 #include <gio/gio.h>
 #include <gtk/gtktestutils.h>
-#include "sapwood-pixmap.h"
+#include "sapwood-pixmap-priv.h"
 #include "sapwood-proto.h"
 
 #undef SAPWOOD_PIXMAP_ERROR
 #define SAPWOOD_PIXMAP_ERROR 0
 #define SAPWOOD_PIXMAP_ERROR_FAILED 0
 #define SAPWOOD_SERVER "sapwood-server"
-
-struct _SapwoodPixmap {
-  guint32    id;
-  gint       width;
-  gint       height;
-  GdkPixmap *pixmap[3][3];
-  GdkBitmap *pixmask[3][3];
-};
 
 /* FIXME: refactor this out into a libproto-client.la library for the engine
  * and the test cases */

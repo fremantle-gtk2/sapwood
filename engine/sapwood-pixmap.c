@@ -20,7 +20,7 @@
  */
 #include <config.h>
 
-#include "sapwood-pixmap.h"
+#include "sapwood-pixmap-priv.h"
 #include "sapwood-proto.h"
 
 #include <errno.h>
@@ -30,14 +30,6 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <sys/un.h>
-
-struct _SapwoodPixmap {
-  guint32    id;
-  gint       width;
-  gint       height;
-  GdkPixmap *pixmap[3][3];
-  GdkBitmap *pixmask[3][3];
-};
 
 static GQuark
 sapwood_pixmap_error_get_quark ()
