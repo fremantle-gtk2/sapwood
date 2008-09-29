@@ -1,5 +1,11 @@
 2008-09-29  Sven Herzberg  <sven@imendio.com>
 
+	Respect TESTS_ENVIRONMENT as "make check" usually does
+
+	* Makefile.decl: added TESTS_ENVIRONMENT to the test invocation
+
+2008-09-29  Sven Herzberg  <sven@imendio.com>
+
 	Added the first testcase
 
 	* tests/Makefile.am,

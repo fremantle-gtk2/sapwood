@@ -33,7 +33,7 @@ XVFB_START = \
 # test: run all tests in cwd and subdirs
 test:	${TEST_PROGS}
 	@$(SKIP_GDKTARGET) || test -z "${TEST_PROGS}" || { \
-	  $(XVFB_START) && { set -e; ${GTESTER} --verbose ${TEST_PROGS}; }; \
+	  $(XVFB_START) && { set -e; $(TESTS_ENVIRONMENT) ${GTESTER} --verbose ${TEST_PROGS}; }; \
 	}
 	@ for subdir in $(SUBDIRS) ; do \
 	    test "$$subdir" = "." -o "$$subdir" = "po" -o "$$subdir" = "po-properties" || \
