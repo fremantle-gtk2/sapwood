@@ -1,3 +1,11 @@
+2008-09-29  Sven Herzberg  <sven@imendio.com>
+
+	Added --enable-debug to define ENABLE_DEBUG properly; define
+	automatically for developer builds
+
+	* autogen.sh: pass --enable-debug to the configure script
+	* configure.in: accept --enable-debug and set ENABLE_DEBUG properly
+
 2008-09-23  Sven Herzberg  <sven@imendio.com>
 
 	Added a folder for the tests

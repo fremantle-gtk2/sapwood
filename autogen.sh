@@ -8,7 +8,7 @@ autoheader
 automake-1.8 --add-missing --foreign || automake --add-missing --foreign
 
 if test x$NOCONFIGURE = x; then
-  ./configure --enable-maintainer-mode "$@"
+  ./configure --enable-maintainer-mode --enable-debug "$@"
 else
   echo Skipping configure process.
 fi
