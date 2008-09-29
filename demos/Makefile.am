@@ -1,3 +1,5 @@
+include $(top_srcdir)/Makefile.decl
+
 INCLUDES = $(GTK_CFLAGS)
 LDADD = $(GTK_LIBS)
 

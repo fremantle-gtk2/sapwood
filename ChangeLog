@@ -1,5 +1,17 @@
 2008-09-23  Sven Herzberg  <sven@imendio.com>
 
+	Add GTest support to the build system
+
+	* Makefile.decl: file copied and adjusted to the project needs
+	* Makefile.am,
+	* demos/Makefile.am,
+	* engine/Makefile.am,
+	* protocol/Makefile.am,
+	* server/Makefile.am: include Makefile.decl to support gtest
+	everywhere
+
+2008-09-23  Sven Herzberg  <sven@imendio.com>
+
 	Fix a possible double-free intorduced by r15921
 
 	* server/sapwood-server.c (process_buffer): drop the g_free() call on

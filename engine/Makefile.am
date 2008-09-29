@@ -1,3 +1,5 @@
+include $(top_srcdir)/Makefile.decl
+
 INCLUDES = $(GTK_CFLAGS) \
 	   -DSAPWOOD_SERVER=\"$(daemondir)/sapwood-server\" \
 	   -I$(top_srcdir)/protocol
