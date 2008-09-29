@@ -105,6 +105,7 @@ Makefile
 protocol/Makefile
 engine/Makefile
 server/Makefile
+tests/Makefile
 demos/Makefile
 ])
 

@@ -1,5 +1,13 @@
 2008-09-23  Sven Herzberg  <sven@imendio.com>
 
+	Added a folder for the tests
+
+	* Makefile.am: include tests
+	* configure.in: build tests/Makefile
+	* tests/Makefile.am: skeleton
+
+2008-09-23  Sven Herzberg  <sven@imendio.com>
+
 	Add GTest support to the build system
 
 	* Makefile.decl: file copied and adjusted to the project needs
