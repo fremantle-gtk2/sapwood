@@ -1,3 +1,8 @@
+2008-10-02  Daniel Borgmann  <danielb@openismus.com>
+
+       * engine/sapwood-style.c: Hacks to enable themeing of 
+       insensitive state for GtkEntry widgets.
+
 2008-09-29  Sven Herzberg  <sven@imendio.com>
 
 	Renamed the function to match file and library name
