@@ -1,5 +1,11 @@
 2008-10-02  Daniel Borgmann  <danielb@openismus.com>
 
+	* engine/sapwood-style.c: (draw_shadow), (draw_flat_box): Removed
+	hack from draw_shadow, added focus state detection to
+	draw_flat_box for entries.
+
+2008-10-02  Daniel Borgmann  <danielb@openismus.com>
+
        * engine/sapwood-style.c: Hacks to enable themeing of 
        insensitive state for GtkEntry widgets.
 

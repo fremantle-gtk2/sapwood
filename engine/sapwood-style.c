@@ -554,10 +554,6 @@ draw_shadow (GtkStyle     *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
-  /* Hack because Gtk doesn't give us the correct widget state */
-  if (widget && !GTK_WIDGET_IS_SENSITIVE(widget) && GTK_IS_ENTRY(widget))
-    state = GTK_STATE_INSENSITIVE;
-
   match_data.function = TOKEN_D_SHADOW;
   match_data.detail = (gchar *)detail;
   match_data.flags = THEME_MATCH_SHADOW | THEME_MATCH_STATE;
@@ -920,8 +916,14 @@ draw_flat_box (GtkStyle     *style,
   g_return_if_fail (window != NULL);
   
   /* Hack because Gtk doesn't give us the correct widget state */
-  if (widget && !GTK_WIDGET_IS_SENSITIVE(widget) && GTK_IS_ENTRY(widget))
-    state = GTK_STATE_INSENSITIVE;
+  if (widget && GTK_IS_ENTRY(widget))
+  {
+    if (!GTK_WIDGET_IS_SENSITIVE(widget))
+      state = GTK_STATE_INSENSITIVE;
+      
+    if (GTK_WIDGET_HAS_FOCUS(widget))
+      state = GTK_STATE_ACTIVE;
+  }
 
   match_data.function = TOKEN_D_FLAT_BOX;
   match_data.detail = (gchar *)detail;
