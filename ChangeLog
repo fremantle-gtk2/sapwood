@@ -1,3 +1,7 @@
+2008-10-06  Claudio Saavedra  <csaavedra@igalia.com>
+
+	* === Release 3.1.0 ===
+
 2008-10-02  Daniel Borgmann  <danielb@openismus.com>
 
 	* engine/sapwood-style.c: (draw_shadow), (draw_flat_box): Removed

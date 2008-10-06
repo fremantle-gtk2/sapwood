@@ -1,3 +1,10 @@
+sapwood (3.1.0-1) unstable; urgency=low
+
+  * Lots of internal code refactoring (Sven Herzberg)
+  * Improve themeability of GtkEntry (Daniel Borgmann)
+
+ -- Claudio Saavedra <csaavedra@igalia.com>  Mon, 06 Oct 2008 09:58:35 +0300
+
 sapwood (3.0.0-2) chinook; urgency=low
 
   * debian/sapwood-server.sh:
