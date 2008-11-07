@@ -1,5 +1,11 @@
 2008-11-07  Sven Herzberg  <sven@imendio.com>
 
+	Fix struct field indentation
+
+	* engine/sapwood-rc-style.h: properly align the stuff
+
+2008-11-07  Sven Herzberg  <sven@imendio.com>
+
 	NB#91010: shadowcolor option for labels
 	Patch by Daniel Borgmann (danielb@openismus.com)
 

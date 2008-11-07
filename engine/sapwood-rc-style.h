@@ -43,9 +43,9 @@ struct _SapwoodRcStyle
 {
   GtkRcStyle parent_instance;
 
-  GList *img_list;
-  guint has_shadow : 1;
-  GdkColor shadowcolor;
+  GList     *img_list;
+  guint      has_shadow      : 1;
+  GdkColor   shadowcolor;
 };
 
 struct _SapwoodRcStyleClass
