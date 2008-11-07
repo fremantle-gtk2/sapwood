@@ -35,7 +35,8 @@ typedef struct _ThemePixbuf ThemePixbuf;
 
 enum
 {
-  TOKEN_IMAGE = G_TOKEN_LAST + 1,
+  TOKEN_SHADOWCOLOR = G_TOKEN_LAST + 1,
+  TOKEN_IMAGE,
   TOKEN_FUNCTION,
   TOKEN_FILE,
   TOKEN_STRETCH,

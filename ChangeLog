@@ -1,3 +1,14 @@
+2008-11-07  Sven Herzberg  <sven@imendio.com>
+
+	NB#91010: shadowcolor option for labels
+	Patch by Daniel Borgmann (danielb@openismus.com)
+
+	* engine/sapwood-rc-style.c (theme_parse_shadowcolor),
+	(sapwood_rc_style_parse), (sapwood_rc_style_merge):
+	* engine/sapwood-rc-style.h:
+	* engine/sapwood-style.c (draw_layout):
+	* engine/theme-pixbuf.h:
+
 2008-10-06  Claudio Saavedra  <csaavedra@igalia.com>
 
 	* === Release 3.1.0 ===

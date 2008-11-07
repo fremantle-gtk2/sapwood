@@ -44,6 +44,7 @@ static struct
   }
 theme_symbols[] =
 {
+  { "shadowcolor",      TOKEN_SHADOWCOLOR },
   { "image", 		TOKEN_IMAGE  },
   { "function", 	TOKEN_FUNCTION },
   { "file", 		TOKEN_FILE },
@@ -150,6 +151,24 @@ sapwood_rc_style_finalize (GObject *object)
 static void
 sapwood_rc_style_class_finalize (SapwoodRcStyleClass *klass)
 {
+}
+
+static guint
+theme_parse_shadowcolor (GScanner       *scanner,
+                         SapwoodRcStyle *style,
+                         GdkColor       *shadowcolor)
+{
+  guint token;
+  
+  /* Skip 'blah_shadowcolor' */
+  token = g_scanner_get_next_token (scanner);
+  
+  token = g_scanner_get_next_token (scanner);
+  if (token != G_TOKEN_EQUAL_SIGN)
+    return G_TOKEN_EQUAL_SIGN;
+  
+  style->has_shadow = TRUE;
+  return gtk_rc_parse_color_full (scanner, GTK_RC_STYLE (style), shadowcolor);
 }
 
 static guint
@@ -735,7 +754,7 @@ sapwood_rc_style_parse (GtkRcStyle  *rc_style,
   guint old_scope;
   guint token;
   gint i;
-  ThemeImage *img;
+  ThemeImage *img = NULL;
 
   /* Set up a new scope in this scanner. */
 
@@ -769,6 +788,9 @@ sapwood_rc_style_parse (GtkRcStyle  *rc_style,
     {
       switch (token)
 	{
+	case TOKEN_SHADOWCOLOR:
+	  token = theme_parse_shadowcolor (scanner, sapwood_style, &sapwood_style->shadowcolor);
+	  break;
 	case TOKEN_IMAGE:
 	  img = NULL;
 	  token = theme_parse_image (settings, scanner, sapwood_style, &img);
@@ -781,7 +803,7 @@ sapwood_rc_style_parse (GtkRcStyle  *rc_style,
 
       if (token != G_TOKEN_NONE)
 	return token;
-      else
+      else if (img != NULL)
 	sapwood_style->img_list = g_list_prepend (sapwood_style->img_list, img);
 
       token = g_scanner_peek_next_token (scanner);
@@ -805,6 +827,12 @@ sapwood_rc_style_merge (GtkRcStyle *dest,
       SapwoodRcStyle *pixbuf_dest = SAPWOOD_RC_STYLE (dest);
       SapwoodRcStyle *pixbuf_src = SAPWOOD_RC_STYLE (src);
       GList *tmp_list1, *tmp_list2;
+      
+      if (pixbuf_src->has_shadow)
+        {
+          pixbuf_dest->has_shadow = TRUE;
+          pixbuf_dest->shadowcolor = pixbuf_src->shadowcolor;
+        }
 
       if (pixbuf_src->img_list)
 	{
