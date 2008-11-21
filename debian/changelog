@@ -1,3 +1,9 @@
+sapwood (3.1.1-1) unstable; urgency=low
+
+  * Fixes: NB#91010: shadowcolor option for labels (Daniel Borgmann)
+
+ -- Claudio Saavedra <csaavedra@igalia.com>  Fri, 21 Nov 2008 10:31:15 -0300
+
 sapwood (3.1.0-1) unstable; urgency=low
 
   * Lots of internal code refactoring (Sven Herzberg)
