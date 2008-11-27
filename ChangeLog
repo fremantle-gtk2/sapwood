@@ -1,3 +1,14 @@
+2008-11-27  Sven Herzberg  <sven@imendio.com>
+
+	Added some debug output; patch from Daniel Bormann
+
+	* engine/sapwood-style.c (enum_value_to_string), (draw_hline),
+	(draw_vline), (draw_shadow), (draw_arrow), (draw_diamond),
+	(draw_string), (draw_box), (draw_flat_box), (draw_check),
+	(draw_option), (draw_tab), (draw_shadow_gap), (draw_box_gap),
+	(draw_expander), (draw_extension), (draw_focus), (draw_slider),
+	(draw_handle), (draw_layout): added debug output
+
 2008-11-21  Claudio Saavedra  <csaavedra@igalia.com>
 
 	* === Release 3.1.1 ===

@@ -30,7 +30,31 @@
 #include "sapwood-rc-style.h"
 #include "sapwood-style.h"
 
+#ifdef ENABLE_DEBUG
+#define LOG(...) g_log (G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, __VA_ARGS__)
+#else
+#define LOG(...)
+#endif
+
 G_DEFINE_DYNAMIC_TYPE (SapwoodStyle, sapwood_style, GTK_TYPE_STYLE);
+
+#ifdef ENABLE_DEBUG
+static gchar *
+enum_value_to_string (GType enum_type,
+                      gint  enum_value)
+{
+  gpointer enum_class;
+  GEnumValue *val;
+
+  g_assert (G_TYPE_IS_ENUM (enum_type));
+
+  enum_class = g_type_class_ref (enum_type);
+  val = g_enum_get_value (G_ENUM_CLASS (enum_class), enum_value);
+  g_type_class_unref (enum_class);
+
+  return (val && val->value_nick) ? (gchar*) val->value_nick : "undefined";
+}
+#endif /* ENABLE_DEBUG */
 
 static ThemeImage *
 match_theme_image (GtkStyle       *style,
@@ -481,6 +505,12 @@ draw_hline (GtkStyle     *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  LOG ("widget=%s, primitive=hline, state=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        detail,
+        gtk_widget_get_name (widget));
+
   match_data.function = TOKEN_D_HLINE;
   match_data.detail = (gchar *)detail;
   match_data.flags = THEME_MATCH_ORIENTATION | THEME_MATCH_STATE;
@@ -516,6 +546,12 @@ draw_vline (GtkStyle     *style,
 
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
+
+  LOG ("widget=%s, primitive=vline, state=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        detail,
+        gtk_widget_get_name (widget));
 
   match_data.function = TOKEN_D_VLINE;
   match_data.detail = (gchar *)detail;
@@ -553,6 +589,13 @@ draw_shadow (GtkStyle     *style,
 
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
+
+  LOG ("widget=%s, primitive=shadow, state=%s, shadow=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        enum_value_to_string (gtk_shadow_type_get_type (), shadow),
+        detail,
+        gtk_widget_get_name (widget));
 
   match_data.function = TOKEN_D_SHADOW;
   match_data.detail = (gchar *)detail;
@@ -629,6 +672,13 @@ draw_arrow (GtkStyle     *style,
 
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
+
+  LOG ("widget=%s, primitive=arrow, state=%s, shadow=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        detail,
+        gtk_widget_get_name (widget));
 
   if (detail &&
       (strcmp (detail, "hscrollbar") == 0 || strcmp (detail, "vscrollbar") == 0))
@@ -721,6 +771,13 @@ draw_diamond (GtkStyle     *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  LOG ("widget=%s, primitive=diamond, state=%s, shadow=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        detail,
+        gtk_widget_get_name (widget));
+
   match_data.function = TOKEN_D_DIAMOND;
   match_data.detail = (gchar *)detail;
   match_data.flags = THEME_MATCH_SHADOW | THEME_MATCH_STATE;
@@ -746,6 +803,12 @@ draw_string (GtkStyle     *style,
 {
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
+
+  LOG ("widget=%s, primitive=string, state=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        detail,
+        gtk_widget_get_name (widget));
 
   if (state == GTK_STATE_INSENSITIVE)
     {
@@ -823,6 +886,13 @@ draw_box (GtkStyle     *style,
 
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
+
+  LOG ("widget=%s, primitive=box, state=%s, shadow=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        enum_value_to_string (gtk_shadow_type_get_type (), shadow),
+        detail,
+        gtk_widget_get_name (widget));
 
   if (detail &&
       (strcmp (detail, "hscrollbar") == 0 || strcmp (detail, "vscrollbar") == 0))
@@ -915,6 +985,13 @@ draw_flat_box (GtkStyle     *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
   
+  LOG ("widget=%s, primitive=flat_box, state=%s, shadow=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        enum_value_to_string (gtk_shadow_type_get_type (), shadow),
+        detail,
+        gtk_widget_get_name (widget));
+
   /* Hack because Gtk doesn't give us the correct widget state */
   if (widget && GTK_IS_ENTRY(widget))
   {
@@ -959,6 +1036,13 @@ draw_check (GtkStyle     *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  LOG ("widget=%s, primitive=check, state=%s, shadow=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        enum_value_to_string (gtk_shadow_type_get_type (), shadow),
+        detail,
+        gtk_widget_get_name (widget));
+
   match_data.function = TOKEN_D_CHECK;
   match_data.detail = (gchar *)detail;
   match_data.flags = THEME_MATCH_SHADOW | THEME_MATCH_STATE;
@@ -996,6 +1080,13 @@ draw_option (GtkStyle      *style,
 
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
+
+  LOG ("widget=%s, primitive=option, state=%s, shadow=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        enum_value_to_string (gtk_shadow_type_get_type (), shadow),
+        detail,
+        gtk_widget_get_name (widget));
 
   match_data.function = TOKEN_D_OPTION;
   match_data.detail = (gchar *)detail;
@@ -1035,6 +1126,13 @@ draw_tab (GtkStyle     *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  LOG ("widget=%s, primitive=tab, state=%s, shadow=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        enum_value_to_string (gtk_shadow_type_get_type (), shadow),
+        detail,
+        gtk_widget_get_name (widget));
+
   match_data.function = TOKEN_D_TAB;
   match_data.detail = (gchar *)detail;
   match_data.flags = THEME_MATCH_SHADOW | THEME_MATCH_STATE;
@@ -1064,6 +1162,13 @@ draw_shadow_gap (GtkStyle       *style,
 		 gint            gap_width)
 {
   ThemeMatchData match_data;
+
+  LOG ("widget=%s, primitive=shadow_gap, state=%s, shadow=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        enum_value_to_string (gtk_shadow_type_get_type (), shadow),
+        detail,
+        gtk_widget_get_name (widget));
 
   match_data.function = TOKEN_D_SHADOW_GAP;
   match_data.detail = (gchar *)detail;
@@ -1099,6 +1204,13 @@ draw_box_gap (GtkStyle       *style,
 {
   ThemeMatchData match_data;
 
+  LOG ("widget=%s, primitive=box_gap, state=%s, shadow=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        enum_value_to_string (gtk_shadow_type_get_type (), shadow),
+        detail,
+        gtk_widget_get_name (widget));
+
   match_data.function = TOKEN_D_BOX_GAP;
   match_data.detail = (gchar *)detail;
   match_data.flags = THEME_MATCH_SHADOW | THEME_MATCH_STATE;
@@ -1131,6 +1243,12 @@ draw_expander (GtkStyle        *style,
 
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
+
+  LOG ("widget=%s, primitive=expander, state=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        detail,
+        gtk_widget_get_name (widget));
 
   /* Reusing the arrow theming here as it's flexible enough (almost, we do lose
    * the intermediate states.) It also allows us to use existing gtkrc.
@@ -1185,6 +1303,13 @@ draw_extension (GtkStyle       *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  LOG ("widget=%s, primitive=extension, state=%s, shadow=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        enum_value_to_string (gtk_shadow_type_get_type (), shadow),
+        detail,
+        gtk_widget_get_name (widget));
+
   match_data.function = TOKEN_D_EXTENSION;
   match_data.detail = (gchar *)detail;
   match_data.flags = THEME_MATCH_SHADOW | THEME_MATCH_STATE | THEME_MATCH_GAP_SIDE;
@@ -1216,6 +1341,12 @@ draw_focus (GtkStyle     *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  LOG ("widget=%s, primitive=focus, state=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        detail,
+        gtk_widget_get_name (widget));
+
   match_data.function = TOKEN_D_FOCUS;
   match_data.detail = (gchar *)detail;
   match_data.flags = THEME_MATCH_STATE;
@@ -1245,6 +1376,13 @@ draw_slider (GtkStyle      *style,
 
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
+
+  LOG ("widget=%s, primitive=slider, state=%s, shadow=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        enum_value_to_string (gtk_shadow_type_get_type (), shadow),
+        detail,
+        gtk_widget_get_name (widget));
 
   match_data.function = TOKEN_D_SLIDER;
   match_data.detail = (gchar *)detail;
@@ -1281,6 +1419,13 @@ draw_handle (GtkStyle      *style,
 
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
+
+  LOG ("widget=%s, primitive=handle, state=%s, shadow=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state),
+        enum_value_to_string (gtk_shadow_type_get_type (), shadow),
+        detail,
+        gtk_widget_get_name (widget));
 
   match_data.function = TOKEN_D_HANDLE;
   match_data.detail = (gchar *)detail;
@@ -1383,6 +1528,12 @@ draw_layout (GtkStyle     *style,
   /* Simply draw the text, without any of the fancy effects for insensitive
    * state in the default theme engine */
   GdkGC *gc;
+
+  LOG ("widget=%s, primitive=layout, state=%s, detail='%s', name='%s'",
+        G_OBJECT_TYPE_NAME (widget),
+        enum_value_to_string (gtk_state_type_get_type (), state_type),
+        detail,
+        gtk_widget_get_name (widget));
 
   gc = use_text ? style->text_gc[state_type] : style->fg_gc[state_type];
 
