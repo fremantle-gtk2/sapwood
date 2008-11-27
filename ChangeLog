@@ -1,5 +1,13 @@
 2008-11-27  Sven Herzberg  <sven@imendio.com>
 
+	Properly follow common memory management logic
+
+	* engine/sapwood-style.c (enum_value_to_string): don't access stuff
+	after freeing it; now we only leak memory (and only with debugging
+	enabled), at least we don't access invalid memory anymore
+
+2008-11-27  Sven Herzberg  <sven@imendio.com>
+
 	Added some debug output; patch from Daniel Bormann
 
 	* engine/sapwood-style.c (enum_value_to_string), (draw_hline),

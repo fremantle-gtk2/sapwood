@@ -45,14 +45,16 @@ enum_value_to_string (GType enum_type,
 {
   gpointer enum_class;
   GEnumValue *val;
+  gchar* result;
 
   g_assert (G_TYPE_IS_ENUM (enum_type));
 
   enum_class = g_type_class_ref (enum_type);
   val = g_enum_get_value (G_ENUM_CLASS (enum_class), enum_value);
+  result = g_strdup (val ? val->value_nick : "undefined");
   g_type_class_unref (enum_class);
 
-  return (val && val->value_nick) ? (gchar*) val->value_nick : "undefined";
+  return result;
 }
 #endif /* ENABLE_DEBUG */
 
@@ -505,6 +507,7 @@ draw_hline (GtkStyle     *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=hline, state=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state),
@@ -547,6 +550,7 @@ draw_vline (GtkStyle     *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=vline, state=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state),
@@ -590,6 +594,7 @@ draw_shadow (GtkStyle     *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=shadow, state=%s, shadow=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state),
@@ -673,6 +678,7 @@ draw_arrow (GtkStyle     *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=arrow, state=%s, shadow=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state),
@@ -771,6 +777,7 @@ draw_diamond (GtkStyle     *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=diamond, state=%s, shadow=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state),
@@ -804,6 +811,7 @@ draw_string (GtkStyle     *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=string, state=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state),
@@ -887,6 +895,7 @@ draw_box (GtkStyle     *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=box, state=%s, shadow=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state),
@@ -984,7 +993,8 @@ draw_flat_box (GtkStyle     *style,
 
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
-  
+
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=flat_box, state=%s, shadow=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state),
@@ -997,7 +1007,7 @@ draw_flat_box (GtkStyle     *style,
   {
     if (!GTK_WIDGET_IS_SENSITIVE(widget))
       state = GTK_STATE_INSENSITIVE;
-      
+
     if (GTK_WIDGET_HAS_FOCUS(widget))
       state = GTK_STATE_ACTIVE;
   }
@@ -1036,6 +1046,7 @@ draw_check (GtkStyle     *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=check, state=%s, shadow=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state),
@@ -1081,6 +1092,7 @@ draw_option (GtkStyle      *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=option, state=%s, shadow=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state),
@@ -1126,6 +1138,7 @@ draw_tab (GtkStyle     *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=tab, state=%s, shadow=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state),
@@ -1163,6 +1176,7 @@ draw_shadow_gap (GtkStyle       *style,
 {
   ThemeMatchData match_data;
 
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=shadow_gap, state=%s, shadow=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state),
@@ -1204,6 +1218,7 @@ draw_box_gap (GtkStyle       *style,
 {
   ThemeMatchData match_data;
 
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=box_gap, state=%s, shadow=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state),
@@ -1244,6 +1259,7 @@ draw_expander (GtkStyle        *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=expander, state=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state),
@@ -1303,6 +1319,7 @@ draw_extension (GtkStyle       *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=extension, state=%s, shadow=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state),
@@ -1341,6 +1358,7 @@ draw_focus (GtkStyle     *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=focus, state=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state),
@@ -1377,6 +1395,7 @@ draw_slider (GtkStyle      *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=slider, state=%s, shadow=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state),
@@ -1420,6 +1439,7 @@ draw_handle (GtkStyle      *style,
   g_return_if_fail (style != NULL);
   g_return_if_fail (window != NULL);
 
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=handle, state=%s, shadow=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state),
@@ -1529,6 +1549,7 @@ draw_layout (GtkStyle     *style,
    * state in the default theme engine */
   GdkGC *gc;
 
+  /* FIXME: memory leak */
   LOG ("widget=%s, primitive=layout, state=%s, detail='%s', name='%s'",
         G_OBJECT_TYPE_NAME (widget),
         enum_value_to_string (gtk_state_type_get_type (), state_type),
