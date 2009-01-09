@@ -1,5 +1,13 @@
 2009-01-08  Sven Herzberg  <sven@imendio.com>
 
+	Test if the server can run the buttonbox demo
+
+	* demos/Makefile.am: added the buttonbox to the tests
+	* demos/buttonbox.c (main): return after showing the window if a
+	proper environment variable was set
+
+2009-01-08  Sven Herzberg  <sven@imendio.com>
+
 	Compile against a vanilla GTK+
 
 	* tests/double-free.c: GTK+ 2.14 doesn't allow including
