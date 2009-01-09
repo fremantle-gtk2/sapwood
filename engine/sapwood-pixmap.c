@@ -108,6 +108,7 @@ sapwood_pixmap_get_for_file (const char *filename,
 
   req->base.op       = PIXBUF_OP_OPEN;
   req->base.length   = sizeof(*req) + flen + 1;
+  req->depth         = 24;
   req->border_left   = border_left;
   req->border_right  = border_right;
   req->border_top    = border_top;

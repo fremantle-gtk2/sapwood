@@ -1,3 +1,20 @@
+2009-01-08  Sven Herzberg  <sven@imendio.com>
+
+	Added a depth field to the PixbufOpenRequest
+
+	To be able to support both 24-bit and 32-bit windows with proper
+	pixmaps, we're going to require being able to separate between the
+	requests.
+
+	* engine/sapwood-pixmap.c (sapwood_pixmap_get_for_file): set the depth
+	to 24 by default now
+	* protocol/sapwood-proto.h: added a depth field, so the engine can
+	tell the server which pixmap to provide
+	* server/sapwood-server.c (extract_pixmap_single),
+	(pixbuf_open_response_new): require the depth to be 24 in any
+	situation now
+	* tests/double-free.c: set the depth to 24 by default now
+
 2009-01-09  Sven Herzberg  <sven@imendio.com>
 
 	Be able to choose the depth of the pixmap by providing a colormap
