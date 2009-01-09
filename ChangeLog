@@ -1,3 +1,12 @@
+2009-01-09  Sven Herzberg  <sven@imendio.com>
+
+	Be able to choose the depth of the pixmap by providing a colormap
+	(through a GdkWindow)
+
+	* server/sapwood-server.c (extract_pixmap_single): create a single
+	GdkWindow to be able to let it provide the colormap and default depth
+	for the 32 bit pixmaps later
+
 2009-01-08  Sven Herzberg  <sven@imendio.com>
 
 	Do the GdkPixbuf rendering with cairo
