@@ -1,5 +1,16 @@
 2009-01-08  Sven Herzberg  <sven@imendio.com>
 
+	Properly forward the depth information.
+
+	* engine/sapwood-pixmap.c,
+	* engine/sapwood-pixmap.h,
+	* engine/sapwood-style.c,
+	* engine/theme-pixbuf.c,
+	* engine/theme-pixbuf.h: properly forward the depth information into
+	the sapwood server
+
+2009-01-08  Sven Herzberg  <sven@imendio.com>
+
 	Added a depth field to the PixbufOpenRequest
 
 	To be able to support both 24-bit and 32-bit windows with proper

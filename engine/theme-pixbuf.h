@@ -138,7 +138,7 @@ struct _ThemePixbuf
   const char *dirname;
   gchar      *basename;
 
-  SapwoodPixmap *pixmap;
+  SapwoodPixmap *pixmap24;
 
   guint16     border_left;
   guint16     border_right;
@@ -185,8 +185,9 @@ ThemePixbuf *theme_pixbuf_canonicalize (ThemePixbuf  *theme_pb,
 void         theme_pixbuf_set_filename (ThemePixbuf  *theme_pb,
 					const char   *filename) G_GNUC_INTERNAL;
 gboolean     theme_pixbuf_get_geometry (ThemePixbuf  *theme_pb,
-					gint         *width,
-					gint         *height) G_GNUC_INTERNAL;
+                                        int           depth,
+                                        gint         *width,
+                                        gint         *height) G_GNUC_INTERNAL;
 void         theme_pixbuf_set_border   (ThemePixbuf  *theme_pb,
 					gint          left,
 					gint          right,
