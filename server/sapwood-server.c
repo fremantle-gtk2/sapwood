@@ -79,13 +79,14 @@ static void
 extract_pixmap_single (GdkPixbuf  *pixbuf,
 		       int i, int j,
 		       int x, int y,
-		       int width, int height,
+		       int width, int height, int depth,
 		       PixbufOpenResponse *rep)
 {
   static GdkWindow* rgba_window = NULL;
   GdkPixmap    *pixmap;
-  gboolean      need_mask;
   cairo_t      *cr;
+
+  g_assert (depth == 24 || depth == 32);
 
   if (G_UNLIKELY (!rgba_window)) {
         GdkWindowAttr attrs = {
@@ -105,38 +106,57 @@ extract_pixmap_single (GdkPixbuf  *pixbuf,
                 GDK_WINDOW_TYPE_HINT_NORMAL, /* GdkWindowTypeHint type_hint */
         };
         GdkScreen* screen = gdk_screen_get_default ();
-        attrs.colormap = gdk_screen_get_rgb_colormap (screen);
+        attrs.colormap = gdk_screen_get_rgba_colormap (screen);
         attrs.visual = gdk_colormap_get_visual (attrs.colormap);
         rgba_window = gdk_window_new (gdk_screen_get_root_window (screen), &attrs,
                                  GDK_WA_VISUAL | GDK_WA_COLORMAP);
   }
 
-  pixmap = gdk_pixmap_new (rgba_window, width, height, -1);
+  switch (depth) {
+  case 24:
+          pixmap = gdk_pixmap_new (NULL, width, height, server_depth);
 
-  cr = gdk_cairo_create (pixmap);
+          cr = gdk_cairo_create (pixmap);
+          break;
+  case 32:
+          pixmap = gdk_pixmap_new (rgba_window, width, height, -1);
 
-  cairo_set_source_rgb (cr, 0.0, 0.0, 0.0);
-  cairo_paint (cr);
+          cr = gdk_cairo_create (pixmap);
+
+          cairo_save (cr);
+          cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
+          cairo_set_source_rgba (cr, 0.0, 0.0, 0.0, 0.0);
+          cairo_paint (cr);
+          cairo_restore (cr);
+          break;
+  default:
+          pixmap = NULL;
+          g_assert_not_reached ();
+          break;
+  }
 
   gdk_cairo_set_source_pixbuf (cr, pixbuf, -x, -y);
   cairo_paint (cr);
   cairo_destroy (cr);
 
-  need_mask = gdk_pixbuf_get_has_alpha (pixbuf);
-  /* FIXME: if the mask would still be all ones, skip creating it altogether */
-
-  if (need_mask)
+  if (depth == 24)
     {
-      GdkBitmap *pixmask;
+      gboolean need_mask = gdk_pixbuf_get_has_alpha (pixbuf);
+      /* FIXME: if the mask would still be all ones, skip creating it altogether */
 
-      pixmask = gdk_pixmap_new (NULL, width, height, 1);
-      gdk_pixbuf_render_threshold_alpha (pixbuf, pixmask,
-					 x, y, 0, 0,
-					 width, height,
-					 128);
+      if (need_mask)
+        {
+          GdkBitmap *pixmask;
 
-      rep->pixmask[i][j] = GDK_PIXMAP_XID (pixmask);
-      pixmap_counter++;
+          pixmask = gdk_pixmap_new (NULL, width, height, 1);
+          gdk_pixbuf_render_threshold_alpha (pixbuf, pixmask,
+                                             x, y, 0, 0,
+                                             width, height,
+                                             128);
+
+          rep->pixmask[i][j] = GDK_PIXMAP_XID (pixmask);
+          pixmap_counter++;
+        }
     }
 
   rep->pixmap[i][j] = GDK_PIXMAP_XID (pixmap);
@@ -219,15 +239,16 @@ extract_pixmaps (GdkPixbuf *pixbuf, const PixbufOpenRequest *req, PixbufOpenResp
 	      break;
 	    }
 
-	  if (x1-x0 > 0 && y1-y0 > 0)
-	    {
-	      extract_pixmap_single (pixbuf,
-				     i, j,
-				     x0, y0,
-				     x1-x0, y1-y0,
-				     rep);
-	    }
-	}
+          if (x1-x0 > 0 && y1-y0 > 0)
+            {
+              extract_pixmap_single (pixbuf,
+                                     i, j,
+                                     x0, y0,
+                                     x1-x0, y1-y0,
+                                     req->depth,
+                                     rep);
+            }
+        }
     }
 
   /* make sure the server has the pixmaps before the client */
@@ -242,7 +263,7 @@ extract_pixmaps (GdkPixbuf *pixbuf, const PixbufOpenRequest *req, PixbufOpenResp
     {
       char buf[4] = { '\0', };
       for (j = 0; j < 3; j++)
-	buf[j] = rep->pixmap[i][j] ? 'X' : '.';
+        buf[j] = rep->pixmap[i][j] ? 'X' : '.';
       LOG ("  %s", buf);
     }
 
@@ -259,7 +280,7 @@ pixbuf_open_response_new (PixbufOpenRequest *req)
   GdkPixbuf         *pixbuf;
   GError            *err = NULL;
 
-  g_return_val_if_fail (req->depth == 24, NULL);
+  g_return_val_if_fail (req->depth == 24 || req->depth == 32, NULL);
 
   pixbuf = gdk_pixbuf_new_from_file (req->filename, &err);
   if (pixbuf)
@@ -345,6 +366,9 @@ pixbuf_open_request_equal (gconstpointer a, gconstpointer b)
 {
   const PixbufOpenRequest *ra = a;
   const PixbufOpenRequest *rb = b;
+
+  if (ra->depth != rb->depth)
+    return FALSE;
 
   if (!g_str_equal (ra->filename, rb->filename))
     return FALSE;
