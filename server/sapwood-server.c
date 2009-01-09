@@ -83,19 +83,19 @@ extract_pixmap_single (GdkPixbuf  *pixbuf,
 		       PixbufOpenResponse *rep)
 {
   GdkPixmap    *pixmap;
-  static GdkGC *tmp_gc = NULL;
   gboolean      need_mask;
+  cairo_t      *cr;
 
   pixmap = gdk_pixmap_new (NULL, width, height, server_depth);
 
-  if (!tmp_gc)
-    tmp_gc = gdk_gc_new (pixmap);
+  cr = gdk_cairo_create (pixmap);
 
-  gdk_draw_pixbuf (pixmap, tmp_gc, pixbuf,
-		   x, y, 0, 0,
-		   width, height,
-		   GDK_RGB_DITHER_NORMAL,
-		   0, 0);
+  cairo_set_source_rgb (cr, 0.0, 0.0, 0.0);
+  cairo_paint (cr);
+
+  gdk_cairo_set_source_pixbuf (cr, pixbuf, -x, -y);
+  cairo_paint (cr);
+  cairo_destroy (cr);
 
   need_mask = gdk_pixbuf_get_has_alpha (pixbuf);
   /* FIXME: if the mask would still be all ones, skip creating it altogether */
