@@ -20,7 +20,7 @@
  */
 #include <config.h>
 
-#include "sapwood-proto.h"
+#include "cache-node.h"
 
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
@@ -52,11 +52,6 @@ static int     pixbuf_counter = 0;
 static int     server_depth   = 0;
 
 static const char *sock_path;
-
-typedef struct {
-  PixbufOpenResponse *rep;
-  guint               refcnt;
-} CacheNode;
 
 #ifndef HAVE_ABSTRACT_SOCKETS
 static void
@@ -365,12 +360,7 @@ process_buffer (int fd, char *buf, ssize_t buflen, gpointer user_data)
 
 	  node = g_hash_table_lookup (cleanup, GUINT_TO_POINTER(rep->id));
 	  if (!node)
-	    {
-	      node = g_new(CacheNode, 1);
-	      node->rep = rep;
-	      node->refcnt = 1;
-	      g_hash_table_insert (cleanup, GUINT_TO_POINTER(rep->id), node);
-	    }
+            g_hash_table_insert (cleanup, GUINT_TO_POINTER(rep->id), cache_node_new (rep));
 	  else
 	    node->refcnt++;
 
@@ -496,7 +486,7 @@ cleanup_pixmap_destroy (gpointer data)
 {
   CacheNode *node = data;
   g_cache_remove (pixmap_cache, node->rep);
-  g_free (node);
+  cache_node_free (node);
 }
 
 static gboolean

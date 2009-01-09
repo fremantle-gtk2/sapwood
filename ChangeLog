@@ -1,3 +1,17 @@
+2008-09-08  Sven Herzberg  <sven@imendio.com>
+
+	Moved memory management for CacheNode into separate files; now we have
+	two well-specified locations left for allocation and free of CacheNode
+
+	* server/Makefile.am: build the new files, too
+	* server/cache-node.c (cache_node_free), (cache_node_new): added new
+	functions
+	* server/cache-node.h: have the structure definition here; added
+	declarations of the new functions
+	* server/sapwood-server.c (process_buffer),
+	(cleanup_pixmap_destroy): replace the code to create/free an object
+	with proper function calls
+
 2008-11-27  Sven Herzberg  <sven@imendio.com>
 
 	Properly follow common memory management logic
