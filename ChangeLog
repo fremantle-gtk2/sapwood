@@ -1,5 +1,14 @@
 2008-09-08  Sven Herzberg  <sven@imendio.com>
 
+	Created cache_node_ref()
+
+	* server/cache-node.c (cache_node_ref): added new function
+	* server/cache-node.h: added new prototype
+	* server/sapwood-server.c (process_buffer): use the cache_node_ref()
+	function
+
+2008-09-08  Sven Herzberg  <sven@imendio.com>
+
 	Moved memory management for CacheNode into separate files; now we have
 	two well-specified locations left for allocation and free of CacheNode
 

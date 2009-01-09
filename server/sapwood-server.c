@@ -362,7 +362,7 @@ process_buffer (int fd, char *buf, ssize_t buflen, gpointer user_data)
 	  if (!node)
             g_hash_table_insert (cleanup, GUINT_TO_POINTER(rep->id), cache_node_new (rep));
 	  else
-	    node->refcnt++;
+            cache_node_ref (node);
 
 	  /* write reply */
 	  n = write (fd, rep, sizeof (*rep));

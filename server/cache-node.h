@@ -31,8 +31,10 @@ G_BEGIN_DECLS
 
 typedef struct _CacheNode CacheNode;
 
-CacheNode* cache_node_new  (PixbufOpenResponse *rep);
-void       cache_node_free (CacheNode          *self);
+CacheNode* cache_node_new   (PixbufOpenResponse *rep);
+void       cache_node_free  (CacheNode          *self);
+
+void       cache_node_ref   (CacheNode          *self);
 
 struct _CacheNode {
   PixbufOpenResponse *rep;

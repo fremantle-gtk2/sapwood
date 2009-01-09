@@ -27,17 +27,23 @@
 #include "cache-node.h"
 
 void
-cache_node_free (CacheNode* self)
+cache_node_free (CacheNode *self)
 {
   g_free (self);
 }
 
 CacheNode*
-cache_node_new (PixbufOpenResponse* rep)
+cache_node_new (PixbufOpenResponse *rep)
 {
   CacheNode* self = g_new0 (CacheNode, 1);
   self->rep = rep;
   self->refcnt = 1;
   return self;
+}
+
+void
+cache_node_ref (CacheNode *self)
+{
+  self->refcnt++;
 }
 
