@@ -1,3 +1,10 @@
+2009-01-08  Sven Herzberg  <sven@imendio.com>
+
+	Updated to the refactored paths.
+
+	* demos/run-demo: replaced src by engine, as this is where the engine
+	is built now
+
 2008-09-08  Sven Herzberg  <sven@imendio.com>
 
 	Created cache_node_ref()
