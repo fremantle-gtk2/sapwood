@@ -31,7 +31,10 @@
 #include <sys/un.h>
 #include <unistd.h>
 #include <gio/gio.h>
+#include <gtk/gtk.h>
+#if ! GTK_CHECK_VERSION (2,14,0)
 #include <gtk/gtktestutils.h>
+#endif
 #include "sapwood-pixmap-priv.h"
 #include "sapwood-proto.h"
 
