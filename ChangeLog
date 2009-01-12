@@ -1,5 +1,17 @@
 2009-01-10  Sven Herzberg  <sven@imendio.com>
 
+	Get the remaining RGBA bits into sapwood
+
+	* engine/sapwood-pixmap.c
+	(sapwood_pixmap_get_for_file): set a colormap for the remove pixmap;
+	this is required to work properly with the gdk-cairo code
+	(sapwood_pixmap_render_rects_internal): use cairo for rendering the
+	pixmap; gdk doesn't have a clue about alpha rendering
+	(sapwood_pixmap_render_rects): properly initialize the temporary
+	pixmap to be fully transparent (if in 32bit mode)
+
+2009-01-10  Sven Herzberg  <sven@imendio.com>
+
 	Don't expect 24/32 bit pixmap depth, expect system_depth/32
 
 	* server/sapwood-server.c (extract_pixmap_single),

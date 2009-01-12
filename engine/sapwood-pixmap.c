@@ -136,6 +136,25 @@ sapwood_pixmap_get_for_file (const char *filename,
 	  {
 	    gdk_error_trap_push ();
 	    pixmap = gdk_pixmap_foreign_new (rep.pixmap[i][j]);
+            if (gdk_colormap_get_visual (gdk_screen_get_rgba_colormap (gdk_screen_get_default ()))->depth == depth)
+              {
+                gdk_drawable_set_colormap (pixmap,
+                                           gdk_screen_get_rgba_colormap (gdk_screen_get_default ()));
+              }
+            else if (gdk_colormap_get_visual (gdk_screen_get_rgb_colormap (gdk_screen_get_default ()))->depth == depth)
+              {
+                gdk_drawable_set_colormap (pixmap,
+                                           gdk_screen_get_rgb_colormap (gdk_screen_get_default ()));
+              }
+            else if (gdk_colormap_get_visual (gdk_screen_get_system_colormap (gdk_screen_get_default ()))->depth == depth)
+              {
+                gdk_drawable_set_colormap (pixmap,
+                                           gdk_screen_get_system_colormap (gdk_screen_get_default ()));
+              }
+            else
+              {
+                g_assert_not_reached ();
+              }
 	    gdk_flush ();
 	    if ((xerror = gdk_error_trap_pop ()) || !pixmap)
 	      {
@@ -335,20 +354,21 @@ sapwood_pixmap_render_rects_internal (SapwoodPixmap *self,
 	area = *dest;
 
       if (rect[n].pixmap)
-	{
-	  values.tile = rect[n].pixmap;
-	  values.ts_x_origin = dest->x;
-	  values.ts_y_origin = dest->y;
-	  gdk_gc_set_values (draw_gc, &values, GDK_GC_TILE|GDK_GC_TS_X_ORIGIN|GDK_GC_TS_Y_ORIGIN);
-
-	  gdk_draw_rectangle (draw, draw_gc, TRUE, area.x, area.y, area.width, area.height);
-	}
+        {
+          cairo_t* cr = gdk_cairo_create (draw);
+          gdk_cairo_set_source_pixmap (cr, rect[n].pixmap, dest->x, dest->y);
+          cairo_rectangle (cr, area.x, area.y, area.width, area.height);
+          cairo_pattern_set_extend (cairo_get_source (cr),
+                                    CAIRO_EXTEND_REPEAT);
+          cairo_fill (cr);
+          cairo_destroy (cr);
+        }
     }
 }
 
 void
 sapwood_pixmap_render_rects (SapwoodPixmap *self,
-			     GtkWidget     *widget,
+                             GtkWidget     *widget,
                              GdkDrawable   *draw,
                              gint           draw_x,
                              gint           draw_y,
@@ -405,6 +425,15 @@ sapwood_pixmap_render_rects (SapwoodPixmap *self,
       mask_cr = gdk_cairo_create (tmp_mask);
       cairo_set_source_rgb (mask_cr, 1., 1., 1.);
       cairo_paint (mask_cr);
+    }
+
+  if (gdk_drawable_get_depth (tmp) == 32)
+    {
+      tmp_cr = gdk_cairo_create (tmp);
+      cairo_set_operator (tmp_cr, CAIRO_OPERATOR_SOURCE);
+      cairo_set_source_rgba (tmp_cr, 0.0, 0.0, 0.0, 0.0);
+      cairo_paint (tmp_cr);
+      cairo_destroy (tmp_cr);
     }
 
   sapwood_pixmap_render_rects_internal (self, tmp, 0, 0, tmp_mask, 0, 0, mask_required, NULL, n_rect, rect);
