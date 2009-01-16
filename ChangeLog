@@ -1,5 +1,13 @@
 2009-01-10  Sven Herzberg  <sven@imendio.com>
 
+	Added a background image for the RGBA demo
+
+	* demos/rgba-demo.gtkrc,
+	* demos/images/window.png: added a semi-transparent background image
+	to the demo
+
+2009-01-10  Sven Herzberg  <sven@imendio.com>
+
 	Get the remaining RGBA bits into sapwood
 
 	* engine/sapwood-pixmap.c
