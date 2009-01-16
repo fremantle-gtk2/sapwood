@@ -20,6 +20,13 @@
 
 2009-01-09  Sven Herzberg  <sven@imendio.com>
 
+	Added a gtkrc file for the RGBA demo
+
+	* demos/rgba-demo.c (main): load the gtkrc file
+	* demos/rgba-demo.gtkrc: added the gtkrc file
+
+2009-01-09  Sven Herzberg  <sven@imendio.com>
+
 	Added a quit button to the window
 
 	* demos/rgba-demo.c (main): added a quit button; set the table's row

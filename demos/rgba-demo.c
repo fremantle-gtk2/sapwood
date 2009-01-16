@@ -34,6 +34,7 @@ main (int   argc,
   GtkWidget* table;
   GtkWidget* window;
 
+  gtk_rc_add_default_file ("rgba-demo.gtkrc");
   gtk_init (&argc, &argv);
 
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);

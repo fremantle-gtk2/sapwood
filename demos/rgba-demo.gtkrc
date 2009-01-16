@@ -1,0 +1,3 @@
+# vim:set ft=gtkrc sw=2 sts=2 expandtab:
+pixmap_path "images"
+
