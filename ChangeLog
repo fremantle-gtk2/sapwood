@@ -1,5 +1,13 @@
 2009-01-16  Sven Herzberg  <sven@imendio.com>
 
+	Support three depths, system, 24 and 32...
+
+	* server/sapwood-server.c (extract_pixmap_single),
+	(pixbuf_open_response_new), (main): support three depths; enable fatal
+	warnings when arguments are passed
+
+2009-01-16  Sven Herzberg  <sven@imendio.com>
+
 	Don't echo the screen name; this reduces the noise from running the
 	test cases
 
