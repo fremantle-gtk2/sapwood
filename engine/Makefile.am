@@ -31,7 +31,7 @@ libsapwood_la_LDFLAGS = -avoid-version -module -Wl,-z,defs
 libsapwood_la_LIBADD=$(GTK_LIBS) \
 	libsapwood-client.la \
 	$(NULL)
-libsapwood_la_CFLAGS = -DG_LOG_DOMAIN=\"sapwood\" $(AM_CFLAGS)
+libsapwood_la_CFLAGS = -DG_LOG_DOMAIN=\"sapwood-engine\" $(AM_CFLAGS)
 
 libsapwood_client_la_LIBADD=\
 	$(top_builddir)/protocol/libprotocol.la \

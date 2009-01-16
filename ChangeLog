@@ -1,5 +1,13 @@
 2009-01-16  Sven Herzberg  <sven@imendio.com>
 
+	Added proper and distinguishable logging domains
+
+	* engine/Makefile.am,
+	* server/Makefile.am: set the logging domains to "sapwood-server" and
+	"sapwood-engine"
+
+2009-01-16  Sven Herzberg  <sven@imendio.com>
+
 	* demos/Makefile.am: some dist-related fixes
 	* demos/rgba-demo.gtkrc: some smaller touches
 
