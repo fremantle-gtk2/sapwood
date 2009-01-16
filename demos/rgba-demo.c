@@ -29,12 +29,23 @@ int
 main (int   argc,
       char**argv)
 {
+  GtkWidget* entry;
+  GtkWidget* table;
   GtkWidget* window;
 
   gtk_init (&argc, &argv);
 
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  table  = gtk_table_new (1, 2, FALSE);
+  entry  = gtk_entry_new ();
 
+  gtk_container_add (GTK_CONTAINER (window), table);
+  gtk_table_attach  (GTK_TABLE (table), entry,
+                     0, 1, 0, 1,
+                     GTK_FILL, GTK_FILL,
+                     0, 0);
+
+  gtk_container_set_border_width (GTK_CONTAINER (window), 12);
   g_signal_connect (window, "destroy",
                     G_CALLBACK (gtk_main_quit), NULL);
 
