@@ -29,6 +29,7 @@ int
 main (int   argc,
       char**argv)
 {
+  GtkWidget* button;
   GtkWidget* entry;
   GtkWidget* table;
   GtkWidget* window;
@@ -38,16 +39,26 @@ main (int   argc,
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   table  = gtk_table_new (1, 2, FALSE);
   entry  = gtk_entry_new ();
+  button = gtk_button_new_from_stock (GTK_STOCK_QUIT);
 
   gtk_container_add (GTK_CONTAINER (window), table);
   gtk_table_attach  (GTK_TABLE (table), entry,
                      0, 1, 0, 1,
                      GTK_FILL, GTK_FILL,
                      0, 0);
+  gtk_table_attach  (GTK_TABLE (table), button,
+                     0, 1, 1, 2,
+                     GTK_FILL, GTK_FILL,
+                     0, 0);
 
   gtk_container_set_border_width (GTK_CONTAINER (window), 12);
   g_signal_connect (window, "destroy",
                     G_CALLBACK (gtk_main_quit), NULL);
+
+  gtk_table_set_row_spacings (GTK_TABLE (table), 12);
+
+  g_signal_connect_swapped (button, "clicked",
+                            G_CALLBACK (gtk_widget_destroy), window);
 
   gtk_widget_show_all (window);
 
