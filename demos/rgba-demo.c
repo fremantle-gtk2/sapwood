@@ -25,6 +25,25 @@
 
 #include <gtk/gtk.h>
 
+static gboolean
+window_expose_event (GtkWidget     * widget,
+                     GdkEventExpose* event,
+                     gpointer        user_data)
+{
+  cairo_t* cr = gdk_cairo_create (widget->window);
+
+  gdk_cairo_region (cr, event->region);
+  cairo_clip (cr);
+
+  cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
+  cairo_set_source_rgba (cr, 0.0, 0.0, 0.0, 0.0);
+  cairo_paint (cr);
+
+  cairo_destroy (cr);
+
+  return FALSE;
+}
+
 int
 main (int   argc,
       char**argv)
@@ -45,16 +64,18 @@ main (int   argc,
   gtk_container_add (GTK_CONTAINER (window), table);
   gtk_table_attach  (GTK_TABLE (table), entry,
                      0, 1, 0, 1,
-                     GTK_FILL, GTK_FILL,
+                     GTK_FILL | GTK_EXPAND, GTK_FILL,
                      0, 0);
   gtk_table_attach  (GTK_TABLE (table), button,
                      0, 1, 1, 2,
-                     GTK_FILL, GTK_FILL,
+                     GTK_FILL | GTK_EXPAND, GTK_FILL,
                      0, 0);
 
   gtk_container_set_border_width (GTK_CONTAINER (window), 12);
   g_signal_connect (window, "destroy",
                     G_CALLBACK (gtk_main_quit), NULL);
+  g_signal_connect (window, "expose-event",
+                    G_CALLBACK (window_expose_event), NULL);
 
   gtk_table_set_row_spacings (GTK_TABLE (table), 12);
 
