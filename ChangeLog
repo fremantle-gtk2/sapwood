@@ -1,5 +1,15 @@
 2009-01-10  Sven Herzberg  <sven@imendio.com>
 
+	Render the entry with the gradient from the gradient demo
+
+	* demos/rgba-demo.c (window_expose_event), (main): change the
+	expose-handler to just clean the window connected to the expose event;
+	connect the expose handler also to the signal from the entry (to clear
+	frame and text windows)
+	* demos/rgba-demo.gtkrc: add the gradient to the entry rendering stuff
+
+2009-01-10  Sven Herzberg  <sven@imendio.com>
+
 	Added a transparent main window to the gradient demo (to check how
 	well it works)
 

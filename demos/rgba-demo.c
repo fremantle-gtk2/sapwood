@@ -30,7 +30,7 @@ window_expose_event (GtkWidget     * widget,
                      GdkEventExpose* event,
                      gpointer        user_data)
 {
-  cairo_t* cr = gdk_cairo_create (widget->window);
+  cairo_t* cr = gdk_cairo_create (event->window);
 
   gdk_cairo_region (cr, event->region);
   cairo_clip (cr);
@@ -78,6 +78,9 @@ main (int   argc,
                     G_CALLBACK (window_expose_event), NULL);
 
   gtk_table_set_row_spacings (GTK_TABLE (table), 12);
+
+  g_signal_connect (entry, "expose-event",
+                    G_CALLBACK (window_expose_event), NULL);
 
   g_signal_connect_swapped (button, "clicked",
                             G_CALLBACK (gtk_widget_destroy), window);
