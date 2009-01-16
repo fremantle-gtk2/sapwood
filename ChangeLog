@@ -20,6 +20,13 @@
 
 2009-01-09  Sven Herzberg  <sven@imendio.com>
 
+	Started work on the RGBA demo
+
+	* demos/Makefile.am,
+	* demos/rgba-demo.c: added the skeleton for the demo
+
+2009-01-09  Sven Herzberg  <sven@imendio.com>
+
 	Use 32-bit code if possible and requested
 
 	* demos/gradient.c (main): now you can request 32-bit code by passing
