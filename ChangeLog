@@ -1,5 +1,12 @@
 2009-01-16  Sven Herzberg  <sven@imendio.com>
 
+	Added fatal warnings
+
+	* tests/double-free.c (main): enable fatal warnings when arguments are
+	passed
+
+2009-01-16  Sven Herzberg  <sven@imendio.com>
+
 	Support three depths, system, 24 and 32...
 
 	* server/sapwood-server.c (extract_pixmap_single),

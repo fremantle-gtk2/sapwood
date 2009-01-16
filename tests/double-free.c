@@ -206,6 +206,10 @@ main (int   argc,
 
   gdk_init (&argc, &argv);
 
+  if (argc > 1) {
+          g_log_set_always_fatal (G_LOG_LEVEL_CRITICAL | G_LOG_LEVEL_WARNING);
+  }
+
   fd = sapwood_client_get_socket (&error);
   if (fd == -1)
     {
