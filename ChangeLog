@@ -1,3 +1,8 @@
+2009-01-16  Sven Herzberg  <sven@imendio.com>
+
+	* demos/Makefile.am: some dist-related fixes
+	* demos/rgba-demo.gtkrc: some smaller touches
+
 2009-01-10  Sven Herzberg  <sven@imendio.com>
 
 	Render the entry with the gradient from the gradient demo

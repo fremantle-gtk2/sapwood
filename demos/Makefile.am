@@ -15,16 +15,15 @@ CLEANFILES = engines
 MAINTAINERCLEANFILES = Makefile.in
 
 EXTRA_DIST+=\
-	buttonbox.c \
 	buttonbox.gtkrc \
 	images/hbbox-brt.png \
 	images/hbbox-tb.png \
 	images/hbbox-tlb.png \
 	images/hbbox-tlbr.png \
-	gradient.c \
 	gradient.gtkrc \
 	images/gradient.png \
-	treeview.c \
+	rgba-demo.gtkrc \
+	images/window.png \
 	treeview.gtkrc \
 	images/treeview-active.png \
 	images/treeview-active-alone.png \
