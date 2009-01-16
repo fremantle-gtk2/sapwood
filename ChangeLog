@@ -1,5 +1,15 @@
 2009-01-16  Sven Herzberg  <sven@imendio.com>
 
+	Added the graphics from Daniel Borgmann
+
+	* demos/rgba-demo.c (main): some cleanup
+	* demos/rgba-demo.gtkrc: use the new graphics
+	* demos/images/alpha_button.png,
+	* demos/images/alpha_entry.png,
+	* demos/images/background_tile.png: new graphics from Daniel
+
+2009-01-16  Sven Herzberg  <sven@imendio.com>
+
 	Added fatal warnings
 
 	* tests/double-free.c (main): enable fatal warnings when arguments are

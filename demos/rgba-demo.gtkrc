@@ -6,61 +6,79 @@ style "rgba-window" {
     image {
       function = FLAT_BOX
       detail = "base"
-      file = "window.png"
+      file = "background_tile.png"
     }
   }
+}
+
+style "rgba-label" {
+  fg[NORMAL] = "#cccccc"
+  fg[PRELIGHT] = "white"
+  fg[ACTIVE] = "white"
+  fg[SELECTED] = "white"
+  fg[INSENSITIVE] = "white"
+  text[NORMAL] = "#cccccc"
+  text[PRELIGHT] = "white"
+  text[ACTIVE] = "white"
+  text[SELECTED] = "white"
+  text[INSENSITIVE] = "white"
 }
 
 style "rgba-button" {
   GtkButton::child-displacement-x = -2
   GtkButton::child-displacement-y = 1
 
+  GtkButton::inner-border = { 13, 13, 13, 13 }
+
   engine "sapwood" {
     # solitary
     image {
       function = BOX
       position = TOP, LEFT, BOTTOM, RIGHT
-      file = "hbbox-tlbr.png"
-      border = { 6, 6, 6, 6 }
+      file = "alpha_button.png"
+      border = { 13, 13, 13, 13 }
     }
     # rightmost
     image {
       function = BOX
       position = BOTTOM, RIGHT, TOP
-      file = "hbbox-brt.png"
-      border = { 3, 6, 6, 6 }
+      file = "alpha_button.png"
+      border = { 13, 13, 13, 13 }
     }
     # middle
     image {
       function = BOX
       position = TOP, BOTTOM
-      file = "hbbox-tb.png"
-      border = { 3, 3, 6, 6 }
+      file = "alpha_button.png"
+      border = { 13, 13, 13, 13 }
     }
     # leftmost
     image {
       function = BOX
       position = TOP, LEFT, BOTTOM
-      file = "hbbox-tlb.png"
-      border = { 6, 3, 6, 6 }
+      file = "alpha_button.png"
+      border = { 13, 13, 13, 13 }
     }
     # default fallback (should be last)
     image {
       function = BOX
-      file = "hbbox-tlbr.png"
-      border = { 6, 6, 6, 6 }
+      file = "alpha_button.png"
+      border = { 13, 13, 13, 13 }
     }
   }
 }
 
 style "rgba-entry" {
 
-    GtkEntry::inner-border = { 6, 6, 0, 0 }
+    GtkEntry::inner-border = { 12, 12, 12, 12 }
 
         engine "sapwood" {
                 image {
                         function = SHADOW
                         state = NORMAL
+                        #file = "alpha_entry.png"
+                        #stretch = TRUE
+                        #border = { 12, 12, 12, 12 }
                 }
         }
 
@@ -75,8 +93,9 @@ style "rgba-entry" {
                         function = FLAT_BOX
                         shadow = NONE
                         state = INSENSITIVE
-                        file = "gradient.png"
-                        border = { 2, 2, 2, 2 }
+                        file = "alpha_entry.png"
+                        stretch = TRUE
+                        border = { 12, 12, 12, 12 }
                 }
         }
 
@@ -84,13 +103,15 @@ style "rgba-entry" {
                 image {
                         function = FLAT_BOX
                         shadow = NONE
-                        file = "gradient.png"
-                        border = { 2, 2, 2, 2 }
+                        file = "alpha_entry.png"
+                        stretch = TRUE
+                        border = { 12, 12, 12, 12 }
                 }
         }
 }
 
 class "GtkWindow" style "rgba-window"
 class "GtkButton" style "rgba-button"
+class "GtkLabel"  style "rgba-label"
 class "GtkEntry"  style "rgba-entry"
 
