@@ -1,0 +1,337 @@
+sapwood (3.1.1-1) unstable; urgency=low
+
+  * Fixes: NB#91010: shadowcolor option for labels (Daniel Borgmann)
+
+ -- Claudio Saavedra <csaavedra@igalia.com>  Fri, 21 Nov 2008 10:31:15 -0300
+
+sapwood (3.1.0-1) unstable; urgency=low
+
+  * Lots of internal code refactoring (Sven Herzberg)
+  * Improve themeability of GtkEntry (Daniel Borgmann)
+
+ -- Claudio Saavedra <csaavedra@igalia.com>  Mon, 06 Oct 2008 09:58:35 +0300
+
+sapwood (3.0.0-2) chinook; urgency=low
+
+  * debian/sapwood-server.sh:
+    - revert setting GDK_DISABLE_XSHM=1 environment variable
+  * See NB#22173 comment #17
+
+ -- Christian Dywan <christian@imendio.com>  Fri, 04 Jul 2008 15:13:00 +0100
+
+sapwood (3.0.0-1) chinook; urgency=low
+
+  * Minor optimizations
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Tue, 25 Sep 2007 18:23:44 +0300
+
+sapwood (2.91.11-1) unstable; urgency=low
+
+  * Fixes rendering corruption in arrows
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Mon, 17 Sep 2007 14:27:53 +0300
+
+sapwood (2.91.10-1) unstable; urgency=low
+
+  * More robust handling of theme switching when there are symbolic links
+    involved. (Fixes: NB#64446 - Application menu gets distorted on applying
+    plankton theme again)
+  * Slightly decreased memory usage due to improved caching.
+  * Improved warnings when trying to use the same file with different borders.
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Tue, 11 Sep 2007 18:07:54 +0300
+
+sapwood (2.91.9-1) unstable; urgency=low
+
+  * Fixes: NB#66054 - Disabled text is shown two colors in same characters
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Wed,  5 Sep 2007 18:49:04 +0300
+
+sapwood (2.91.8-1) unstable; urgency=low
+
+  * Fixed theming artefacts seen in menus and home applets
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Wed,  5 Sep 2007 18:23:42 +0300
+
+sapwood (2.91.7-1) unstable; urgency=low
+
+  * NOTE: This version breaks the binary protocol between applications and the
+    sapwood-server. Restarting the sapwood-server is required.
+
+  * Increase the maximum border size to 65535 pixels (was 255)
+
+  * Fixes: NB#60575 - Focus on menu items in others menu is not proper
+  * Fixes: NB#61844 - List view headers show multiple arrows
+  * Fixes: NB#63819 - RSS feed reader applet appears distorted on re-sizing
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Wed, 22 Aug 2007 18:01:19 +0300
+
+sapwood (2.91.6-1) unstable; urgency=low
+
+  * Implement downscaling
+    - Fixes: NB#62512 sapwood ignores width/height if smaller than the bitmap
+  * debian/control: Build-depend on libgtk2.0-dev 2.8 due to cairo
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Wed,  4 Jul 2007 10:47:00 +0300
+
+sapwood (2.91.5-1) unstable; urgency=low
+
+  * Fix 'position' handling to correctly check widgets visibility (breadcrumb)
+  * Improve handling cursor separately from selection (treeview)
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Fri,  8 Jun 2007 17:21:39 +0300
+
+sapwood (2.91.4-1) unstable; urgency=low
+
+  * Use 'maemo-position-theming' style property for position dependent theming
+    (dialog buttons, bread crumb trail)
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Thu, 19 Apr 2007 15:18:51 +0300
+
+sapwood (2.91.3-1) unstable; urgency=low
+
+  * Documentation for theme maintainers.
+  * Implement GtkMenuItem active/passive focus.
+  * Special case GtkCheckButton and GtkRadioButton background drawing when
+    focused.
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Thu, 29 Mar 2007 15:33:49 +0300
+
+sapwood (2.91.2-1) experimental; urgency=low
+
+  * Fix menu flickering when the scroll arrows were shown
+  * Implement gtk_paint_expander reusing existing theming rules for arrows
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Tue,  6 Feb 2007 14:44:15 +0200
+
+sapwood (2.91.1-1) experimental; urgency=low
+
+  * Fix menu flickering with gtk+ 2.10
+  * Implement special handling for active/passive focus in treeview
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Mon, 29 Jan 2007 17:08:14 +0200
+
+sapwood (2.91.0-1) experimental; urgency=low
+
+  * Introduce 'position' keyword
+  * Fixes: MB#856 Sapwood crashes with color depth != 16
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Thu, 25 Jan 2007 10:48:56 +0200
+
+sapwood (2.43-1) unstable; urgency=low
+
+  * Fixes: NB#35602 Application crash when past 1000 line notes in to new mail.
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Thu, 26 Oct 2006 17:27:24 +0300
+
+sapwood (2.24-3) unstable; urgency=low
+
+  * debian/sapwood-server.sh:
+    - set GDK_DISABLE_XSHM=1 environment variable when starting the server
+  * Fixes: NB#22173 Sapwood server keeps redundant shared memory with the X
+    server (when used with gtk+2.0 (>= 2:2.6.10-2.osso15))
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Tue, 19 Sep 2006 19:12:55 +0300
+
+sapwood (2.24-2) unstable; urgency=low
+
+  * Package debugging symbols (Fixes: NB#40232)
+    - debian/control: add gtk2-engines-sapwood-dbg package
+    - debian/rules: update dh_strip call
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Fri, 15 Sep 2006 11:54:30 +0300
+
+sapwood (2.24-1) unstable; urgency=low
+
+  * debian/rules:
+    - CFLAGS += -g
+  * Fixes: NB#32525 Failure to read image crashes sapwood-server
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Tue, 13 Jun 2006 15:06:13 +0300
+
+sapwood (2.19-1) unstable; urgency=low
+
+  * Fixes:
+    NB#26863 - Device is restarting all the time when you uninstall the theme
+               that are in use
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Fri, 12 May 2006 16:39:04 +0300
+
+sapwood (2.18-1) unstable; urgency=low
+
+  * Fixes:
+    N#23070 - View button pressed state looks same as focused state
+    N#27967 - Valgrind reported errors from libsapwood
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Wed, 10 May 2006 16:30:00 +0300
+
+sapwood (2.17-1) unstable; urgency=low
+
+  * Fixes N#27515 - Sapwood does illegal unrefs in style_finalize
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Mon, 24 Apr 2006 13:35:34 +0300
+
+sapwood (2.14.1-1) unstable; urgency=low
+
+  * Fixes N#26389: Power Key menu is not appearing on pressing Power Key
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Wed, 12 Apr 2006 15:38:42 +0300
+
+sapwood (2.14-1) unstable; urgency=low
+
+  * Make shaped window theming explicit.
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Mon,  3 Apr 2006 16:37:43 +0300
+
+sapwood (1.36-1) unstable; urgency=low
+
+  * Fixes #16158 - Most of memory used by g_strdup calls in applications come
+    from the sapwood theme engine
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Fri,  2 Sep 2005 18:13:32 +0300
+
+sapwood (1.22-1) unstable; urgency=low
+
+  * New release
+  * Fixes #9727 - Notebook widget: the most right tab's right border is not
+    displayed.
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Fri, 27 May 2005 15:06:38 +0300
+
+sapwood (1.20-2) unstable; urgency=low
+
+  * sapwood-server.sh: use LAUNCHWRAPPER_NICE instead
+  * Fixes #11915 - Sapwood server is not started with Lifeguard
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Wed, 18 May 2005 18:37:59 +0300
+
+sapwood (1.20-1) unstable; urgency=low
+
+  * New release
+  * Fixes #11906 - Sapwood migh crash the application on skin change
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Fri, 13 May 2005 15:09:57 +0300
+
+sapwood (1.18.1-1) unstable; urgency=low
+
+  * New release
+    - Dim icons using white raster
+    - Remove unneeded gtk+ dependency from sapwood-server
+  * Don't install unneeded libsapwood.la
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Tue,  3 May 2005 18:12:24 +0300
+
+sapwood (1.18-1) unstable; urgency=low
+
+  * New release
+    - Release old images when the theme changes
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Tue, 26 Apr 2005 15:09:46 +0300
+
+sapwood (1.12-1) unstable; urgency=low
+
+  * New release
+    - sapwood-server moved to /usr/lib/sapwood
+  * Abstract socket writable to other users, application installer should look
+    better now
+  * Fixes #8479 - AI user cannot write to sapwood socket
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Tue, 29 Mar 2005 15:11:12 +0300
+
+sapwood (1.08-2) unstable; urgency=low
+
+  * re-tag with full sources
+
+ -- Alexander Kanevskiy <alexander.kanevskiy@nokia.com>  Wed, 23 Feb 2005 21:06:41 +0200
+
+sapwood (1.08-1) unstable; urgency=low
+
+  * New release
+    - switch to orig+diff
+  * Fixes #5533 - Changing GTK theme on the fly crashes applications
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Wed, 23 Feb 2005 19:03:04 +0200
+
+sapwood (1.03) unstable; urgency=low
+
+  * Extracted only the (greatly modified) pixbuf engine and renamed to sapwood
+  * Added AF startup script
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Thu, 13 Jan 2005 12:27:38 +0200
+
+gtk2-engines (2:2.2.0-2osso2) unstable; urgency=low
+
+  * Fix #3468 - drawing of center piece when left or top border is zero
+  * Fix compiler warnings (missing #include)
+  * debian/rules(clean): remove conftest* that get left around
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Wed,  1 Dec 2004 10:08:43 +0200
+
+gtk2-engines (1:2.2.0hildon3-2.osso.2) unstable; urgency=low
+
+  * Merge hildon-status-bar-popup change
+  * Merge fix for http://bugzilla.gnome.org/show_bug.cgi?id=112066 
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Tue,  9 Nov 2004 17:17:12 +0200
+
+gtk2-engines (1:2.2.0hildon3-2.osso.1) unstable; urgency=low
+
+  * Using pixmaps instead of pixbufs, and tiling instead of scaling
+
+ -- Tommi Komulainen <tommi.komulainen@nokia.com>  Wed, 20 Oct 2004 17:20:18 +0300
+
+gtk2-engines (2.2.0-2) unstable; urgency=low
+
+  * Update libtool (Closes: #201939)
+
+ -- Ed Boraas <ed@debian.org>  Mon, 21 Jul 2003 19:58:11 -0600
+
+gtk2-engines (2.2.0-1) unstable; urgency=low
+
+  * Acknowledge previous NMU (Thanks, Akira!)
+    * Closes: #161725, #167553
+  * New upstream release
+
+ -- Ed Boraas <ed@debian.org>  Tue, 21 Jan 2003 20:41:49 -0700
+
+gtk2-engines (1.9.0-5) unstable; urgency=low
+
+  * NMU
+  * debian/rules:
+    - support noopt and nostrip for DEB_BUILD_OPTIONS
+    - support DEB_HOST_GNU_TYPE and DEB_BUILD_GNU_TYPE
+  * debian/control:
+    - bumped Standards-Version to 3.5.8.
+    - updated Build-Depends.
+  * debian/gtk2-engines-{metal,pixbuf,redmond95}.files:
+    fix the wrong packaging. (closes: Bug#161725)
+  * debian/gtk2-engines-pixbuf.README.Debian:
+    fix documentation. (closes: Bug#167553)
+
+ -- Akira TAGOH <tagoh@debian.org>  Tue,  7 Jan 2003 05:40:47 +0900
+
+gtk2-engines (1.9.0-4) unstable; urgency=low
+
+  * Rename to gtk2-engines-*
+
+ -- Ed Boraas <ed@debian.org>  Tue, 20 Aug 2002 07:06:17 -0700
+
+gtk2.0-engines (1.9.0-3) unstable; urgency=low
+
+  * Rebuild against libpng3
+  * Each engine suggests its 1.2 counterpart
+
+ -- Ed Boraas <ed@debian.org>  Sun, 18 Aug 2002 21:36:04 -0700
+
+gtk2.0-engines (1.9.0-2) unstable; urgency=low
+
+  * Update build depends
+
+ -- Ed Boraas <ed@debian.org>  Tue, 6 Aug 2002 19:46:02 -0700
+
+gtk2.0-engines (1.9.0-1) unstable; urgency=low
+
+  * New package for GTK2 engines
+
+ -- Ed Boraas <ed@debian.org>  Mon, 29 Jul 2002 07:08:46 -0700
+

@@ -1,0 +1,134 @@
+#vim: set sts=2 sw=2 ft=gtkrc expandtab:
+pixmap_path "images"
+style "treeview" {
+  engine "sapwood" {
+    image { # passive focus for selection 
+      function = FLAT_BOX
+      state    = SELECTED
+      shadow   = OUT
+
+      file     = "treeview-selected.png"
+
+      overlay_file     = "treeview-passive.png"
+      overlay_border   = { 1, 1, 1, 1 }
+    }
+    image { # selection
+      function = FLAT_BOX
+      state    = SELECTED
+      file     = "treeview-selected.png"
+    }
+
+    image { # normal row passive focus
+      function = FLAT_BOX
+      shadow   = OUT
+
+      file     = "treeview-normal.png"
+
+      overlay_file     = "treeview-passive.png"
+      overlay_border   = { 1, 1, 1, 1 }
+    }
+    image { # normal row background (fallback)
+      function = FLAT_BOX
+      file     = "treeview-normal.png"
+    }
+
+    image { # active focus
+      function = FOCUS
+      file     = "treeview-active.png"
+      border   = { 1, 1, 1, 1 }
+    }
+  }
+}
+class "GtkTreeView" style "treeview"
+
+
+# More complicated example about row-ending-details
+# 
+# It's going to get *really* repetitive if you want to take advantage of the
+# possibilities. This is just the bare minimum to have only the active focus
+# look reasonable. 
+style "treeview-with-row-endings" {
+  GtkTreeView::row-ending-details = 1
+  engine "sapwood" {
+    #image {
+    #  function = FLAT_BOX
+    #  detail = %s / %s_start / %s_middle / %s_end
+    #  
+    #  (start, middle, end used only when row-ending-details = 1)
+    #
+    #  %s = "cell_odd_ruled_sorted"
+    #     | "cell_even_ruled_sorted"
+    #     | "cell_odd_ruled"
+    #     | "cell_even_ruled"
+    #     | "cell_odd_sorted"
+    #     | "cell_even_sorted"
+    #     | "cell_odd"
+    #     | "cell_even"
+    #}
+
+    # selection #######################################################
+    image { # passive focus for selection 
+      function = FLAT_BOX
+      state    = SELECTED
+      shadow   = OUT
+
+      file     = "treeview-selected.png"
+
+      overlay_file     = "treeview-passive.png"
+      overlay_border   = { 1, 1, 1, 1 }
+    }
+    image { # selection
+      function = FLAT_BOX
+      state    = SELECTED
+      file     = "treeview-selected.png"
+    }
+    # passive focus ###################################################
+    image {
+      function = FLAT_BOX
+      state    = ACTIVE
+      shadow   = OUT
+      file     = "treeview-passive.png"
+    }
+    # normal row background (fallback) ################################
+    image { # normal row passive focus
+      function = FLAT_BOX
+      shadow   = OUT
+
+      file     = "treeview-normal.png"
+
+      overlay_file     = "treeview-passive.png"
+      overlay_border   = { 1, 1, 1, 1 }
+    }
+
+    # active ##########################################################
+    image {
+      function = FOCUS
+      detail   = "*_start"
+
+      file     = "treeview-active-left.png"
+      border   = { 2, 0, 2, 2 }
+    }
+    image {
+      function = FOCUS
+      detail   = "*_middle"
+
+      file     = "treeview-active-middle.png"
+      border   = { 0, 0, 1, 1 }
+    }
+    image {
+      function = FOCUS
+      detail   = "*_end"
+
+      file     = "treeview-active-right.png"
+      border   = { 0, 2, 2, 2 }
+    }
+    image {
+      function = FOCUS
+
+      file     = "treeview-active-alone.png"
+      border   = { 2, 2, 2, 2 }
+    }
+  }
+}
+
+widget "*.treeview-with-row-endings" style "treeview-with-row-endings"

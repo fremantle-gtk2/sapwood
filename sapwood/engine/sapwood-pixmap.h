@@ -1,0 +1,77 @@
+/* GTK+ Sapwood Engine
+ * Copyright (C) 2005 Nokia Corporation
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ *
+ * Written by Tommi Komulainen <tommi.komulainen@nokia.com>
+ */
+
+#ifndef SAPWOOD_PIXMAP_H
+#define SAPWOOD_PIXMAP_H 1
+
+#include <gtk/gtk.h>
+#include "sapwood-client.h"
+
+G_BEGIN_DECLS
+
+/* opaque */
+typedef struct _SapwoodPixmap SapwoodPixmap;
+
+typedef struct {
+    GdkPixmap *pixmap;
+    GdkPixmap *pixmask;
+    GdkRectangle dest;
+} SapwoodRect;
+
+SapwoodPixmap *sapwood_pixmap_get_for_file (const char *filename,
+					  int border_left,
+					  int border_right,
+					  int border_top,
+					  int border_bottom,
+					  GError **err) G_GNUC_INTERNAL;
+
+void      sapwood_pixmap_free         (SapwoodPixmap *self) G_GNUC_INTERNAL;
+
+gboolean  sapwood_pixmap_get_geometry (SapwoodPixmap *self,
+				      gint         *width,
+				      gint         *height) G_GNUC_INTERNAL;
+
+void      sapwood_pixmap_get_pixmap   (SapwoodPixmap *self,
+				       gint           x,
+				       gint           y,
+				       GdkPixmap    **ret_pixmap,
+				       GdkBitmap    **ret_pixmask) G_GNUC_INTERNAL;
+
+void      sapwood_pixmap_render_rects (SapwoodPixmap *self,
+				      GtkWidget      *widget,
+				      GdkDrawable  *draw,
+				      gint          draw_x,
+				      gint          draw_y,
+				      gint          width,
+				      gint          height,
+				      GdkBitmap    *mask,
+				      gint          mask_x,
+				      gint          mask_y,
+				      gboolean      mask_required,
+				      GdkRectangle *clip_rect,
+				      gint          n_rects,
+				      SapwoodRect   *rects) G_GNUC_INTERNAL;
+
+G_GNUC_INTERNAL extern gboolean sapwood_debug_scaling;
+
+G_END_DECLS
+
+#endif
