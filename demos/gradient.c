@@ -20,36 +20,7 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
-
 #include <gtk/gtk.h>
-
-static gboolean
-window_expose_event (GtkWidget     * widget,
-                     GdkEventExpose* expose,
-                     gpointer        user_data G_GNUC_UNUSED)
-{
-  cairo_t* cr = gdk_cairo_create (widget->window);
-
-  cairo_save (cr);
-    cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
-    cairo_set_source_rgba (cr, 0.0, 0.0, 0.0, 0.0);
-    cairo_paint (cr);
-  cairo_restore (cr);
-
-  cairo_set_operator (cr, CAIRO_OPERATOR_OVER);
-  cairo_rectangle (cr,
-                   widget->allocation.x - (widget->allocation.width - 20) / 2,
-                   widget->allocation.y,
-                   20,
-                   widget->allocation.height);
-  cairo_set_source_rgba (cr, 0.5, 0.0, 0.0, 0.5);
-  cairo_fill (cr);
-  cairo_paint (cr);
-
-  cairo_destroy (cr);
-
-  return FALSE;
-}
 
 int
 main (int argc, char **argv)
@@ -64,25 +35,6 @@ main (int argc, char **argv)
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   align = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
   button = gtk_button_new_with_label ("OK");
-
-  if (argc > 1 && gdk_screen_is_composited (gtk_widget_get_screen (window)))
-    {
-      gtk_widget_set_colormap (window,
-                               gdk_screen_get_rgba_colormap (gtk_widget_get_screen (window)));
-
-      gtk_widget_set_app_paintable (window, TRUE);
-
-      g_signal_connect (window, "expose-event",
-                        G_CALLBACK (window_expose_event), NULL);
-    }
-  else
-    {
-      g_print ("not ");
-    }
-
-  g_print ("using rgba colormap\n");
-
-  gtk_window_set_default_size (GTK_WINDOW (window), 300, 200);
 
   gtk_container_add (GTK_CONTAINER (window), align);
   gtk_container_add (GTK_CONTAINER (align), button);

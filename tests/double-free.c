@@ -31,10 +31,7 @@
 #include <sys/un.h>
 #include <unistd.h>
 #include <gio/gio.h>
-#include <gtk/gtk.h>
-#if ! GTK_CHECK_VERSION (2,14,0)
 #include <gtk/gtktestutils.h>
-#endif
 #include "sapwood-pixmap-priv.h"
 #include "sapwood-proto.h"
 
@@ -108,7 +105,6 @@ sapwood_pixmap_get_for_file (const char *filename,
                              int         border_right,
                              int         border_top,
                              int         border_bottom,
-                             int         depth,
                              GError    **err)
 {
   SapwoodPixmap     *self;
@@ -130,7 +126,6 @@ sapwood_pixmap_get_for_file (const char *filename,
   req->base.length   = sizeof(*req) + flen + 1;
   req->border_left   = border_left;
   req->border_right  = border_right;
-  req->depth         = depth;
   req->border_top    = border_top;
   req->border_bottom = border_bottom;
 
@@ -174,7 +169,7 @@ false_func (void)
   GError* error = NULL;
 
   path = g_file_get_path (image);
-  pixmap = sapwood_pixmap_get_for_file (path, 0, 0, 0, 0, 24, &error);
+  pixmap = sapwood_pixmap_get_for_file (path, 0, 0, 0, 0, &error);
   g_free (path);
 
   if (!pixmap)
@@ -205,10 +200,6 @@ main (int   argc,
   g_type_init ();
 
   gdk_init (&argc, &argv);
-
-  if (argc > 1) {
-          g_log_set_always_fatal (G_LOG_LEVEL_CRITICAL | G_LOG_LEVEL_WARNING);
-  }
 
   fd = sapwood_client_get_socket (&error);
   if (fd == -1)

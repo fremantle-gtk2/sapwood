@@ -43,7 +43,6 @@ typedef struct
   guint16 border_right;
   guint16 border_top;
   guint16 border_bottom;
-  guint32 depth;
   gchar   filename[0];          /* null terminated, absolute filename */
 } PixbufOpenRequest;
 

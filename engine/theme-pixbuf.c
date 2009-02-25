@@ -42,7 +42,6 @@ static GHashTable *pixbuf_hash = NULL;
 ThemePixbuf *
 theme_pixbuf_new (void)
 {
-  /* FIXME: use g_slice_new0 */
   ThemePixbuf *result = g_new0 (ThemePixbuf, 1);
   result->refcnt = 1;
   result->stretch = TRUE;
@@ -61,8 +60,8 @@ theme_pixbuf_destroy (ThemePixbuf *theme_pb)
   if (theme_pb->shared)
     {
       g_hash_table_remove (pixbuf_hash, theme_pb);
-      if (theme_pb->pixmap24)
-	sapwood_pixmap_free (theme_pb->pixmap24);
+      if (theme_pb->pixmap)
+	sapwood_pixmap_free (theme_pb->pixmap);
     }
   if (theme_pb->basename)
     g_free (theme_pb->basename);
@@ -114,7 +113,7 @@ theme_pixbuf_canonicalize (ThemePixbuf *theme_pb,
 {
   ThemePixbuf *canon;
 
-  g_assert (theme_pb->pixmap24 == NULL);
+  g_assert (theme_pb->pixmap == NULL);
 
   *warn = FALSE;
 
@@ -173,7 +172,7 @@ void
 theme_pixbuf_set_filename (ThemePixbuf *theme_pb,
 			   const char  *filename)
 {
-  g_assert (theme_pb->pixmap24 == NULL);
+  g_assert (theme_pb->pixmap == NULL);
 
   if (theme_pb->basename)
     g_free (theme_pb->basename);
@@ -212,7 +211,7 @@ theme_pixbuf_set_border (ThemePixbuf *theme_pb,
 			 gint         top,
 			 gint         bottom)
 {
-  g_return_if_fail (theme_pb->pixmap24 == NULL);
+  g_return_if_fail (theme_pb->pixmap == NULL);
 
   theme_pb->border_left = left;
   theme_pb->border_right = right;
@@ -226,29 +225,27 @@ void
 theme_pixbuf_set_stretch (ThemePixbuf *theme_pb,
 			  gboolean     stretch)
 {
-  g_return_if_fail (theme_pb->pixmap24 == NULL);
+  g_return_if_fail (theme_pb->pixmap == NULL);
 
   theme_pb->stretch = stretch;
 }
 
 static SapwoodPixmap *
-theme_pixbuf_get_pixmap (ThemePixbuf *theme_pb,
-                         int          depth)
+theme_pixbuf_get_pixmap (ThemePixbuf *theme_pb)
 {
-  if (!theme_pb->pixmap24)
+  if (!theme_pb->pixmap)
     {
       char   *filename;
       GError *err = NULL;
 
       filename = g_build_filename (theme_pb->dirname, theme_pb->basename, NULL);
-      theme_pb->pixmap24 = sapwood_pixmap_get_for_file (filename,
-                                                        theme_pb->border_left,
-                                                        theme_pb->border_right,
-                                                        theme_pb->border_top,
-                                                        theme_pb->border_bottom,
-                                                        depth,
-                                                        &err);
-      if (!theme_pb->pixmap24)
+      theme_pb->pixmap = sapwood_pixmap_get_for_file (filename,
+						      theme_pb->border_left,
+						      theme_pb->border_right,
+						      theme_pb->border_top,
+						      theme_pb->border_bottom,
+						      &err);
+      if (!theme_pb->pixmap)
 	{
 	  g_warning ("sapwood-theme: Failed to load pixmap file %s: %s\n",
 		     filename, err->message);
@@ -257,20 +254,19 @@ theme_pixbuf_get_pixmap (ThemePixbuf *theme_pb,
 
       g_free (filename);
     }
-  return theme_pb->pixmap24;
+  return theme_pb->pixmap;
 }
 
 gboolean
 theme_pixbuf_get_geometry (ThemePixbuf *theme_pb,
-                           int          depth,
 			   gint        *width,
 			   gint        *height)
 {
   if (!theme_pb)
     return FALSE;
 
-  return sapwood_pixmap_get_geometry (theme_pixbuf_get_pixmap (theme_pb, depth),
-                                      width, height);
+  return sapwood_pixmap_get_geometry (theme_pixbuf_get_pixmap (theme_pb), 
+				     width, height);
 }
 
 /* Scale the rectangle (src_x, src_y, src_width, src_height)
@@ -305,10 +301,10 @@ theme_pixbuf_render (ThemePixbuf  *theme_pb,
   if (width <= 0 || height <= 0)
     return FALSE;
 
-  if (!theme_pixbuf_get_geometry (theme_pb, gdk_drawable_get_depth (window), &pixbuf_width, &pixbuf_height))
+  if (!theme_pixbuf_get_geometry (theme_pb, &pixbuf_width, &pixbuf_height))
     return FALSE;
 
-  pixmap = theme_pixbuf_get_pixmap (theme_pb, gdk_drawable_get_depth (window));
+  pixmap = theme_pixbuf_get_pixmap (theme_pb);
 
   if (theme_pb->stretch)
     {

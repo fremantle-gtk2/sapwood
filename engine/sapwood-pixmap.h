@@ -37,12 +37,11 @@ typedef struct {
 } SapwoodRect;
 
 SapwoodPixmap *sapwood_pixmap_get_for_file (const char *filename,
-					    int border_left,
-					    int border_right,
-					    int border_top,
-					    int border_bottom,
-                                            int depth,
-					    GError **err) G_GNUC_INTERNAL;
+					  int border_left,
+					  int border_right,
+					  int border_top,
+					  int border_bottom,
+					  GError **err) G_GNUC_INTERNAL;
 
 void      sapwood_pixmap_free         (SapwoodPixmap *self) G_GNUC_INTERNAL;
 

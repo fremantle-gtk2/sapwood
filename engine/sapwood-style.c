@@ -386,7 +386,7 @@ draw_gap_image (GtkStyle       *style,
       if (!draw_center)
 	components |= COMPONENT_CENTER;
 
-      if (!theme_pixbuf_get_geometry (image->gap_start, gdk_drawable_get_depth (window), &xthickness, &ythickness))
+      if (!theme_pixbuf_get_geometry (image->gap_start, &xthickness, &ythickness))
 	{
 	  xthickness = style->xthickness;
 	  ythickness = style->ythickness;

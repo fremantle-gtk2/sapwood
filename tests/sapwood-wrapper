@@ -1,6 +1,6 @@
 #!/bin/bash
 export GTK_PATH=/home/herzi/Hacking/Maemo/prefix/lib/gtk-2.0
-#export GTK2_RC_FILES=/home/herzi/Hacking/Maemo/prefix/share/themes/devel/gtk-2.0/gtkrc
+export GTK2_RC_FILES=/home/herzi/Hacking/Maemo/prefix/share/themes/devel/gtk-2.0/gtkrc
 export SAPWOOD_SERVER_DEBUG=1
 
 if test $# -eq 0; then
@@ -8,6 +8,7 @@ if test $# -eq 0; then
         return 1
 fi
 
+echo $DISPLAY
 sleep 1 # wait for xvfb to be ready
 ../server/sapwood-server &
 
