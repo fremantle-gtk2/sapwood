@@ -1,5 +1,12 @@
 2009-02-27  Sven Herzberg  <herzi@lanedo.com>
 
+	NB#103175 - Sapwood crashes when large windows trigger BadAlloc errors
+
+	* engine/theme-pixbuf.c (theme_pixbuf_render): enable the gdk_flush()
+	call between the error traps
+
+2009-02-27  Sven Herzberg  <herzi@lanedo.com>
+
 	About NB#103175 - Sapwood crashes when large windows trigger BadAlloc
 	errors
 

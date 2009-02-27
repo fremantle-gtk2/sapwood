@@ -384,7 +384,7 @@ theme_pixbuf_render (ThemePixbuf  *theme_pb,
 
 	  mask = gdk_pixmap_new (NULL, mask_width, mask_height, 1);
 
-	  /* gdk_flush (); */
+	  gdk_flush ();
 	  if (gdk_error_trap_pop ())
 	    {
 	      if (clip_rect)
