@@ -1,5 +1,16 @@
 2009-02-27  Sven Herzberg  <herzi@lanedo.com>
 
+	About NB#103175 - Sapwood crashes when large windows trigger BadAlloc
+	errors
+
+	Added a testcase
+
+	* tests/Makefile.am: build and run the testcase
+	* tests/large-window.c (text_view_mapped), (main),
+	* tests/large-window.gtkrc: the testcase files
+
+2009-02-27  Sven Herzberg  <herzi@lanedo.com>
+
 	Properly execute tests against the correct modules
 
 	* tests/Makefile.am: also use the script from the demos folder

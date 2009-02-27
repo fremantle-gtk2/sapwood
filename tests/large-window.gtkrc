@@ -1,0 +1,21 @@
+# Copyright Nokia Corporation 2007
+# Licensed under Creative Commons Attribution-ShareAlike 2.5 license
+
+pixmap_path "../demos/images"
+
+style "broken-textview"
+{
+    GtkWidget::interior-focus = 0
+
+    engine "sapwood"
+    {
+        image
+        {
+            function = FOCUS
+            detail   = "textview"
+            file     = "gradient.png"
+            border = { 29, 29, 34, 34 }
+        }
+    }
+}
+class "GtkTextView" style "broken-textview"
