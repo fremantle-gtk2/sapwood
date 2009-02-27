@@ -1,5 +1,13 @@
 2009-01-08  Sven Herzberg  <sven@imendio.com>
 
+	Compile against a vanilla GTK+
+
+	* tests/double-free.c: GTK+ 2.14 doesn't allow including
+	<gtk/gtktestutils.h>; Maemo-GTK doesn't include it in <gtk/gtk.h>; so
+	we need this version check here
+
+2009-01-08  Sven Herzberg  <sven@imendio.com>
+
 	Updated to the refactored paths.
 
 	* demos/run-demo: replaced src by engine, as this is where the engine
