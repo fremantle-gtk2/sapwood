@@ -1,7 +1,5 @@
 #!/bin/bash
-export GTK_PATH=/home/herzi/Hacking/Maemo/prefix/lib/gtk-2.0
-#export GTK2_RC_FILES=/home/herzi/Hacking/Maemo/prefix/share/themes/devel/gtk-2.0/gtkrc
-export SAPWOOD_SERVER_DEBUG=1
+#export SAPWOOD_SERVER_DEBUG=1
 
 if test $# -eq 0; then
         echo "Usage: $0 <command> [args]" >&2

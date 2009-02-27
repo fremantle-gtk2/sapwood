@@ -3,7 +3,7 @@ include $(top_srcdir)/Makefile.decl
 AM_CPPFLAGS=-I$(top_srcdir)/protocol $(GTK_CFLAGS)
 LDADD=$(top_builddir)/engine/libsapwood-client.la
 
-TESTS_ENVIRONMENT=$(srcdir)/sapwood-wrapper
+TESTS_ENVIRONMENT=$(srcdir)/sapwood-wrapper $(top_srcdir)/demos/run-demo
 
 noinst_PROGRAMS = $(TEST_PROGS)
 
