@@ -77,6 +77,7 @@ binary-arch: build install
 	dh_installdocs -a
 	dh_installchangelogs -a ChangeLog
 #	dh_installexamples -a
+	dh_installxsession -u 'pre 03'
 	dh_strip -a --dbg-package=gtk2-engines-sapwood
 	dh_compress -a
 	dh_fixperms -a
@@ -87,7 +88,7 @@ binary-arch: build install
 	dh_md5sums -a
 	dh_builddeb -a
 
-source diff:                                                                  
+source diff:
 	@echo >&2 'source and diff are obsolete - use dpkg-source -b'; false
 
 binary: binary-indep binary-arch
