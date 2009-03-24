@@ -1,7 +1,7 @@
 sapwood (3.1.1-2) unstable; urgency=low
 
-  * NB#103359: File /etc/X11/Xsession.d/03sapwood should be part of the
-    sapwood package; follow instructions from NB#103318
+  * Fixes: NB#103359 (File /etc/X11/Xsession.d/03sapwood should be part of the
+    sapwood package; follow instructions from NB#103318)
 
  -- Sven Herzberg <sven@lanedo.com>  Mon,  2 Mar 2009 09:53:55 +0100
 
