@@ -1,3 +1,10 @@
+2009-06-19  Sven Herzberg  <herzi@lanedo.com>
+
+	NB#110565 - sapwood-server server prints debugging stuff to console
+
+	* server/sapwood-server.c (main): only display the message when we are
+	in debugging mode
+
 2009-02-27  Sven Herzberg  <herzi@lanedo.com>
 
 	NB#103175 - Sapwood crashes when large windows trigger BadAlloc errors

@@ -626,7 +626,12 @@ main (int argc, char **argv)
 			      (GCacheDestroyFunc)pixbuf_open_request_destroy,
 			      pixbuf_open_request_hash, g_direct_hash, pixbuf_open_request_equal);
 
-  g_log (G_LOG_DOMAIN, G_LOG_LEVEL_INFO, "server started");
+#ifdef ENABLE_DEBUG
+  if (enable_debug)
+    {
+      g_log (G_LOG_DOMAIN, G_LOG_LEVEL_INFO, "server started");
+    }
+#endif
 
   main_loop = g_main_loop_new (NULL, FALSE);
   g_main_loop_run (main_loop);
