@@ -1,5 +1,13 @@
 2009-06-19  Sven Herzberg  <herzi@lanedo.com>
 
+	NB#117873 - Dim insensitive icons with transparency instead of
+	rasterizing.
+
+	* engine/sapwood-style.c (set_transparency), (scale_or_ref),
+	(render_icon): patch from Daniel Borgmann
+
+2009-06-19  Sven Herzberg  <herzi@lanedo.com>
+
 	NB#110565 - sapwood-server server prints debugging stuff to console
 
 	* server/sapwood-server.c (main): only display the message when we are
