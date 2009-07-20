@@ -1,5 +1,12 @@
 2009-01-10  Sven Herzberg  <sven@imendio.com>
 
+	Prepare the transparent background for the demo
+
+	* demos/rgba-demo.c (window_expose_event), (main): and fix some
+	layouting issues
+
+2009-01-10  Sven Herzberg  <sven@imendio.com>
+
 	Added a background image for the RGBA demo
 
 	* demos/rgba-demo.gtkrc,
