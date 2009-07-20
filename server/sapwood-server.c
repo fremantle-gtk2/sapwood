@@ -105,8 +105,8 @@ extract_pixmap_single (GdkPixbuf  *pixbuf,
                 GDK_WINDOW_TYPE_HINT_NORMAL, /* GdkWindowTypeHint type_hint */
         };
         GdkScreen* screen = gdk_screen_get_default ();
-        attrs.visual = gdk_screen_get_rgb_visual (screen);
         attrs.colormap = gdk_screen_get_rgb_colormap (screen);
+        attrs.visual = gdk_colormap_get_visual (attrs.colormap);
         rgba_window = gdk_window_new (gdk_screen_get_root_window (screen), &attrs,
                                  GDK_WA_VISUAL | GDK_WA_COLORMAP);
   }
@@ -258,6 +258,8 @@ pixbuf_open_response_new (PixbufOpenRequest *req)
   PixbufOpenResponse *rep = NULL;
   GdkPixbuf         *pixbuf;
   GError            *err = NULL;
+
+  g_return_val_if_fail (req->depth == 24, NULL);
 
   pixbuf = gdk_pixbuf_new_from_file (req->filename, &err);
   if (pixbuf)

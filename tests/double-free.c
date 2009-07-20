@@ -108,6 +108,7 @@ sapwood_pixmap_get_for_file (const char *filename,
                              int         border_right,
                              int         border_top,
                              int         border_bottom,
+                             int         depth,
                              GError    **err)
 {
   SapwoodPixmap     *self;
@@ -129,6 +130,7 @@ sapwood_pixmap_get_for_file (const char *filename,
   req->base.length   = sizeof(*req) + flen + 1;
   req->border_left   = border_left;
   req->border_right  = border_right;
+  req->depth         = depth;
   req->border_top    = border_top;
   req->border_bottom = border_bottom;
 
@@ -172,7 +174,7 @@ false_func (void)
   GError* error = NULL;
 
   path = g_file_get_path (image);
-  pixmap = sapwood_pixmap_get_for_file (path, 0, 0, 0, 0, &error);
+  pixmap = sapwood_pixmap_get_for_file (path, 0, 0, 0, 0, 24, &error);
   g_free (path);
 
   if (!pixmap)
