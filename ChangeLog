@@ -1,3 +1,12 @@
+2009-01-09  Sven Herzberg  <sven@imendio.com>
+
+	Added 32 bit support to the server.
+
+	* server/sapwood-server.c (extract_pixmap_single),
+	(extract_pixmaps), (pixbuf_open_response_new),
+	(pixbuf_open_request_equal): now the server also manages 32-bit
+	pixmaps properly
+
 2009-01-08  Sven Herzberg  <sven@imendio.com>
 
 	Properly forward the depth information.
