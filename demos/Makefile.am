@@ -3,8 +3,10 @@ include $(top_srcdir)/Makefile.decl
 INCLUDES = $(GTK_CFLAGS)
 LDADD = $(GTK_LIBS)
 
+TEST_PROGS+=buttonbox
+TESTS_ENVIRONMENT=SAPWOOD_TESTING=true $(top_srcdir)/tests/sapwood-wrapper
 noinst_PROGRAMS = \
-	buttonbox \
+	$(TEST_PROGS) \
 	gradient \
 	treeview
 

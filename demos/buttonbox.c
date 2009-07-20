@@ -20,7 +20,10 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
+
 #include <gtk/gtk.h>
+
+#include <string.h>
 
 #define PACK_START FALSE
 #define PACK_END   TRUE
@@ -84,6 +87,12 @@ main (int argc, char **argv)
 
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   vbox = gtk_vbox_new (FALSE, 0);
+
+  if (g_getenv ("SAPWOOD_TESTING") && !strcmp (g_getenv ("SAPWOOD_TESTING"), "true")) {
+          gtk_widget_set_app_paintable (window, TRUE);
+          g_signal_connect_after (window, "expose-event",
+                                  G_CALLBACK (gtk_widget_destroy), NULL);
+  }
 
   for (row = 0; row < G_N_ELEMENTS(boxes); row++)
     {
