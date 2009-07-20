@@ -82,42 +82,21 @@ extract_pixmap_single (GdkPixbuf  *pixbuf,
 		       int width, int height, int depth,
 		       PixbufOpenResponse *rep)
 {
-  static GdkWindow* rgba_window = NULL;
   GdkPixmap    *pixmap;
   cairo_t      *cr;
 
   g_assert (depth == server_depth || depth == 32);
 
-  if (G_UNLIKELY (!rgba_window)) {
-        GdkWindowAttr attrs = {
-                NULL,                        /* gchar *title */
-                0,                           /* gint event_mask */
-                0, 0,                        /* gint x, y */
-                1,                           /* gint width */
-                1,                           /* gint height */
-                GDK_INPUT_OUTPUT,            /* GdkWindowClass wclass */
-                NULL,                        /* GdkVisual *visual */
-                NULL,                        /* GdkColormap *colormap */
-                GDK_WINDOW_TOPLEVEL,         /* GdkWindowType window_type */
-                NULL,                        /* GdkCursor *cursor */
-                NULL,                        /* gchar *wmclass_name */
-                NULL,                        /* gchar *wmclass_class */
-                TRUE,                        /* gboolean override_redirect */
-                GDK_WINDOW_TYPE_HINT_NORMAL, /* GdkWindowTypeHint type_hint */
-        };
-        GdkScreen* screen = gdk_screen_get_default ();
-        attrs.colormap = gdk_screen_get_rgba_colormap (screen);
-        attrs.visual = gdk_colormap_get_visual (attrs.colormap);
-        rgba_window = gdk_window_new (gdk_screen_get_root_window (screen), &attrs,
-                                 GDK_WA_VISUAL | GDK_WA_COLORMAP);
-  }
-
   if (depth != 32) {
           pixmap = gdk_pixmap_new (NULL, width, height, server_depth);
 
+          gdk_drawable_set_colormap (pixmap, gdk_screen_get_system_colormap (gdk_screen_get_default ()));
+
           cr = gdk_cairo_create (pixmap);
   } else {
-          pixmap = gdk_pixmap_new (rgba_window, width, height, -1);
+          pixmap = gdk_pixmap_new (NULL, width, height, depth);
+
+          gdk_drawable_set_colormap (pixmap, gdk_screen_get_rgba_colormap (gdk_screen_get_default ()));
 
           cr = gdk_cairo_create (pixmap);
 

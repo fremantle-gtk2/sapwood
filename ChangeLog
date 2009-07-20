@@ -1,5 +1,12 @@
 2009-01-16  Sven Herzberg  <sven@imendio.com>
 
+	Drop the temporary window.
+
+	* server/sapwood-server.c (extract_pixmap_single): drop the window,
+	set the colormap directly (instead of through the other drawable)
+
+2009-01-16  Sven Herzberg  <sven@imendio.com>
+
 	Added proper and distinguishable logging domains
 
 	* engine/Makefile.am,
