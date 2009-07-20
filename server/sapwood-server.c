@@ -86,7 +86,7 @@ extract_pixmap_single (GdkPixbuf  *pixbuf,
   GdkPixmap    *pixmap;
   cairo_t      *cr;
 
-  g_assert (depth == 24 || depth == 32);
+  g_assert (depth == server_depth || depth == 32);
 
   if (G_UNLIKELY (!rgba_window)) {
         GdkWindowAttr attrs = {
@@ -112,13 +112,11 @@ extract_pixmap_single (GdkPixbuf  *pixbuf,
                                  GDK_WA_VISUAL | GDK_WA_COLORMAP);
   }
 
-  switch (depth) {
-  case 24:
+  if (depth != 32) {
           pixmap = gdk_pixmap_new (NULL, width, height, server_depth);
 
           cr = gdk_cairo_create (pixmap);
-          break;
-  case 32:
+  } else {
           pixmap = gdk_pixmap_new (rgba_window, width, height, -1);
 
           cr = gdk_cairo_create (pixmap);
@@ -128,18 +126,13 @@ extract_pixmap_single (GdkPixbuf  *pixbuf,
           cairo_set_source_rgba (cr, 0.0, 0.0, 0.0, 0.0);
           cairo_paint (cr);
           cairo_restore (cr);
-          break;
-  default:
-          pixmap = NULL;
-          g_assert_not_reached ();
-          break;
   }
 
   gdk_cairo_set_source_pixbuf (cr, pixbuf, -x, -y);
   cairo_paint (cr);
   cairo_destroy (cr);
 
-  if (depth == 24)
+  if (depth != 32)
     {
       gboolean need_mask = gdk_pixbuf_get_has_alpha (pixbuf);
       /* FIXME: if the mask would still be all ones, skip creating it altogether */
@@ -280,7 +273,7 @@ pixbuf_open_response_new (PixbufOpenRequest *req)
   GdkPixbuf         *pixbuf;
   GError            *err = NULL;
 
-  g_return_val_if_fail (req->depth == 24 || req->depth == 32, NULL);
+  g_return_val_if_fail (req->depth == server_depth || req->depth == 32, NULL);
 
   pixbuf = gdk_pixbuf_new_from_file (req->filename, &err);
   if (pixbuf)

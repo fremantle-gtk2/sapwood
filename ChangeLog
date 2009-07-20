@@ -1,3 +1,11 @@
+2009-01-10  Sven Herzberg  <sven@imendio.com>
+
+	Don't expect 24/32 bit pixmap depth, expect system_depth/32
+
+	* server/sapwood-server.c (extract_pixmap_single),
+	(pixbuf_open_response_new): replace the 24 with a better value;
+	fixes running sapwood in a 16 bit Xephyr window
+
 2009-01-09  Sven Herzberg  <sven@imendio.com>
 
 	Use 32-bit code if possible and requested
