@@ -1,5 +1,14 @@
 2009-01-10  Sven Herzberg  <sven@imendio.com>
 
+	Added a transparent main window to the gradient demo (to check how
+	well it works)
+
+	* demos/gradient.c (window_expose_event), (main): added a semi transparent
+	background to the window; set a default size; improve the logging
+	messages
+
+2009-01-10  Sven Herzberg  <sven@imendio.com>
+
 	Added the button style from the buttonbox demo
 
 	* demos/rgba-demo.gtkrc: just copied the button style part
