@@ -1,5 +1,12 @@
 2009-01-16  Sven Herzberg  <sven@imendio.com>
 
+	Don't echo the screen name; this reduces the noise from running the
+	test cases
+
+	* tests/sapwood-wrapper: drop this
+
+2009-01-16  Sven Herzberg  <sven@imendio.com>
+
 	Drop the temporary window.
 
 	* server/sapwood-server.c (extract_pixmap_single): drop the window,

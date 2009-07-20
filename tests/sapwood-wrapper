@@ -6,7 +6,6 @@ if test $# -eq 0; then
         return 1
 fi
 
-echo $DISPLAY
 sleep 1 # wait for xvfb to be ready
 ../server/sapwood-server &
 
