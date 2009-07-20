@@ -8,6 +8,7 @@ TESTS_ENVIRONMENT=SAPWOOD_TESTING=true $(top_srcdir)/tests/sapwood-wrapper
 noinst_PROGRAMS = \
 	$(TEST_PROGS) \
 	gradient \
+	rgba-demo \
 	treeview
 
 CLEANFILES = engines
