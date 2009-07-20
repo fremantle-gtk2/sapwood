@@ -53,6 +53,44 @@ style "button" {
   }
 }
 
+style "entry" {
+
+    GtkEntry::inner-border = { 6, 6, 0, 0 }
+
+        engine "sapwood" {
+                image {
+                        function = SHADOW
+                        state = NORMAL
+                }
+        }
+
+        engine "sapwood" {
+                image {
+                        function = FOCUS
+                }
+        }
+
+        engine "sapwood" {
+                image {
+                        function = FLAT_BOX
+                        shadow = NONE
+                        state = INSENSITIVE
+                        file = "gradient.png"
+                        border = { 2, 2, 2, 2 }
+                }
+        }
+
+        engine "sapwood" {
+                image {
+                        function = FLAT_BOX
+                        shadow = NONE
+                        file = "gradient.png"
+                        border = { 2, 2, 2, 2 }
+                }
+        }
+}
+
 class "GtkWindow" style "window"
 class "GtkButton" style "button"
+class "GtkEntry" style "entry"
 
