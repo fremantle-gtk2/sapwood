@@ -20,6 +20,13 @@
 
 2009-01-09  Sven Herzberg  <sven@imendio.com>
 
+	Added a quit button to the window
+
+	* demos/rgba-demo.c (main): added a quit button; set the table's row
+	spacing; destroy the window when the button is clicked
+
+2009-01-09  Sven Herzberg  <sven@imendio.com>
+
 	Added an entry to the window
 
 	* demos/rgba-demo.c (main): added a table and entry into the window
