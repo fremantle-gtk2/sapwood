@@ -82,11 +82,36 @@ extract_pixmap_single (GdkPixbuf  *pixbuf,
 		       int width, int height,
 		       PixbufOpenResponse *rep)
 {
+  static GdkWindow* rgba_window = NULL;
   GdkPixmap    *pixmap;
   gboolean      need_mask;
   cairo_t      *cr;
 
-  pixmap = gdk_pixmap_new (NULL, width, height, server_depth);
+  if (G_UNLIKELY (!rgba_window)) {
+        GdkWindowAttr attrs = {
+                NULL,                        /* gchar *title */
+                0,                           /* gint event_mask */
+                0, 0,                        /* gint x, y */
+                1,                           /* gint width */
+                1,                           /* gint height */
+                GDK_INPUT_OUTPUT,            /* GdkWindowClass wclass */
+                NULL,                        /* GdkVisual *visual */
+                NULL,                        /* GdkColormap *colormap */
+                GDK_WINDOW_TOPLEVEL,         /* GdkWindowType window_type */
+                NULL,                        /* GdkCursor *cursor */
+                NULL,                        /* gchar *wmclass_name */
+                NULL,                        /* gchar *wmclass_class */
+                TRUE,                        /* gboolean override_redirect */
+                GDK_WINDOW_TYPE_HINT_NORMAL, /* GdkWindowTypeHint type_hint */
+        };
+        GdkScreen* screen = gdk_screen_get_default ();
+        attrs.visual = gdk_screen_get_rgb_visual (screen);
+        attrs.colormap = gdk_screen_get_rgb_colormap (screen);
+        rgba_window = gdk_window_new (gdk_screen_get_root_window (screen), &attrs,
+                                 GDK_WA_VISUAL | GDK_WA_COLORMAP);
+  }
+
+  pixmap = gdk_pixmap_new (rgba_window, width, height, -1);
 
   cr = gdk_cairo_create (pixmap);
 
