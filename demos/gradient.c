@@ -36,6 +36,12 @@ main (int argc, char **argv)
   align = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
   button = gtk_button_new_with_label ("OK");
 
+  if (argc > 1 && gdk_screen_is_composited (gtk_widget_get_screen (window)))
+    {
+      gtk_widget_set_colormap (window,
+                               gdk_screen_get_rgba_colormap (gtk_widget_get_screen (window)));
+    }
+
   gtk_container_add (GTK_CONTAINER (window), align);
   gtk_container_add (GTK_CONTAINER (align), button);
 

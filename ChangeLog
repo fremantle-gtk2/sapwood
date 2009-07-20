@@ -1,5 +1,12 @@
 2009-01-09  Sven Herzberg  <sven@imendio.com>
 
+	Use 32-bit code if possible and requested
+
+	* demos/gradient.c (main): now you can request 32-bit code by passing
+	an argument like "--enable-alpha" to the demo itself
+
+2009-01-09  Sven Herzberg  <sven@imendio.com>
+
 	Added 32 bit support to the server.
 
 	* server/sapwood-server.c (extract_pixmap_single),
