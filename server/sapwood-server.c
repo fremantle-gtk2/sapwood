@@ -85,7 +85,7 @@ extract_pixmap_single (GdkPixbuf  *pixbuf,
   GdkPixmap    *pixmap;
   cairo_t      *cr;
 
-  g_assert (depth == server_depth || depth == 32);
+  g_assert (depth == server_depth || depth == 24 || depth == 32);
 
   if (depth != 32) {
           pixmap = gdk_pixmap_new (NULL, width, height, server_depth);
@@ -93,7 +93,7 @@ extract_pixmap_single (GdkPixbuf  *pixbuf,
           gdk_drawable_set_colormap (pixmap, gdk_screen_get_system_colormap (gdk_screen_get_default ()));
 
           cr = gdk_cairo_create (pixmap);
-  } else {
+  } else if (depth == 32) {
           pixmap = gdk_pixmap_new (NULL, width, height, depth);
 
           gdk_drawable_set_colormap (pixmap, gdk_screen_get_rgba_colormap (gdk_screen_get_default ()));
@@ -105,6 +105,8 @@ extract_pixmap_single (GdkPixbuf  *pixbuf,
           cairo_set_source_rgba (cr, 0.0, 0.0, 0.0, 0.0);
           cairo_paint (cr);
           cairo_restore (cr);
+  } else {
+          g_assert_not_reached ();
   }
 
   gdk_cairo_set_source_pixbuf (cr, pixbuf, -x, -y);
@@ -252,7 +254,7 @@ pixbuf_open_response_new (PixbufOpenRequest *req)
   GdkPixbuf         *pixbuf;
   GError            *err = NULL;
 
-  g_return_val_if_fail (req->depth == server_depth || req->depth == 32, NULL);
+  g_return_val_if_fail (req->depth == server_depth || req->depth == 24 || req->depth == 32, NULL);
 
   pixbuf = gdk_pixbuf_new_from_file (req->filename, &err);
   if (pixbuf)
@@ -584,6 +586,10 @@ main (int argc, char **argv)
 #endif
 
   gdk_init (&argc, &argv);
+
+  if (argc > 1) {
+          g_log_set_always_fatal (G_LOG_LEVEL_CRITICAL | G_LOG_LEVEL_WARNING);
+  }
 
   server_depth = get_display_depth ();
 
