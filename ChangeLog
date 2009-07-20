@@ -46,6 +46,14 @@
 
 2009-01-08  Sven Herzberg  <sven@imendio.com>
 
+	Do the GdkPixbuf rendering with cairo
+
+	* server/sapwood-server.c (extract_pixmap_single): do the rendering
+	with cairo; we will have to use this code anyway once we don't have a
+	GdkPixmap anymore and use an RGBA cairo_xlib_surface_t
+
+2009-01-08  Sven Herzberg  <sven@imendio.com>
+
 	Test if the server can run the buttonbox demo
 
 	* demos/Makefile.am: added the buttonbox to the tests
