@@ -1,5 +1,14 @@
 2009-01-10  Sven Herzberg  <sven@imendio.com>
 
+	Added nice stripes to the window, so transparency will be visible once
+	the children are transparent.
+
+	* demos/images/window.png,
+	* demos/images/window.xcf: added stripes to the window and the GIMP
+	xcf source file
+
+2009-01-10  Sven Herzberg  <sven@imendio.com>
+
 	Prepare the transparent background for the demo
 
 	* demos/rgba-demo.c (window_expose_event), (main): and fix some
