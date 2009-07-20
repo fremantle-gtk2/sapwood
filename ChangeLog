@@ -1,5 +1,11 @@
 2009-01-10  Sven Herzberg  <sven@imendio.com>
 
+	Added the button style from the buttonbox demo
+
+	* demos/rgba-demo.gtkrc: just copied the button style part
+
+2009-01-10  Sven Herzberg  <sven@imendio.com>
+
 	Added nice stripes to the window, so transparency will be visible once
 	the children are transparent.
 
