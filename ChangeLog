@@ -20,6 +20,12 @@
 
 2009-01-09  Sven Herzberg  <sven@imendio.com>
 
+	Added an entry to the window
+
+	* demos/rgba-demo.c (main): added a table and entry into the window
+
+2009-01-09  Sven Herzberg  <sven@imendio.com>
+
 	Added a main window to the RGBA demo
 
 	* demos/rgba-demo.c (main): added the main window
