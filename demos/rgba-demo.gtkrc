@@ -1,7 +1,7 @@
 # vim:set ft=gtkrc sw=2 sts=2 expandtab:
 pixmap_path "images"
 
-style "window" {
+style "rgba-window" {
   engine "sapwood" {
     image {
       function = FLAT_BOX
@@ -11,7 +11,7 @@ style "window" {
   }
 }
 
-style "button" {
+style "rgba-button" {
   GtkButton::child-displacement-x = -2
   GtkButton::child-displacement-y = 1
 
@@ -53,7 +53,7 @@ style "button" {
   }
 }
 
-style "entry" {
+style "rgba-entry" {
 
     GtkEntry::inner-border = { 6, 6, 0, 0 }
 
@@ -90,7 +90,7 @@ style "entry" {
         }
 }
 
-class "GtkWindow" style "window"
-class "GtkButton" style "button"
-class "GtkEntry" style "entry"
+class "GtkWindow" style "rgba-window"
+class "GtkButton" style "rgba-button"
+class "GtkEntry"  style "rgba-entry"
 
