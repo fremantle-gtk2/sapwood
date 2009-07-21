@@ -1,3 +1,8 @@
+2009-07-21  Claudio Saavedra  <csaavedra@igalia.com>
+
+	* engine/sapwood-style.c: (draw_layout): Disable shadow rendering,
+	to test performance implications.
+
 2009-02-27  Sven Herzberg  <herzi@lanedo.com>
 
 	NB#103175 - Sapwood crashes when large windows trigger BadAlloc errors
