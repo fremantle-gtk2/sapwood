@@ -1,3 +1,9 @@
+sapwood (3.1.1-4) unstable; urgency=low
+
+  * RGBA support.
+
+ -- Claudio Saavedra <csaavedra@igalia.com>  Thu, 06 Aug 2009 15:08:47 +0200
+
 sapwood (3.1.1-3) unstable; urgency=low
 
   * Fixes: NB#131258 (Legal bug)
