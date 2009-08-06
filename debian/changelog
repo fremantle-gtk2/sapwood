@@ -1,9 +1,3 @@
-sapwood (3.1.1-3) unstable; urgency=low
-
-  * Disable text shadow to test performance implications.
-
- -- Claudio Saavedra <csaavedra@igalia.com>  Tue, 21 Jul 2009 14:50:19 +0200
-
 sapwood (3.1.1-2) unstable; urgency=low
 
   * Fixes: NB#103359 (File /etc/X11/Xsession.d/03sapwood should be part of the

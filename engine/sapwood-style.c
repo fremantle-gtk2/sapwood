@@ -1562,10 +1562,9 @@ draw_layout (GtkStyle     *style,
     gdk_gc_set_clip_rectangle (gc, area);
 
   /* Draw the optional shadow */
-/*
   if (SAPWOOD_RC_STYLE (style->rc_style)->has_shadow)
     gdk_draw_layout_with_colors (window, gc, x + 1, y + 1, layout, &SAPWOOD_RC_STYLE (style->rc_style)->shadowcolor, NULL);
-*/
+
   gdk_draw_layout (window, gc, x, y, layout);
 
   if (area)
