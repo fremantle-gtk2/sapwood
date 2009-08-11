@@ -1,3 +1,20 @@
+2009-08-07  Alejandro G. Castro  <alex@igalia.com>
+
+	Added a new debug enviroment option to enable the synchronous X
+	error handling.
+
+	* engine/sapwood-main.c,
+	(theme_init): Captured the new "xtraps" option in a new boolean
+	variable.
+	* engine/sapwood-pixmap.h:
+	* engine/sapwood-pixmap.c,
+	(sapwood_pixmap_get_for_file):
+	* engine/theme-pixbuf.c,
+	(theme_pixbuf_render): Added conditions to avoid gdk_flush if the
+	xtraps debug option is not actived.
+
+	Fixes: NB#131431 (gdk_flush in sapwood is causing tearing)
+
 2009-08-06  Claudio Saavedra  <csaavedra@igalia.com>
 
 	* tests/large-window.gtkrc: Relicense to make it
