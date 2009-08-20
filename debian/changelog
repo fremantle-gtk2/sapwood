@@ -5,6 +5,8 @@ sapwood (3.1.1-5) unstable; urgency=low
     small)
   * debian/rules: add maintainer mode to configure
 
+ -- Sven Herzberg <sven@lanedo.com>  Thu, 20 Aug 2009 14:53:30  +0200
+
 sapwood (3.1.1-4) unstable; urgency=low
 
   * RGBA support.
