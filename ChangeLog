@@ -1,3 +1,11 @@
+2009-08-20  Christian Dywan  <christian@lanedo.com>
+
+	NB#118393 - Crop images if they are supposed to be rendered too small
+
+	* engine/sapwood-pixmap.c (sapwood_crop_pixmap),
+	(sapwood_pixmap_render_rects): Implement sapwood_crop_pixmap and crop
+	the image if it is too big.
+
 2009-08-07  Alejandro G. Castro  <alex@igalia.com>
 
 	Added a new debug enviroment option to enable the synchronous X
