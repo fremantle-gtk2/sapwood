@@ -1,3 +1,10 @@
+sapwood (3.1.1-5) unstable; urgency=low
+
+  * Fixes: NB#131431 (gdk_flush in sapwood is causing tearing)
+  * Fixes: NB#118393 (Crop images if they are supposed to be rendered too
+    small)
+  * debian/rules: add maintainer mode to configure
+
 sapwood (3.1.1-4) unstable; urgency=low
 
   * RGBA support.
