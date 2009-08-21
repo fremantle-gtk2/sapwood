@@ -91,23 +91,20 @@ extract_pixmap_single (GdkPixbuf  *pixbuf,
           pixmap = gdk_pixmap_new (NULL, width, height, server_depth);
 
           gdk_drawable_set_colormap (pixmap, gdk_screen_get_system_colormap (gdk_screen_get_default ()));
-
-          cr = gdk_cairo_create (pixmap);
   } else if (depth == 32) {
           pixmap = gdk_pixmap_new (NULL, width, height, depth);
 
           gdk_drawable_set_colormap (pixmap, gdk_screen_get_rgba_colormap (gdk_screen_get_default ()));
-
-          cr = gdk_cairo_create (pixmap);
-
-          cairo_save (cr);
-          cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
-          cairo_set_source_rgba (cr, 0.0, 0.0, 0.0, 0.0);
-          cairo_paint (cr);
-          cairo_restore (cr);
   } else {
           g_assert_not_reached ();
   }
+
+  cr = gdk_cairo_create (pixmap);
+
+  cairo_save (cr);
+  cairo_set_operator (cr, CAIRO_OPERATOR_CLEAR);
+  cairo_paint (cr);
+  cairo_restore (cr);
 
   gdk_cairo_set_source_pixbuf (cr, pixbuf, -x, -y);
   cairo_paint (cr);
@@ -131,6 +128,21 @@ extract_pixmap_single (GdkPixbuf  *pixbuf,
           rep->pixmask[i][j] = GDK_PIXMAP_XID (pixmask);
           pixmap_counter++;
         }
+    }
+  else
+    {
+      static gint sliff = 0;
+
+      gchar* filename = g_strdup_printf ("/home/user/sapwood-%d-%d.png",
+                                         sliff,
+                                         depth);
+      cairo_t* cr = gdk_cairo_create (pixmap);
+      cairo_surface_write_to_png (cairo_get_target (cr),
+                                  filename);
+      cairo_destroy (cr);
+      g_free (filename);
+
+      sliff++;
     }
 
   rep->pixmap[i][j] = GDK_PIXMAP_XID (pixmap);
