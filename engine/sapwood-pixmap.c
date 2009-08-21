@@ -289,62 +289,12 @@ sapwood_pixmap_render_rects_internal (SapwoodPixmap *self,
                                       gint           n_rect,
                                       SapwoodRect   *rect)
 {
-  static GdkGC *mask_gc = NULL;
-  static GdkGC *draw_gc = NULL;
-  GdkGCValues   values;
   gint          xofs;
   gint          yofs;
   gint          n;
-  gboolean      have_mask = FALSE;
 
   xofs = draw_x - mask_x;
   yofs = draw_y - mask_y;
-
-  if (mask)
-    {
-      if (!mask_gc)
-	{
-	  values.fill = GDK_TILED;
-	  mask_gc = gdk_gc_new_with_values (mask, &values, GDK_GC_FILL);
-	}
-
-      for (n = 0; n < n_rect; n++)
-	{
-	  /* const */ GdkRectangle *dest = &rect[n].dest;
-	  GdkRectangle              area;
-
-	  if (!mask_required && clip_rect)
-	    {
-	      if (!gdk_rectangle_intersect (dest, clip_rect, &area))
-		continue;
-	    }
-	  else
-	    area = *dest;
-
-	  if (rect[n].pixmap && rect[n].pixmask)
-	    {
-	      values.tile = rect[n].pixmask;
-	      values.ts_x_origin = dest->x - xofs;
-	      values.ts_y_origin = dest->y - yofs;
-	      gdk_gc_set_values (mask_gc, &values, GDK_GC_TILE|GDK_GC_TS_X_ORIGIN|GDK_GC_TS_Y_ORIGIN);
-
-	      gdk_draw_rectangle (mask, mask_gc, TRUE, area.x - xofs, area.y - yofs, area.width, area.height);
-
-	      have_mask = TRUE;
-	    }
-	}
-    }
-
-  if (!draw_gc)
-    {
-      values.fill = GDK_TILED;
-      draw_gc = gdk_gc_new_with_values (draw, &values, GDK_GC_FILL);
-    }
-
-  values.clip_mask = have_mask ? mask : NULL;
-  values.clip_x_origin = xofs;
-  values.clip_y_origin = yofs;
-  gdk_gc_set_values (draw_gc, &values, GDK_GC_CLIP_MASK|GDK_GC_CLIP_X_ORIGIN|GDK_GC_CLIP_Y_ORIGIN);
 
   for (n = 0; n < n_rect; n++)
     {
@@ -362,11 +312,35 @@ sapwood_pixmap_render_rects_internal (SapwoodPixmap *self,
       if (rect[n].pixmap)
         {
           cairo_t* cr = gdk_cairo_create (draw);
+
           gdk_cairo_set_source_pixmap (cr, rect[n].pixmap, dest->x, dest->y);
-          cairo_rectangle (cr, area.x, area.y, area.width, area.height);
           cairo_pattern_set_extend (cairo_get_source (cr),
                                     CAIRO_EXTEND_REPEAT);
-          cairo_fill (cr);
+          cairo_rectangle (cr, area.x, area.y, area.width, area.height);
+          cairo_clip (cr);
+
+          if (!mask || !rect[n].pixmask)
+            {
+              cairo_paint (cr);
+            }
+          else
+            {
+              cairo_matrix_t  matrix;
+
+              cairo_t* tmp_cr = gdk_cairo_create (rect[n].pixmask);
+              cairo_pattern_t* pattern = cairo_pattern_create_for_surface (cairo_get_target (tmp_cr));
+
+              cairo_matrix_init_translate (&matrix, - dest->x, - dest->y);
+              cairo_pattern_set_extend (pattern,
+                                        CAIRO_EXTEND_REPEAT);
+              cairo_pattern_set_matrix (pattern,
+                                        &matrix);
+
+              cairo_mask (cr, pattern);
+
+              cairo_pattern_destroy (pattern);
+              cairo_destroy (tmp_cr);
+            }
           cairo_destroy (cr);
         }
     }
