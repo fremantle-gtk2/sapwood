@@ -400,7 +400,16 @@ sapwood_crop_pixmap (GdkPixmap *pixmap,
           cairo_pattern_set_matrix (pattern,
                                     &matrix);
 
+#if 1
+          cairo_paint (cr);
+#else
           cairo_mask (cr, pattern);
+#endif
+#if 0
+          /* enable this to test the cropping of the right */
+          cairo_set_source_rgba (cr, 0.5, 0.0, 0.0, 0.5);
+          cairo_mask (cr, pattern);
+#endif
           cairo_pattern_destroy (pattern);
 
           /* adjust the bitmap */
@@ -444,7 +453,16 @@ sapwood_crop_pixmap (GdkPixmap *pixmap,
           cairo_pattern_set_matrix (pattern,
                                     &matrix);
 
+#if 1
+          cairo_paint (cr);
+#else
           cairo_mask (cr, pattern);
+#endif
+#if 0
+          /* enable this to test the cropping of the bottom */
+          cairo_set_source_rgba (cr, 0.0, 0.0, 0.5, 0.5);
+          cairo_mask (cr, pattern);
+#endif
           cairo_pattern_destroy (pattern);
 
           /* adjust the bitmap */
@@ -457,6 +475,12 @@ sapwood_crop_pixmap (GdkPixmap *pixmap,
         }
       cairo_restore (cr);
     }
+
+#if 0
+  /* enable this to test the mask only */
+  cairo_set_source_rgb (cr, 0.0, 0.5, 0.0);
+  cairo_paint (cr);
+#endif
 
   cairo_destroy (cr);
 }
@@ -518,7 +542,7 @@ sapwood_pixmap_render_rects (SapwoodPixmap *self,
       tmp_mask = gdk_pixmap_new (draw, tmp_width, tmp_height, 1);
 
       mask_cr = gdk_cairo_create (tmp_mask);
-      cairo_set_source_rgb (mask_cr, 1., 1., 1.);
+      cairo_set_operator (mask_cr, CAIRO_OPERATOR_CLEAR);
       cairo_paint (mask_cr);
     }
 
