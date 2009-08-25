@@ -1,6 +1,14 @@
 2009-08-25  Sven Herzberg  <sven@lanedo.com>
 
 	Fixes: NB#134552 (Progress Banner at start of maps and tutorial applet
+	is broken)
+
+	* engine/sapwood-pixmap.c (sapwood_crop_pixmap),
+	(sapwood_pixmap_render_rects): don't respect the mask too early
+
+2009-08-25  Sven Herzberg  <sven@lanedo.com>
+
+	Fixes: NB#134552 (Progress Banner at start of maps and tutorial applet
 	is broken.)
 
 	* engine/sapwood-pixmap.c (sapwood_pixmap_render_rects_internal),
