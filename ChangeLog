@@ -1,5 +1,20 @@
 2009-08-25  Sven Herzberg  <sven@lanedo.com>
 
+	About: NB#134552 (Progress Banner at start of maps and tutorial applet
+	is broken.)
+
+	* demos/Makefile.am: build the new demo
+	* demos/cropping.c,
+	* demos/cropping.gtkrc: added a demo for the cropping
+	* demos/images/cropping.png,
+	* demos/images/cropping.xcf: added an opaque gradient image to test
+	the cropping
+	* demos/images/cropping-label.png,
+	* demos/images/cropping-label.xcf: added a mixed image (opaque and
+	transparent) to test the cropping with masks
+
+2009-08-25  Sven Herzberg  <sven@lanedo.com>
+
 	* server/sapwood-server.c (extract_pixmap_single): don't save the
 	images to disk, evil debugging code...
 

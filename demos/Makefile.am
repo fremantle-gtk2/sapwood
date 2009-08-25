@@ -7,6 +7,7 @@ TEST_PROGS+=buttonbox
 TESTS_ENVIRONMENT=SAPWOOD_TESTING=true $(top_srcdir)/tests/sapwood-wrapper
 noinst_PROGRAMS = \
 	$(TEST_PROGS) \
+	cropping \
 	gradient \
 	rgba-demo \
 	treeview
@@ -20,6 +21,8 @@ EXTRA_DIST+=\
 	images/hbbox-tb.png \
 	images/hbbox-tlb.png \
 	images/hbbox-tlbr.png \
+	cropping.gtkrc \
+	images/cropping.png \
 	gradient.gtkrc \
 	images/gradient.png \
 	rgba-demo.gtkrc \
