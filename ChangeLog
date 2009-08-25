@@ -1,3 +1,8 @@
+2009-08-25  Sven Herzberg  <sven@lanedo.com>
+
+	* server/sapwood-server.c (extract_pixmap_single): don't save the
+	images to disk, evil debugging code...
+
 2009-08-21  Sven Herzberg  <sven@lanedo.com>
 
 	About: NB#89864 - [AF Checked] RGBA support

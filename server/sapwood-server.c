@@ -129,6 +129,7 @@ extract_pixmap_single (GdkPixbuf  *pixbuf,
           pixmap_counter++;
         }
     }
+#if 0
   else
     {
       static gint sliff = 0;
@@ -144,6 +145,7 @@ extract_pixmap_single (GdkPixbuf  *pixbuf,
 
       sliff++;
     }
+#endif
 
   rep->pixmap[i][j] = GDK_PIXMAP_XID (pixmap);
   pixmap_counter++;
