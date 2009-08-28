@@ -1,3 +1,12 @@
+2009-08-25  Sven Herzberg  <sven@lanedo.com>
+
+	Fixes: NB#134552 (Progress Banner at start of maps and tutorial applet
+	is broken.)
+
+	* engine/sapwood-pixmap.c (sapwood_pixmap_render_rects_internal),
+	(sapwood_crop_pixmap), (sapwood_pixmap_render_rects): properly clip
+	to the cropped region; also respect the alpha mask in the cropping
+
 2009-08-20  Christian Dywan  <christian@lanedo.com>
 
 	NB#118393 - Crop images if they are supposed to be rendered too small

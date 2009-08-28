@@ -352,57 +352,106 @@ sapwood_pixmap_render_rects_internal (SapwoodPixmap *self,
 
 static void
 sapwood_crop_pixmap (GdkPixmap *pixmap,
-                     int        x,
-                     int        y,
+                     GdkBitmap *mask,
                      int        requested_width,
                      int        requested_height,
                      int        original_width,
                      int        original_height)
 {
-  cairo_t *cr;
-  cairo_surface_t *surface;
-  int w1, h1, w2, h2;
+  cairo_t        * cr = gdk_cairo_create (pixmap);
+  cairo_surface_t* surface = cairo_get_target (cr);
 
-  cr = gdk_cairo_create (pixmap);
-  surface = cairo_get_target (cr);
+  cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
 
-  w1 = requested_width / 2;
-  h1 = requested_height / 2;
-  w2 = (requested_width + 1) / 2;
-  h2 = (requested_height + 1) / 2;
+  /* crop horizontally */
+  if (requested_width < original_width)
+    {
+      int left  = requested_width / 2;
+      int right = requested_width - left;
 
-  /* top-left */
-  cairo_save (cr);
-  cairo_set_source_surface (cr, surface, x, y);
-  cairo_rectangle (cr, x, y, w2, h2);
-  cairo_clip (cr);
-  cairo_paint (cr);
-  cairo_restore (cr);
+      /* left -- remains as it is */
 
-  /* top-right */
-  cairo_save (cr);
-  cairo_set_source_surface (cr, surface, x + requested_width - original_width, y);
-  cairo_rectangle (cr, x + w1, y, w2, h2);
-  cairo_clip (cr);
-  cairo_paint (cr);
-  cairo_restore (cr);
+      /* right */
+      cairo_save (cr);
+      cairo_set_source_surface (cr, surface, -(original_width - requested_width), 0);
+      cairo_rectangle (cr, left, 0, right, MAX (original_height, requested_height));
+      cairo_clip (cr);
+      if (!mask)
+        {
+          cairo_paint (cr);
+        }
+      else
+        {
+          cairo_matrix_t  matrix;
+          int             width = 1;
+          int             height = 1;
 
-  /* bottom-left */
-  cairo_save (cr);
-  cairo_set_source_surface (cr, surface, x,  y + requested_height - original_height);
-  cairo_rectangle (cr, x, y + h1, w2, h2);
-  cairo_clip (cr);
-  cairo_paint (cr);
-  cairo_restore (cr);
+          gdk_drawable_get_size (mask, &width, &height);
 
-  /* bottom-right */
-  cairo_save (cr);
-  cairo_set_source_surface (cr, surface, x + requested_width - original_width,
-					 y + requested_height - original_height);
-  cairo_rectangle (cr, x + w1, y + h1, w2, h2);
-  cairo_clip (cr);
-  cairo_paint (cr);
-  cairo_restore (cr);
+          cairo_t* tmp_cr = gdk_cairo_create (mask);
+          cairo_pattern_t* pattern = cairo_pattern_create_for_surface (cairo_get_target (tmp_cr));
+
+          cairo_matrix_init_translate (&matrix, (original_width - requested_width), 0);
+          cairo_pattern_set_matrix (pattern,
+                                    &matrix);
+
+          cairo_mask (cr, pattern);
+          cairo_pattern_destroy (pattern);
+
+          /* adjust the bitmap */
+          cairo_set_source_surface (tmp_cr, cairo_get_target (tmp_cr), -(original_width - requested_width), 0);
+          cairo_set_operator (tmp_cr, CAIRO_OPERATOR_SOURCE);
+          cairo_rectangle (tmp_cr, left, 0, right, MAX (original_height, requested_height));
+          cairo_clip (tmp_cr);
+          cairo_paint (tmp_cr);
+
+          cairo_destroy (tmp_cr);
+        }
+      cairo_restore (cr);
+    }
+
+  if (requested_height < original_height)
+    {
+      int top    = requested_height / 2;
+      int bottom = requested_height - top;
+
+      /* top -- remains as it is */
+
+      /* bottom */
+      cairo_save (cr);
+      cairo_set_source_surface (cr, surface, 0, -(original_height - requested_height));
+      cairo_rectangle (cr, 0, top, MAX (original_width, requested_width), bottom);
+      cairo_clip (cr);
+      if (!mask)
+        {
+          cairo_paint (cr);
+        }
+      else
+        {
+          cairo_matrix_t  matrix;
+
+          cairo_t* tmp_cr = gdk_cairo_create (mask);
+          cairo_pattern_t* pattern = cairo_pattern_create_for_surface (cairo_get_target (tmp_cr));
+
+          cairo_matrix_init_translate (&matrix, 0, (original_height - requested_height));
+          cairo_pattern_set_extend (pattern,
+                                    CAIRO_EXTEND_REPEAT);
+          cairo_pattern_set_matrix (pattern,
+                                    &matrix);
+
+          cairo_mask (cr, pattern);
+          cairo_pattern_destroy (pattern);
+
+          /* adjust the bitmap */
+          cairo_set_source_surface (tmp_cr, cairo_get_target (tmp_cr), 0, -(original_height - requested_height));
+          cairo_set_operator (tmp_cr, CAIRO_OPERATOR_SOURCE);
+          cairo_rectangle (tmp_cr, 0, top, MAX (original_width, requested_width), bottom);
+          cairo_fill (tmp_cr);
+
+          cairo_destroy (tmp_cr);
+        }
+      cairo_restore (cr);
+    }
 
   cairo_destroy (cr);
 }
@@ -484,9 +533,14 @@ sapwood_pixmap_render_rects (SapwoodPixmap *self,
 
   cairo_translate (cr, draw_x, draw_y);
 
-  if (width > 0 && width < tmp_width || height > 0 && height < tmp_height)
-      sapwood_crop_pixmap (tmp, 0, 0, width, height,
+  if ((width > 0 && width < tmp_width) || (height > 0 && height < tmp_height))
+    {
+      sapwood_crop_pixmap (tmp, tmp_mask, width, height,
 			   self->width, self->height);
+
+      cairo_rectangle (cr, 0, 0, width, height);
+      cairo_clip (cr);
+    }
   else if (width != tmp_width || height != tmp_height)
     {
       cairo_scale (cr, (double)width / (double)tmp_width,
