@@ -350,6 +350,63 @@ sapwood_pixmap_render_rects_internal (SapwoodPixmap *self,
     }
 }
 
+static void
+sapwood_crop_pixmap (GdkPixmap *pixmap,
+                     int        x,
+                     int        y,
+                     int        requested_width,
+                     int        requested_height,
+                     int        original_width,
+                     int        original_height)
+{
+  cairo_t *cr;
+  cairo_surface_t *surface;
+  int w1, h1, w2, h2;
+
+  cr = gdk_cairo_create (pixmap);
+  surface = cairo_get_target (cr);
+
+  w1 = requested_width / 2;
+  h1 = requested_height / 2;
+  w2 = (requested_width + 1) / 2;
+  h2 = (requested_height + 1) / 2;
+
+  /* top-left */
+  cairo_save (cr);
+  cairo_set_source_surface (cr, surface, x, y);
+  cairo_rectangle (cr, x, y, w2, h2);
+  cairo_clip (cr);
+  cairo_paint (cr);
+  cairo_restore (cr);
+
+  /* top-right */
+  cairo_save (cr);
+  cairo_set_source_surface (cr, surface, x + requested_width - original_width, y);
+  cairo_rectangle (cr, x + w1, y, w2, h2);
+  cairo_clip (cr);
+  cairo_paint (cr);
+  cairo_restore (cr);
+
+  /* bottom-left */
+  cairo_save (cr);
+  cairo_set_source_surface (cr, surface, x,  y + requested_height - original_height);
+  cairo_rectangle (cr, x, y + h1, w2, h2);
+  cairo_clip (cr);
+  cairo_paint (cr);
+  cairo_restore (cr);
+
+  /* bottom-right */
+  cairo_save (cr);
+  cairo_set_source_surface (cr, surface, x + requested_width - original_width,
+					 y + requested_height - original_height);
+  cairo_rectangle (cr, x + w1, y + h1, w2, h2);
+  cairo_clip (cr);
+  cairo_paint (cr);
+  cairo_restore (cr);
+
+  cairo_destroy (cr);
+}
+
 void
 sapwood_pixmap_render_rects (SapwoodPixmap *self,
 			     GtkWidget     *widget,
@@ -427,7 +484,10 @@ sapwood_pixmap_render_rects (SapwoodPixmap *self,
 
   cairo_translate (cr, draw_x, draw_y);
 
-  if (width != tmp_width || height != tmp_height)
+  if (width > 0 && width < tmp_width || height > 0 && height < tmp_height)
+      sapwood_crop_pixmap (tmp, 0, 0, width, height,
+			   self->width, self->height);
+  else if (width != tmp_width || height != tmp_height)
     {
       cairo_scale (cr, (double)width / (double)tmp_width,
 		       (double)height / (double)tmp_height);
