@@ -28,13 +28,21 @@
 #include "sapwood-rc-style.h"
 #include <gmodule.h>
 
+guint sapwood_debug_flags = 0;
 gboolean sapwood_debug_scaling = FALSE;
+gboolean sapwood_debug_xtraps = FALSE;
+
+typedef enum {
+  SAPWOOD_DEBUG_SCALING   = 1 << 0,
+  SAPWOOD_DEBUG_XTRAPS    = 1 << 1
+} SapwoodDebugFlag;
 
 G_MODULE_EXPORT void
 theme_init (GTypeModule *module)
 {
   GDebugKey keys[] = {
-    {"scaling", TRUE}
+    {"scaling", SAPWOOD_DEBUG_SCALING},
+    {"xtraps", SAPWOOD_DEBUG_XTRAPS}
   };
   const gchar* debug;
 
@@ -43,7 +51,11 @@ theme_init (GTypeModule *module)
 
   debug = g_getenv ("SAPWOOD_DEBUG");
   if (debug)
-    sapwood_debug_scaling = g_parse_debug_string (debug, keys, G_N_ELEMENTS (keys));
+    {
+      sapwood_debug_flags = g_parse_debug_string (debug, keys, G_N_ELEMENTS (keys));
+      sapwood_debug_scaling = sapwood_debug_flags & SAPWOOD_DEBUG_SCALING;
+      sapwood_debug_xtraps = sapwood_debug_flags & SAPWOOD_DEBUG_XTRAPS;
+    }
 }
 
 G_MODULE_EXPORT void

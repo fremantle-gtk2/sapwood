@@ -134,7 +134,10 @@ sapwood_pixmap_get_for_file (const char *filename,
 	  {
 	    gdk_error_trap_push ();
 	    pixmap = gdk_pixmap_foreign_new (rep.pixmap[i][j]);
-	    gdk_flush ();
+
+            if (sapwood_debug_xtraps)
+              gdk_flush ();
+
 	    if ((xerror = gdk_error_trap_pop ()) || !pixmap)
 	      {
 		g_warning ("%s: pixmap[%d][%d]: gdk_pixmap_foreign_new(%x) failed, X error = %d",
@@ -149,7 +152,10 @@ sapwood_pixmap_get_for_file (const char *filename,
 	  {
 	    gdk_error_trap_push ();
 	    pixmask = gdk_pixmap_foreign_new (rep.pixmask[i][j]);
-	    gdk_flush ();
+
+            if (sapwood_debug_xtraps)
+              gdk_flush ();
+
 	    if ((xerror = gdk_error_trap_pop ()) || !pixmask)
 	      {
 		g_warning ("%s: pixmask[%d][%d]: gdk_pixmap_foreign_new(%x) failed, X error = %d", 
