@@ -1,5 +1,10 @@
 2009-01-16  Sven Herzberg  <sven@imendio.com>
 
+	Don't echo the screen name; this reduces the noise from running the
+	test cases
+
+	* tests/sapwood-wrapper: drop this
+
 	Added proper and distinguishable logging domains
 
 	* engine/Makefile.am,
