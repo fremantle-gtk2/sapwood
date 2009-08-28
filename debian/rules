@@ -15,6 +15,8 @@ gtk_binary_version=$(shell pkg-config --variable gtk_binary_version gtk+-2.0)
 DEB_HOST_GNU_TYPE	?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 DEB_BUILD_GNU_TYPE	?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 
+DEB_CONFIGURE_FLAGS=--enable-maintainer-mode
+
 CFLAGS = -Wall -g
 
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
@@ -27,7 +29,7 @@ ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
 endif
 
 configure:
-	NOCONFIGURE=1 ./autogen.sh
+	NOCONFIGURE=1 ./autogen.sh $(DEB_CONFIGURE_FLAGS)
 
 build: build-stamp
 build-stamp: configure
