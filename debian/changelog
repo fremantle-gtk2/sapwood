@@ -3,7 +3,7 @@ sapwood (3.1.1-7) unstable; urgency=low
   * Fixes: NB#118393 (Crop images if they are supposed to be rendered too
     small)
   * Fixes: NB#131431 (gdk_flush in sapwood is causing tearing)
-  * Fixes: NB#134552 (Progress Banner at start of maps and tutorial applet is
+  * Fixes  NB#134552 (Progress Banner at start of maps and tutorial applet is
     broken.)
 
  -- Sven Herzberg <sven@lanedo.com>  Fri, 28 Aug 2009 14:56:06 +0200
