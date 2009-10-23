@@ -28,7 +28,7 @@
 #include "sapwood-rc-style.h"
 #include <gmodule.h>
 
-guint sapwood_debug_flags = 0;
+G_GNUC_INTERNAL guint sapwood_debug_flags = 0;
 gboolean sapwood_debug_scaling = FALSE;
 gboolean sapwood_debug_xtraps = FALSE;
 

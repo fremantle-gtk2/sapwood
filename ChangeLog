@@ -1,3 +1,15 @@
+2009-10-15  Michael Natterer  <mitch@lanedo.com>
+
+	Fixes: NB#138249 (Sapwood doesn't pass it's test suite)
+
+	Apply patch from Sven Herzberg:
+
+	* Makefile.decl: don't fail if Xvfb wasn't found (this way the real
+	tests won't fail on arm Scratchboxes)
+	* debian/rules: make sure we only integrate sapwood versions passing
+	the test suite
+	* engine/sapwood-main.c: don't expose the new variable
+
 2009-08-25  Sven Herzberg  <sven@lanedo.com>
 
 	Fixes: NB#134552 (Progress Banner at start of maps and tutorial applet

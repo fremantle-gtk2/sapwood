@@ -39,6 +39,7 @@ build-stamp: configure
 			--prefix=/usr \
 			--enable-abstract-sockets
 	$(MAKE)
+	$(MAKE) check
 	touch $@
 
 clean:
