@@ -1,3 +1,11 @@
+2009-10-29  Michael Natterer  <mitch@lanedo.com>
+
+	Fixes: NB#144594 (Sapwood fails to build)
+
+	* engine/abicheck.sh: add unexcpectedly exported symbols to the
+	"optional-abi" list. They most likely come from some change in the
+	build environment and clearly not from sapwood.
+
 2009-10-15  Michael Natterer  <mitch@lanedo.com>
 
 	Fixes: NB#138249 (Sapwood doesn't pass it's test suite)

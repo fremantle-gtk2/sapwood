@@ -10,7 +10,14 @@ theme_init
 EOF
 
 cat >optional-abi <<EOF
+__bss_end__
 __bss_start
+__bss_start__
+__data_start
+__end__
+__exidx_end
+__exidx_start
+_bss_end__
 _edata
 _end
 _fini
