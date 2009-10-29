@@ -1,3 +1,9 @@
+sapwood (3.1.1-9) unstable; urgency=low
+
+  * Fixes: NB#144594 (Sapwood fails to build)
+
+ -- Michael Natterer <mitch@lanedo.com>  Thu, 29 Oct 2009 13:33:33 +0100
+
 sapwood (3.1.1-8) unstable; urgency=low
 
   * Fixes: NB#138249 (Sapwood doesn't pass it's test suite)
