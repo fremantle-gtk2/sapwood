@@ -1,3 +1,10 @@
+2009-12-04  Michael Natterer  <mitch@lanedo.com>
+
+	Fixes: NB#149143 - Remove doc files from sapwood deb
+
+	* debian/rules: don't install the copyright file and the
+	changelogs to save disk space.
+
 2009-10-29  Michael Natterer  <mitch@lanedo.com>
 
 	Fixes: NB#144594 (Sapwood fails to build)

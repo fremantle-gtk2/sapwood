@@ -77,8 +77,8 @@ binary-arch: build install
 	dh_testroot -a
 	dh_installdirs -a
 	dh_install -a --sourcedir=debian/tmp
-	dh_installdocs -a
-	dh_installchangelogs -a ChangeLog
+#	dh_installdocs -pgtk2-engines-sapwood-doc
+#	dh_installchangelogs -pgtk2-engines-sapwood-doc ChangeLog
 #	dh_installexamples -a
 	dh_installxsession -u 'pre 03'
 	dh_strip -a --dbg-package=gtk2-engines-sapwood
