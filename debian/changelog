@@ -1,3 +1,9 @@
+sapwood (3.1.1-10) unstable; urgency=low
+
+  * Fixes: NB#149143 - Remove doc files from sapwood deb
+
+ -- Michael Natterer <mitch@lanedo.com>  Tue, 08 Dec 2009 16:30:30 +0100
+
 sapwood (3.1.1-9) unstable; urgency=low
 
   * Fixes: NB#144594 (Sapwood fails to build)
