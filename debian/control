@@ -15,7 +15,7 @@ Description: Pixbuf-based theme for GTK+ 2.x
 
 Package: gtk2-engines-sapwood-dbg
 Architecture: any
-Depends: ${shlibs:Depends}, gtk2-engines-sapwood (= ${Source-Version})
+Depends: gtk2-engines-sapwood (= ${binary:Version})
 Description: Pixbuf-based theme for GTK+ 2.x, debug symbols
  This package contains a pixbuf-based 'theme' that allows you to configure
  the look of GTK-using programs. The programs need no
