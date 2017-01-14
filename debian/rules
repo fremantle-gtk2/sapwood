@@ -81,7 +81,7 @@ binary-arch: build install
 #	dh_installchangelogs -pgtk2-engines-sapwood-doc ChangeLog
 #	dh_installexamples -a
 	dh_installxsession -u 'pre 03'
-	dh_strip -a --dbg-package=gtk2-engines-sapwood
+	dh_strip -a --dbg-package=gtk2-engines-sapwood-dbg
 	dh_compress -a
 	dh_fixperms -a
 	dh_installdeb -a
