@@ -32,6 +32,7 @@
 #include <unistd.h>
 
 #include "sapwood-client.h"
+#include "sapwood-proto.h"
 
 GQuark
 sapwood_client_get_error_quark (void)

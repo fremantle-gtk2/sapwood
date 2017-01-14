@@ -57,7 +57,7 @@ pixbuf_proto_request (const char *req,
     {
       /* FIXME */
       g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_CLIENT_ERROR_UNKNOWN,
-		   "wrote %d of %d bytes", n, reqlen);
+                   "wrote %zd of %zd bytes", n, reqlen);
       return FALSE;
     }
 
@@ -75,7 +75,7 @@ pixbuf_proto_request (const char *req,
     {
       /* FIXME */
       g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_CLIENT_ERROR_UNKNOWN,
-		   "read %d, expected %d bytes", n, replen);
+                   "read %zd, expected %zd bytes", n, replen);
       return FALSE;
     }
 
@@ -140,8 +140,11 @@ sapwood_pixmap_get_for_file (const char *filename,
 
 	    if ((xerror = gdk_error_trap_pop ()) || !pixmap)
 	      {
+		gchar *basename = g_path_get_basename(filename);
+
 		g_warning ("%s: pixmap[%d][%d]: gdk_pixmap_foreign_new(%x) failed, X error = %d",
-			   g_basename (filename), i, j, rep.pixmap[i][j], xerror);
+			   basename, i, j, rep.pixmap[i][j], xerror);
+		g_free(basename);
 		if (pixmap)
 		  g_object_unref (pixmap);
 		pixmap = NULL;
@@ -158,8 +161,11 @@ sapwood_pixmap_get_for_file (const char *filename,
 
 	    if ((xerror = gdk_error_trap_pop ()) || !pixmask)
 	      {
+		gchar *basename = g_path_get_basename(filename);
+
 		g_warning ("%s: pixmask[%d][%d]: gdk_pixmap_foreign_new(%x) failed, X error = %d", 
-			   g_basename (filename), i, j, rep.pixmask[i][j], xerror);
+			   basename, i, j, rep.pixmask[i][j], xerror);
+		g_free(basename);
 		if (pixmask)
 		  g_object_unref (pixmask);
 		pixmask = NULL;
@@ -168,7 +174,10 @@ sapwood_pixmap_get_for_file (const char *filename,
 
 	if (pixmask && !pixmap)
 	  {
-	    g_warning ("%s: pixmask[%d][%d]: no pixmap", g_basename (filename), i, j);
+	    gchar *basename = g_path_get_basename(filename);
+
+	    g_warning ("%s: pixmask[%d][%d]: no pixmap", basename, i, j);
+	    g_free(basename);
 	  }
 
 	self->pixmap[i][j]  = pixmap;

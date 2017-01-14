@@ -70,7 +70,7 @@ pixbuf_proto_request (const char *req,
     {
       /* FIXME */
       g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_CLIENT_ERROR_UNKNOWN,
-		   "wrote %d of %d bytes", n, reqlen);
+                   "wrote %zd of %zd bytes", n, reqlen);
       return FALSE;
     }
 
@@ -88,14 +88,14 @@ pixbuf_proto_request (const char *req,
     {
       /* FIXME */
       g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_CLIENT_ERROR_UNKNOWN,
-		   "read %d, expected %d bytes", n, replen);
+                   "read %zd, expected %zd bytes", n, replen);
       return FALSE;
     }
   else if (n != replen)
     {
       /* FIXME */
       g_set_error (err, SAPWOOD_CLIENT_ERROR, SAPWOOD_CLIENT_ERROR_UNKNOWN,
-		   "read %d, expected %d bytes", n, replen);
+                   "read %zd, expected %zd bytes", n, replen);
       return FALSE;
     }
 

@@ -27,6 +27,7 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
+#include  <stdint.h>
 
 #include "theme-pixbuf.h"
 #include <gdk-pixbuf/gdk-pixbuf.h>
@@ -90,7 +91,7 @@ static guint
 theme_pixbuf_hash (gconstpointer v)
 {
   const ThemePixbuf *theme_pb = v;
-  return (guint)theme_pb->dirname ^ g_str_hash (theme_pb->basename);
+  return (uintptr_t)theme_pb->dirname ^ g_str_hash (theme_pb->basename);
 }
 
 static gboolean

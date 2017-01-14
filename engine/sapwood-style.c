@@ -380,7 +380,7 @@ draw_gap_image (GtkStyle       *style,
   if (image)
     {
       gint xthickness, ythickness;
-      GdkRectangle r1, r2, r3;
+      GdkRectangle r1 = {0, }, r2 = {0, }, r3 = {0, };
       guint components = COMPONENT_ALL;
 
       if (!draw_center)

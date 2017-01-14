@@ -153,10 +153,12 @@ extract_pixmaps (GdkPixbuf *pixbuf, const PixbufOpenRequest *req, PixbufOpenResp
   if (req->border_left + req->border_right > width ||
       req->border_top + req->border_bottom > height)
     {
+      gchar *basename = g_path_get_basename(req->filename);
+
       g_warning ("Invalid borders specified for theme pixmap:\n"
 		 "        %s,\n"
-		 "borders don't fit within the image",
-		 g_basename (req->filename));
+		 "borders don't fit within the image", basename);
+      g_free(basename);
 #if 0
       if (req->border_left + req->border_right > width)
 	{
@@ -173,10 +175,12 @@ extract_pixmaps (GdkPixbuf *pixbuf, const PixbufOpenRequest *req, PixbufOpenResp
   else if (req->border_left == width - req->border_right ||
 	   req->border_top == height - req->border_bottom)
     {
+      gchar *basename = g_path_get_basename(req->filename);
+
       g_warning ("Invalid borders specified for theme pixmap:\n"
 		 "        %s,\n"
-		 "borders are set for gradients",
-		 g_basename (req->filename));
+		 "borders are set for gradients", basename);
+      g_free(basename);
     }
 
   for (i = 0; i < 3; i++)
@@ -371,7 +375,7 @@ process_buffer (int fd, char *buf, ssize_t buflen, gpointer user_data)
 
 	  write (fd, buf, 1);
 
-	  g_warning ("short request, only %d bytes, expected at least %d",
+	  g_warning ("short request, only %d bytes, expected at least %lu",
 		     base->length, sizeof (PixbufOpenRequest) + 1);
 	  return -1;
 	}
@@ -397,7 +401,7 @@ process_buffer (int fd, char *buf, ssize_t buflen, gpointer user_data)
 	    }
 	  else if (n < sizeof (*rep))
 	    {
-	      g_warning ("short write, wrote only %d of %d bytes", n, sizeof (*rep)); 
+	      g_warning ("short write, wrote only %zd of %lu bytes", n, sizeof (*rep));
 	    }
 	}
       else
@@ -416,7 +420,7 @@ process_buffer (int fd, char *buf, ssize_t buflen, gpointer user_data)
 
       if (base->length < sizeof (PixbufCloseRequest))
 	{
-	  g_warning ("short request, only %d bytes, expected %d",
+	  g_warning ("short request, only %d bytes, expected %lu",
 		     base->length, sizeof (PixbufCloseRequest));
 	  return -1;
 	}
