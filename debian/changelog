@@ -1,3 +1,12 @@
+sapwood (3.1.1-11) unstable; urgency=low
+
+  * build-depend on maemo-system-services-dev instead of upstart-dev
+  * port to debhelper 5 and recent automake
+  * fix most of compiler warnings
+  * make it compile on both 32bit and 64bit platforms
+
+ -- Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>  Tue, 03 Oct 2017 17:11:14 +0300
+
 sapwood (3.1.1-10+0m5) unstable; urgency=low
 
   * This entry has been added by BIFH queue processor
