@@ -200,7 +200,9 @@ main (int   argc,
   GError* error = NULL;
   int fd;
 
+#if !GLIB_CHECK_VERSION(2,35,0)
   g_type_init ();
+#endif
 
   gdk_init (&argc, &argv);
 
