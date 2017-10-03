@@ -375,7 +375,7 @@ process_buffer (int fd, char *buf, ssize_t buflen, gpointer user_data)
 
 	  write (fd, buf, 1);
 
-	  g_warning ("short request, only %d bytes, expected at least %lu",
+	  g_warning ("short request, only %d bytes, expected at least %zu",
 		     base->length, sizeof (PixbufOpenRequest) + 1);
 	  return -1;
 	}
@@ -401,7 +401,7 @@ process_buffer (int fd, char *buf, ssize_t buflen, gpointer user_data)
 	    }
 	  else if (n < sizeof (*rep))
 	    {
-	      g_warning ("short write, wrote only %zd of %lu bytes", n, sizeof (*rep));
+	      g_warning ("short write, wrote only %zd of %zu bytes", n, sizeof (*rep));
 	    }
 	}
       else
@@ -420,7 +420,7 @@ process_buffer (int fd, char *buf, ssize_t buflen, gpointer user_data)
 
       if (base->length < sizeof (PixbufCloseRequest))
 	{
-	  g_warning ("short request, only %d bytes, expected %lu",
+	  g_warning ("short request, only %d bytes, expected %zu",
 		     base->length, sizeof (PixbufCloseRequest));
 	  return -1;
 	}
